@@ -1,0 +1,244 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Haka | Software Defined Security</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class=" active ">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<div class="row">
+	<div class="medium-12 columns">
+		<h2>What is Haka</h2>
+
+		<p>Haka is an open source security oriented language which
+		allows to apply security policies on (live) captured
+		traffic.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>Packet filtering policy</h3>
+
+		<p>Define your own security rules to alter/drop/inject packets
+		based on combination of protocol fields (ip, tcp and http).</p>
+
+		<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;</span><span class="s">ipv4-up&#39;</span><span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">pkt</span><span class="p">.</span><span class="n">src</span> <span class="o">~=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">addr</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">127.0.0.1&quot;</span><span class="p">)</span> <span class="k">then</span>
+	    <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+	<span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+	</div>
+
+	<div class="medium-6 columns">
+
+		<h3>Packet capture</h3>
+
+<p>Use various sources of traffic for packet filtering, including:</p>
+
+		<ul>
+			<li>pcap file</li>
+			<li>pcap live traffic</li>
+			<li>netfilter queue iptable rules</li>
+		</ul>
+
+		<div class="text-center">
+			<img alt="capture" src="http://haka-security.github.io/img/capture1.png" width="504" height="150" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>Log &amp; alert</h3>
+
+		<p>Log and report malicious activities in syslog using an
+		idmef-like format.</p>
+
+		<div class="text-center">
+			<img alt="logging" src="http://haka-security.github.io/img/logging.png" width="300" height="144" />
+		</div>
+
+	</div>
+
+	<div class="medium-6 columns">
+		<h3>Integrated debugger</h3>
+
+		<p>Back-trace, insert breakpoints and inspect Lua code. Haka is
+		endowed with a gdb-like debugger which is helpful to detect
+		errors in Lua security rules.</p>
+
+
+		<div class="text-center">
+			<img alt="buggy" src="http://haka-security.github.io/img/buggy.png" width="179" height="179" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>Interactive packet filtering</h3>
+
+		<p>Get a Haka shell prompt and play with packet content each
+		time a packet is captured.</p>
+
+
+		<div class="text-center">
+			<img class=" wp-image-218 aligncenter " alt="interactive" src="http://haka-security.github.io/img/terminal1.png" width="526" height="207" />
+		</div>
+	</div>
+
+	<div class="medium-6 columns">
+		<h3>Modular, extensible</h3>
+
+		<p>Haka has a modular design which allows easy customisation.
+		The internal and external APIs are well documented and allow
+		anyone to easily add new protocols, capture methods, logging
+		sinks...</p>
+
+		<div class="text-center">
+			<img alt="modular1" src="http://haka-security.github.io/img/modular1.png" width="240" height="223" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-12 columns">
+		<h2>What's next...</h2>
+
+		<p>Next release will focus on providing tools to easily
+		describe new network protocols.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>Protocol message syntax</h3>
+
+		<p>A new API will be added to allow easily describing the
+		protocol messages which will then be accessible in any
+		filter.</p>
+
+		<div class="highlight"><pre><code class="lua"><span class="n">icmp</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">g</span><span class="p">.</span><span class="n">record</span><span class="p">{</span>
+    <span class="n">g</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+    <span class="n">g</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">code&#39;</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+    <span class="n">g</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">checksum&#39;</span><span class="p">,</span> <span class="n">g</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<span class="p">}</span></code></pre></div>
+	</div>
+
+	<div class="medium-6 columns">
+		<h3>Protocol state machine</h3>
+
+		<p>A new API will be added to easily describe protocol state
+		machines, allowing the internal Haka engine to follow the
+		protocol states easily and check protocol correctness.</p>
+
+		<div class="text-center">
+			<img alt="state_machine" src="http://haka-security.github.io/img/state_machine.png" width="210" height="203" />
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>API improvements</h3>
+
+		<p>The next release will also improve the API to make it
+		clearer and simpler.</p>
+
+	</div>
+</div>
+
+				</div>
+			</div>
+		</div>
+
+		<footer id="want-more" role="contentinfo">
+			<div class="row" role="complementary">
+				<div class="medium-12 columns">
+					<aside id="text-2">
+						<span id="interesting">Seems interesting?</span>
+						<span id="download">Download Haka now <a class="button radius" href="http://haka-security.github.io/download.html" style="margin-left:20px;">Download</a></span>
+					</aside>
+				</div>
+			</div>
+		</footer>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

@@ -1,0 +1,196 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Defeating Nmap Scans</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/10/defeating-nmap-scans.html" title="Permalink to Defeating Nmap Scans" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-10T00:00:00+02:00">10 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/04/10/defeating-nmap-scans.html" title="Permalink to Defeating Nmap Scans" rel="bookmark">
+				Defeating Nmap Scans
+			</a>
+		</h2>
+		<p> The well-known scanning tool <a href="http://nmap.org"
+target="_blank">Nmap</a> allows users to discover running services on a target
+machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
+packets.</p>
+
+<p>When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
+malicious packet with some flags activated. Nmap concludes that a port is
+closed on the target machine if it receives a RST packet.</p>
+
+<p>Thanks to Haka API, we can forge RST packets and fool Nmap queries letting
+him think that all ports are closed on the target side. The following script
+starts by loading <em>ipv4</em> and <em>tcp</em> dissectors. The next line
+disable the <em>tcp-connection</em> dissector to avoid Haka dropping all
+packets do not belonging to a valid connection. Finally, we define the secuity
+rule which will create a RST tcp packet if a nmap scanning packet is detected.
+In the last lines, we inject the newly crafted packet and drop the Nmap forged
+packet.</p>
+
+
+<!--more-->
+
+<div class="highlight"><pre><code class="lua"><span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">disable_dissector</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">tcp-connection&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">all</span>
+        <span class="c1">-- test for null, fin and xmas nmap scans </span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x1</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x29</span> <span class="k">then</span>
+            <span class="c1">-- raw packet</span>
+            <span class="kd">local</span> <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">packet</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+            <span class="c1">-- ip packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ttl</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">ttl</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dst</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span>
+            <span class="c1">-- tcp packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">tcp</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">srcport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">dstport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dstport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">srcport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">rst</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">ack</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ack_seq</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">seq</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1">-- inject forged packet and</span>
+            <span class="c1">-- drop malicious scanning packet</span>
+            <span class="n">rstpkt</span><span class="p">:</span><span class="n">send</span><span class="p">()</span>
+            <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p> Hearafter, a snippet output of a Nmap Xmas Scan ran on a server hosting
+multiple services:</p>
+
+<div class="highlight"><pre><code class="bash">root@kali:~# nmap -sX -P0 server
+Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2014-04-08 11:53 CEST
+...
+All 1000 scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/04/09/sarssi.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Want a DEMO? Meet us at SARSSI 2014
+		</a>
+		
+		
+		<a href="/blog/2014/04/25/detecting-heartbleed-with-haka.html" rel="next">
+			Detecting Heartbleed with Haka
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

@@ -1,0 +1,262 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Interactive Packet Filtering Mode</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
+				<time class="entry-date" datetime="2014-02-25T00:00:00+01:00">25 Feb 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
+				Interactive Packet Filtering Mode
+			</a>
+		</h2>
+		<p>Haka is endowed with an interesting feature allowing to filter packets
+interactively. With this mode activated, a Haka shell prompt is diplayed to the
+end-user which will have access to the full Haka API to play with packet
+content: accessing and modifying packet fields, dropping packets, logging
+suspicious events, alerting, etc. The Lua console supports auto-completion and
+therefore is a good starting point to dive into the Haka API.</p>
+
+
+<!--more-->
+
+<div class="divcontainer">
+	<div class="divcell">
+
+		<p>All the magic starts with the following rule:</p>
+
+		<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">ipv4-up&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">interactive_rule</span>
+<span class="p">}</span></code></pre></div>
+
+	</div>
+	<div class="divcell">
+
+		<p>In the following, we replay a <a title="Nmap Xmas Scan"
+			href="http://haka-security.org/?attachment_id=578">nmap packet
+			capture</a> by running this rule using our tool hakapcap (a
+		tool dedicated to packet capture analysis):</p>
+
+		<div class="highlight"><pre><code class="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
+	</div>
+</div>
+
+<p>hakapcap will parse the provided pcap file and halt on the first ip packet.
+A prompt will then be displayed allowing the user to enter commands. The packet
+content is available through the <em>input</em> variable. A this point, you can
+modify some field values (in the example below, the value of the ttl field is
+set to 60), check the validity of the checksum and add a log entry if the
+checksum is not valid (as the output shows, the checksum is not valid in our
+example).</p>
+
+<div class="highlight">
+<pre><span class="go">ipv4-up&gt;  input</span>
+<span class="go">  #1    </span><span class="nb">userdata</span><span class="go"> ipv4 {</span>
+<span class="k">next_dissector</span><span class="go"> : </span><span class="s">"tcp"</span>
+<span class="k">checksum</span><span class="go"> : 51624</span>
+<span class="k">version</span><span class="go"> : 4</span>
+<span class="k">id</span><span class="go"> : 10453</span>
+<span class="k">dissector</span><span class="go"> : </span><span class="s">"ipv4"</span>
+<span class="k">frag_offset</span><span class="go"> : 0</span>
+<span class="k">proto</span><span class="go"> : 6</span>
+<span class="k">src</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> addr 192.168.10.1</span>
+<span class="k">payload</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> ipv4_payload</span>
+<span class="k">raw</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> packet {</span>
+<span class="k">timestamp</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> time Thu Feb 20 14:47:14 2014</span>
+<span class="k">length</span><span class="go"> : 40</span>
+<span class="k">dissector</span><span class="go"> : </span><span class="nb">"raw"</span>
+<span class="k">next_dissector</span><span class="go"> : </span><span class="nb">"ipv4"</span>
+<span class="go">          }</span>
+<span class="k">dst</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> addr 192.168.20.1</span>
+<span class="k">flags</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> ipv4_flags {</span>
+<span class="k">mf</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">df</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">rb</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">all</span><span class="go"> : 0</span>
+<span class="go">          }</span>
+<span class="k">tos</span><span class="go"> : 0</span>
+<span class="k">ttl</span><span class="go"> : 41</span>
+<span class="k">len</span><span class="go"> : 40</span>
+<span class="k">hdr_len</span><span class="go"> : 20</span>
+<span class="go">        }</span>
+<span class="go">ipv4-up&gt;  input.ttl = 60</span>
+<span class="go">ipv4-up&gt;  if not input:verify_checksum() then</span>
+<span class="go">ipv4-up&gt;&gt; haka.log("filter", "Bad IP Checksum")</span>
+<span class="go">ipv4-up&gt;&gt; end</span>
+<span class="n">info</span><span class="go">  filter: Bad IP Checksum</span></pre>
+</div>
+
+<p>Hitting CTRL-D, will display a new prompt where you can play with tcp
+content this time (remember that we choose to hook 'ipv4-up' and 'tcp-up' in
+our intercative rule). In the following snapshot, we check first that ttl value
+has been changed. Next, we dump the tcp flags and see that this actually an
+Xmas scan ('push', 'urg' and 'fin' are set alltogether). In our example, we
+raise an alert and drop the packet.</p>
+
+<div class="highlight">
+<pre><span class="go">tcp-up&gt;  input.ip.ttl</span>
+<span class="go">  #1    60</span>
+<span class="go">tcp-up&gt;  input.flags</span>
+<span class="go">  #1    </span><span class="nb">userdata</span><span class="go"> tcp_flags {</span>
+<span class="k">ecr</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">urg</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">ecn</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">syn</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">rst</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">psh</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">fin</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">all</span><span class="go"> : 41</span>
+<span class="k">ack</span><span class="go"> : </span><span class="s">false</span>
+<span class="go">        }</span>
+<span class="go">tcp-up&gt;  haka.alert {</span>
+<span class="go">tcp-up&gt;&gt; sources = { haka.alert.address(input.ip.src) },</span>
+<span class="go">tcp-up&gt;&gt; targets = { haka.alert.address(input.ip.dst), haka.alert.service(input.dstport)},</span>
+<span class="go">tcp-up&gt;&gt; method = { description = "Xmas Attack" }</span>
+<span class="go">tcp-up&gt;&gt; }</span>
+<span class="n">info</span><span class="go">  alert: id = 1</span>
+<span class="go">        time = Thu Feb 20 17:42:34 2014</span>
+<span class="go">        method = {</span>
+<span class="go">                description = Xmas Attack</span>
+<span class="go">        }</span>
+<span class="go">        sources = {</span>
+<span class="go">                address: 192.168.10.1</span>
+<span class="go">        }</span>
+<span class="go">        targets = {</span>
+<span class="go">                address: 192.168.20.1</span>
+<span class="go">                service: 80</span>
+<span class="go">        }</span>
+<span class="go">tcp-up&gt;  input:drop()</span></pre>
+</div>
+
+<p>Hitting CTRL-D again, Haka will continue with the next ip packet until all
+packets have been parsed.</p>
+
+<p>Note that as this interactive mode will add a lot of delay in the packet
+processing. It is then best to use it on pcap files. Otherwise, you can run
+into problems with tcp for instance.</p>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/02/18/http-traffic-redirection.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			HTTP Traffic Redirection
+		</a>
+		
+		
+		<a href="/blog/2014/03/04/sstic.html" rel="next">
+			SSTIC
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

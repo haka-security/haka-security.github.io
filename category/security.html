@@ -1,0 +1,751 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Haka | Software Defined Security</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html" title="Permalink to Detecting malicious payloads across multiple packets" rel="bookmark">
+				<time class="entry-date" datetime="2014-05-27T00:00:00+02:00">27 May 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html" title="Permalink to Detecting malicious payloads across multiple packets" rel="bookmark">
+				Detecting malicious payloads across multiple packets
+			</a>
+		</h2>
+		
+			<p>As you can expect, we are currently working hard for the next release which
+will introduce new interesting features: protocol dissection, pattern matching,
+API improvements, etc.</p>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html" title="Permalink to Detecting malicious payloads across multiple packets" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
+				<time class="entry-date" datetime="2014-05-20T00:00:00+02:00">20 May 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/dissector.html" rel="category tag">dissector</a>, 
+			
+			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
+				State machine outlook
+			</a>
+		</h2>
+		
+			<p>Haka can analyze states of a network protocol with its state machine.  A
+state machine is defined as a set of states and a set of transition functions
+between these states. This post will present a part of the SSL state machine we
+used in the previous blog post to detect heartbleed.</p>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/30/grammar-for-dissector-outlook.html" title="Permalink to Grammar for dissector outlook" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-30T00:00:00+02:00">30 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/dissector.html" rel="category tag">dissector</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/04/30/grammar-for-dissector-outlook.html" title="Permalink to Grammar for dissector outlook" rel="bookmark">
+				Grammar for dissector outlook
+			</a>
+		</h2>
+		
+			<p>In a previous post, we created a dissector to parse SSL communications. This
+post will present a v0.2 feature: the grammar used to dissect protocols. Our
+grammar can parse binary-based as well as text-based protocols.</p>
+
+<p>This post will show how the dissection of the ClientHello handshake is
+made.</p>
+
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/04/30/grammar-for-dissector-outlook.html" title="Permalink to Grammar for dissector outlook" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/25/detecting-heartbleed-with-haka.html" title="Permalink to Detecting Heartbleed with Haka" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-25T00:00:00+02:00">25 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/04/25/detecting-heartbleed-with-haka.html" title="Permalink to Detecting Heartbleed with Haka" rel="bookmark">
+				Detecting Heartbleed with Haka
+			</a>
+		</h2>
+		
+			<div class="row">
+	<div class="medium-10 columns">
+		<p> As most of you must have heard, a very nasty bug was
+		discovered few weeks ago in the OpenSSL project, a widely used
+		open source implementation of the SSL/TLS protocol. This bug
+		which is better known as the <a title="Heartbleed bug"
+			href="http://heartbleed.com/"
+			target="_blank">heartbleed bug</a>, relies on a wrongly
+		implemented SSL extension called "heartbeat".</p>
+
+		<p> As you know, the initial version of Haka doesn't ship with
+		a SSL dissector.  However, the 0.2 version — which will be
+		released soon — features a new grammar allowing to specify
+		network protocols and their underlying state machine.  Thanks
+		to that grammar, we were able to write, with a little effort, a
+		dissector covering almost the full specification of SSLv3
+		protocol. This specification will be covered in upcoming
+		post.</p>
+	</div>
+	<div class="medium-2 columns text-center">
+		<img src="http://haka-security.github.io/img/heartbleed.png" alt="heartbleed" width="123" height="150" />
+	</div>
+</div>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/04/25/detecting-heartbleed-with-haka.html" title="Permalink to Detecting Heartbleed with Haka" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/10/defeating-nmap-scans.html" title="Permalink to Defeating Nmap Scans" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-10T00:00:00+02:00">10 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/04/10/defeating-nmap-scans.html" title="Permalink to Defeating Nmap Scans" rel="bookmark">
+				Defeating Nmap Scans
+			</a>
+		</h2>
+		
+			<p> The well-known scanning tool <a href="http://nmap.org"
+target="_blank">Nmap</a> allows users to discover running services on a target
+machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
+packets.</p>
+
+<p>When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
+malicious packet with some flags activated. Nmap concludes that a port is
+closed on the target machine if it receives a RST packet.</p>
+
+<p>Thanks to Haka API, we can forge RST packets and fool Nmap queries letting
+him think that all ports are closed on the target side. The following script
+starts by loading <em>ipv4</em> and <em>tcp</em> dissectors. The next line
+disable the <em>tcp-connection</em> dissector to avoid Haka dropping all
+packets do not belonging to a valid connection. Finally, we define the secuity
+rule which will create a RST tcp packet if a nmap scanning packet is detected.
+In the last lines, we inject the newly crafted packet and drop the Nmap forged
+packet.</p>
+
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/04/10/defeating-nmap-scans.html" title="Permalink to Defeating Nmap Scans" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/08/lolcating-the-web.html" title="Permalink to Lolcat'ing the web" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-08T00:00:00+02:00">08 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/04/08/lolcating-the-web.html" title="Permalink to Lolcat'ing the web" rel="bookmark">
+				Lolcat'ing the web
+			</a>
+		</h2>
+		
+			<blockquote>
+	Internet is made of cats
+	<cite>A great philosopher </cite>
+</blockquote>
+
+<p>With Haka, you can make it happen. As seen in other blog posts, we have
+shown that we can modify on the fly HTTP requests. What if we change every
+image requested by a browser to a lolcat image?</p>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/04/08/lolcating-the-web.html" title="Permalink to Lolcat'ing the web" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/27/setup-basic-firewall-rules.html" title="Permalink to Setup basic firewall rules" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-27T00:00:00+01:00">27 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/03/27/setup-basic-firewall-rules.html" title="Permalink to Setup basic firewall rules" rel="bookmark">
+				Setup basic firewall rules
+			</a>
+		</h2>
+		
+			<p>The main purpose of the initial release of Haka is to allow users to define
+easily and quickly security rules and filter unwanted packets/streams. In this
+article, we show how to setup a simple firewall configuration.</p>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/03/27/setup-basic-firewall-rules.html" title="Permalink to Setup basic firewall rules" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html" title="Permalink to Transform a pcap to an apache log file" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-18T00:00:00+01:00">18 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html" title="Permalink to Transform a pcap to an apache log file" rel="bookmark">
+				Transform a pcap to an apache log file
+			</a>
+		</h2>
+		
+			<p>Haka can extract data from pcap; thanks to its http dissector, it can parse
+all usefull data. One interesting use of this is to recreate apache logs from a
+pcap file. Imagine you have to treat data from a webserver. There is plenty of
+tools to <a href="https://www.google.fr/search?q=apache+log+file+tools"
+	target="_blank">analyze data from an apache log file</a>, but what if
+you have only pcap files?</p>
+
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html" title="Permalink to Transform a pcap to an apache log file" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/12/detecting-obfuscated-shellcodes.html" title="Permalink to Detecting Obfuscated Shellcodes" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-12T00:00:00+01:00">12 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/03/12/detecting-obfuscated-shellcodes.html" title="Permalink to Detecting Obfuscated Shellcodes" rel="bookmark">
+				Detecting Obfuscated Shellcodes
+			</a>
+		</h2>
+		
+			<p>A shellcode is a malicious payload used to exploit vulnerabilities such as
+buffer overflow of format string bugs. A shellcode is made of low level
+instructions allowing to get a shell on the victim machine or to run specific
+commands. Here is an example of a /bin/sh shellcode:</p>
+
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/03/12/detecting-obfuscated-shellcodes.html" title="Permalink to Detecting Obfuscated Shellcodes" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/06/haka-debugger.html" title="Permalink to Haka Debugger" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-06T00:00:00+01:00">06 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/03/06/haka-debugger.html" title="Permalink to Haka Debugger" rel="bookmark">
+				Haka Debugger
+			</a>
+		</h2>
+		
+			<p>Haka is featured with debugging capabilities allowing to inspect an existing
+Haka script file. With this mode activated (<em>-<span></span>-luadebug</em>
+option), a prompt will be displayed to the user inviting him to identify the
+faulty code.</p>
+
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/03/06/haka-debugger.html" title="Permalink to Haka Debugger" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
+				<time class="entry-date" datetime="2014-02-25T00:00:00+01:00">25 Feb 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
+				Interactive Packet Filtering Mode
+			</a>
+		</h2>
+		
+			<p>Haka is endowed with an interesting feature allowing to filter packets
+interactively. With this mode activated, a Haka shell prompt is diplayed to the
+end-user which will have access to the full Haka API to play with packet
+content: accessing and modifying packet fields, dropping packets, logging
+suspicious events, alerting, etc. The Lua console supports auto-completion and
+therefore is a good starting point to dive into the Haka API.</p>
+
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
+				<time class="entry-date" datetime="2014-02-18T00:00:00+01:00">18 Feb 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
+				HTTP Traffic Redirection
+			</a>
+		</h2>
+		
+			<p>Nowadays, navigating the Internet with an oudated version of a browser could
+be harmful to your computer as many malwares spread by exploiting
+vulnerabilities in browers.</p>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/02/11/sqli-attack-detection.html" title="Permalink to SQLi Attack Detection" rel="bookmark">
+				<time class="entry-date" datetime="2014-02-11T00:00:00+01:00">11 Feb 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://haka-security.github.io/blog/2014/02/11/sqli-attack-detection.html" title="Permalink to SQLi Attack Detection" rel="bookmark">
+				SQLi Attack Detection
+			</a>
+		</h2>
+		
+			<p>SQL injection attacks (SQLi) are common web attacks that consist in
+injecting SQL commands through http requests, enabling thus sensitive data
+disclosure or authentication scheme bypass. SQLi are the most dangerous
+software attacks according to the SANS Institute ranking.</p>
+
+
+
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://haka-security.github.io/blog/2014/02/11/sqli-attack-detection.html" title="Permalink to SQLi Attack Detection" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

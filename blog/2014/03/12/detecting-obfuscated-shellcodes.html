@@ -1,0 +1,214 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Detecting Obfuscated Shellcodes</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/12/detecting-obfuscated-shellcodes.html" title="Permalink to Detecting Obfuscated Shellcodes" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-12T00:00:00+01:00">12 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/03/12/detecting-obfuscated-shellcodes.html" title="Permalink to Detecting Obfuscated Shellcodes" rel="bookmark">
+				Detecting Obfuscated Shellcodes
+			</a>
+		</h2>
+		<p>A shellcode is a malicious payload used to exploit vulnerabilities such as
+buffer overflow of format string bugs. A shellcode is made of low level
+instructions allowing to get a shell on the victim machine or to run specific
+commands. Here is an example of a /bin/sh shellcode:</p>
+
+
+<!--more-->
+
+<div class="highlight"><pre><code class="c"><span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x6A\x68\x68\x2F\x62\x61\x73\x68</span><span class="s">&quot;</span>
+                   <span class="s">&quot;</span><span class="se">\x2F\x62\x69\x6E\x89\xE3\x31\xD2</span><span class="s">&quot;</span>
+                   <span class="s">&quot;</span><span class="se">\x52\x53\x89\xE1\x6A\x0B\x58\xCD</span><span class="s">&quot;</span>
+                   <span class="s">&quot;</span><span class="se">\x80\x31\xDB\x31\xC0\x40\xCD\x80</span><span class="s">&quot;</span><span class="p">;</span></code></pre></div>
+
+<p>It is trivial for an intrusion detection system to detect this shellcode.
+However, if the shellcode is encoded, it is more challenging for an IDS to
+detected the polymorphic payload.</p>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<p>Even if the shellcode is encoded, some invariant byte
+		sequences are still observable. For instance, the paper <sup><a
+				href="#polygraph" id="polygraph-return">[polygraph]</a></sup> shows
+		that the bytes in yellow boxes are present in all outputs of
+		the well-known polymorphic shellcode engine <a
+			href="http://www.phrack.org/issues.html?issue=61&amp;id=9">Clet</a>
+		for a given input (/bin/sh shellcode). Shaded bytes are present
+		at least in 20% of generated outputs.</p>
+
+	</div>
+
+	<div class="medium-6 columns text-center">
+		<img alt="motif" src="http://haka-security.github.io/img/motif1.png" width="430" height="127" />
+	</div>
+</div>
+
+<p>So, to block all Clet's polymorphic shellcodes, we define the following
+security rule which checks if bytes in yellow boxes are present in tcp data and
+raises an alert in case of matching:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">invariant_bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">\xeb.*\x31.*\x20\x8b.*\x74\x07\xeb.*\xe8.*\xff\xff\xff&quot;</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="o">#</span><span class="n">pkt</span><span class="p">.</span><span class="n">payload</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span>
+            <span class="c1">-- reconstruct payload</span>
+            <span class="kd">local</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">getpayload</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">payload</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">string.find</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">invariant_bytes</span><span class="p">)</span> <span class="k">then</span>
+                <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">polymorphic shellcode detected [Clet engine]&quot;</span><span class="p">,</span>
+                    <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">),</span>
+                    <span class="n">targets</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>We evaluated the detection efficiency of the following rule by generating
+more than 10000 Clet's outputs and by replaying the <a
+	href="https://www.dropbox.com/s/5j4803s0idllt27/darpa-stat-pcap.zip?dl=1">Darpa
+	pcap capture</a> ("safe traffic"). We blocked all the malicious payload
+generated by Clet engine with 0 false positive alerts.</p>
+
+<p>The next release will feature a new regular expression engine allowing to
+match malicious payload across multiple data packets and thus will allow us to
+easily detect the above polymorphic content even if it is split into multiple
+packets.</p>
+
+<section>
+<div class="row">
+	<div class="medium-2 columns">
+		<a href="#polygraph-return" id="polygraph">[Polygraph]</a>
+	</div>
+	<div class="medium-10 columns">
+		<p>Newsome, J., Karp, B., Xiaodong Song, D.: Polygraph: automatically generating signatures for polymorphic worms. In: IEEE Symposium on Security and Privacy, pp. 226–241 (2005)</p>
+	</div>
+</div>
+</section>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/03/06/haka-debugger.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Haka Debugger
+		</a>
+		
+		
+		<a href="/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html" rel="next">
+			Transform a pcap to an apache log file
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

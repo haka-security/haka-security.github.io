@@ -1,0 +1,224 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Transform a pcap to an apache log file</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html" title="Permalink to Transform a pcap to an apache log file" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-18T00:00:00+01:00">18 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html" title="Permalink to Transform a pcap to an apache log file" rel="bookmark">
+				Transform a pcap to an apache log file
+			</a>
+		</h2>
+		<p>Haka can extract data from pcap; thanks to its http dissector, it can parse
+all usefull data. One interesting use of this is to recreate apache logs from a
+pcap file. Imagine you have to treat data from a webserver. There is plenty of
+tools to <a href="https://www.google.fr/search?q=apache+log+file+tools"
+	target="_blank">analyze data from an apache log file</a>, but what if
+you have only pcap files?</p>
+
+
+<!--more-->
+
+<p>With haka its just a matter of few lines of code to extract all information
+from a pcap to a standard apache log file, called "<a
+	href="http://httpd.apache.org/docs/2.2/en/logs.html"
+	target="_blank">combined log format</a>". The format is quite self
+explanatory:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
+<span class="p">(</span><span class="n">SRC</span> <span class="n">IP</span><span class="p">)</span> <span class="o">-</span> <span class="o">-</span> <span class="p">[(</span><span class="n">DATE</span><span class="p">)]</span> <span class="p">(</span><span class="n">REQUEST</span><span class="p">)</span> <span class="p">(</span><span class="n">RESPONSE</span> <span class="n">STATUS</span><span class="p">)</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">)</span> <span class="s2">&quot;</span><span class="s">(REFERER)&quot;</span> <span class="s2">&quot;</span><span class="s">(USERAGENT)&quot;</span></code></pre></div>
+
+<p>And the haka script sets a hook on the response, because log file mix
+information from the HTTP response and the HTTP request. It extracts all
+relevant information, concatenates it to a variable. Finally, it prints it on
+the output.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="c1">--------------------------</span>
+<span class="c1">-- Loading dissectors</span>
+<span class="c1">--------------------------</span>
+
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/http&#39;</span><span class="p">)</span>
+
+<span class="c1">--------------------------</span>
+<span class="c1">-- Setting next dissector</span>
+<span class="c1">--------------------------</span>
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span>
+        <span class="k">if</span> <span class="n">tcp</span><span class="p">.</span><span class="n">dstport</span> <span class="o">==</span> <span class="mi">80</span> <span class="k">then</span>
+            <span class="n">pkt</span><span class="p">.</span><span class="n">next_dissector</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">http&quot;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="c1">--------------------------</span>
+<span class="c1">-- Printing http info</span>
+<span class="c1">--------------------------</span>
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+        <span class="c1">--Apache combined log format:</span>
+        <span class="c1">-- (SRC IP) - - [(DATE)] (REQUEST) (RESPONSE STATUS) (SIZE) &quot;(REFERER)&quot; &quot;(USERAGENT)&quot;</span>
+        <span class="kd">local</span> <span class="n">tbl_log</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="kd">local</span> <span class="n">ref</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">http</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">srcip</span><span class="p">))</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> - - [1/Jan/2000:00:00:00 +0000] &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">method</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">version</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">data</span><span class="p">:</span><span class="n">available</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">referer&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="k">then</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s"> -&quot;</span>
+        <span class="k">else</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">..</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">referer&quot;</span><span class="p">]</span> <span class="o">..</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+        <span class="k">end</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">])</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">table.concat</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">))</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This script will produce a typical apache log file that you can feed to any
+tool you like in order to make an analysis. Currently, you can't get the date
+of the request, so we use a fixed one (with the next release, you will be able
+to access the timestamp of any packet from the response hook, and set the date
+accordingly).</p>
+
+<p>If you want to test this tool, you can use a pre-processed pcap file
+originated from the DARPA dataset and which could be retrieved from the MIT
+website. Or, for a more reasonable size, you can use a filtered version that
+you can download from the Haka website in the Resources section.</p>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/03/12/detecting-obfuscated-shellcodes.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Detecting Obfuscated Shellcodes
+		</a>
+		
+		
+		<a href="/blog/2014/03/27/setup-basic-firewall-rules.html" rel="next">
+			Setup basic firewall rules
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

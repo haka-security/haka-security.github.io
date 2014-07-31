@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Detecting Heartbleed with Haka</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/25/detecting-heartbleed-with-haka.html" title="Permalink to Detecting Heartbleed with Haka" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-25T00:00:00+02:00">25 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/04/25/detecting-heartbleed-with-haka.html" title="Permalink to Detecting Heartbleed with Haka" rel="bookmark">
+				Detecting Heartbleed with Haka
+			</a>
+		</h2>
+		<div class="row">
+	<div class="medium-10 columns">
+		<p> As most of you must have heard, a very nasty bug was
+		discovered few weeks ago in the OpenSSL project, a widely used
+		open source implementation of the SSL/TLS protocol. This bug
+		which is better known as the <a title="Heartbleed bug"
+			href="http://heartbleed.com/"
+			target="_blank">heartbleed bug</a>, relies on a wrongly
+		implemented SSL extension called "heartbeat".</p>
+
+		<p> As you know, the initial version of Haka doesn't ship with
+		a SSL dissector.  However, the 0.2 version — which will be
+		released soon — features a new grammar allowing to specify
+		network protocols and their underlying state machine.  Thanks
+		to that grammar, we were able to write, with a little effort, a
+		dissector covering almost the full specification of SSLv3
+		protocol. This specification will be covered in upcoming
+		post.</p>
+	</div>
+	<div class="medium-2 columns text-center">
+		<img src="http://haka-security.github.io/img/heartbleed.png" alt="heartbleed" width="123" height="150" />
+	</div>
+</div>
+
+<!--more-->
+
+<p>Hereafter, we give a set of rules to detect/block hearbleed attacks.</p>
+
+<h3>Detecting heartbeat extensions</h3>
+
+<p>This first rule warns if a heartbeat extension is used in <em>Client Hello
+	Handshake</em>.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="c1">-- Let&#39;s use our brand new SSL dissector</span>
+<span class="c1">-- on port 443</span>
+<span class="kd">local</span> <span class="n">ssl_dissector</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ssl&#39;</span><span class="p">)</span>
+<span class="n">ssl_dissector</span><span class="p">.</span><span class="n">install_tcp_rule</span><span class="p">(</span><span class="mi">443</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="c1">-- hook syntax has slightly changed in version 0.2.</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">client_hello</span><span class="p">,</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">ssl</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="c1">-- ssl fields are available through data param</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">data</span><span class="p">.</span><span class="n">extensions</span> <span class="k">do</span>
+            <span class="c1">-- extension type 15 is heartbeat extension</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">extensions</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">15</span> <span class="k">then</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Heartbeat extensions detected&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">### Warning, this is probably heartbleed ###&quot;</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+  <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>On a pcap containing a SSL heartbeat extension, Haka will output the
+following message:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">Heartbeat</span> <span class="n">extensions</span> <span class="n">detected</span>
+<span class="o">###</span> <span class="n">Warning</span><span class="p">,</span> <span class="n">this</span> <span class="n">is</span> <span class="n">probably</span> <span class="n">heartbleed</span> <span class="o">###</span></code></pre></div>
+
+<p>That's a first step, but with Haka you can do better than that. Haka detects
+heartbeats, but a heartbeat is not necessary a heartbleed attack.</p>
+
+<h3>Detecting SSL state machine violation</h3>
+
+<p>We made some pcap traces with an exploiting tool (link not given) and
+observed that heartbeat requests are sent during SSL negociation which violates
+the <a title="RFC 6520" href="https://tools.ietf.org/html/rfc6520"
+	target="_blank">RFC 6520</a>: "<em>a HeartbeatRequest message SHOULD
+	NOT be sent during handshakes</em>". Our dissector has an internal
+state machine analyzing each step of the SSL handshake. The attack made by this
+tool is therefore blocked due to an incorrect state transition. More precisely,
+the attack tool sends a heartbeat request just after the
+<em>ServerHelloDone</em> while Haka expects a <em>ClientKeyExchange</em>
+message. The default behavior is to raise an alert and to drop the
+connection:</p>
+
+<div class="highlight">
+<pre><span class="n">info</span><span class="c1">  alert:         id = 7
+        time = Wed Apr 23 10:38:09 2014
+        severity = low
+        description = awaited client key exchange handshakes</span>
+<span class="n">debug</span><span class="c1"> state-machine: ssl: error transition on state 'server_hello_done'</span>
+<span class="n">debug</span><span class="c1"> state-machine: tcp: transition from state 'established' to state 'reset'</span>
+<span class="n">debug</span><span class="c1"> state-machine: tcp: enter transition on state 'reset'</span></pre>
+</div>
+
+<p>Haka can now detects the attacks launched by any tool which doesn't respect
+RFC, but what if attacker takes care of each step of the SSL negociation?</p>
+
+<h3>Detecting unexpected hearbeat messages length</h3>
+
+<p>RFC 6520 states that: "<em>... the receiver MUST send a corresponding
+	HeartbeatResponse message carrying an exact copy of the payload of the
+	received</em>" which is not the case with a heartbleed attack.
+Moreover, we must have only one heartbeat message in flight at a time. In the
+following rule we check if these two requirements are met. Otherwise, we raise
+an alert and drop the ssl connection:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">ssl</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="c1">-- type == 24 =&gt; Heartbeat</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">type</span> <span class="o">~=</span> <span class="mi">24</span> <span class="k">then</span> <span class="k">return</span> <span class="k">end</span>
+        <span class="c1">-- create a table to store hearbeat requests</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span> <span class="k">then</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">end</span>
+
+        <span class="c1">-- we should not have more that one heartbeat</span>
+        <span class="c1">-- message in flight at a time</span>
+        <span class="k">if</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">unexpected heartbeat request&quot;</span><span class="p">,</span>
+                <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">ssl</span><span class="p">.</span><span class="n">flow</span><span class="p">.</span><span class="n">srcip</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">ssl</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">else</span>
+            <span class="kd">local</span> <span class="n">opposite_direction</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">dissector</span><span class="p">.</span><span class="n">other_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">opposite_direction</span><span class="p">]</span> <span class="k">then</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat_len</span> <span class="k">then</span>
+                    <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">unexpected heartbeat response data length&quot;</span><span class="p">,</span>
+                        <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">ssl</span><span class="p">.</span><span class="n">flow</span><span class="p">.</span><span class="n">srcip</span><span class="p">),</span>
+                    <span class="p">}</span>
+                    <span class="n">ssl</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+                <span class="k">else</span>
+                    <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
+                <span class="k">end</span>
+            <span class="k">else</span>
+                <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+                <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat_len</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">length</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>For a sake of simplicity, we assumed that only one side is requesting
+heartbeats in order to distinguish between encrypted heartbeat requests and
+responses. However, with better heuristics this configuration case could be
+also covered by Haka.</p>
+
+<h3>Conclusion</h3>
+
+<p>Heartbleed was an interesting test case for Haka. We were able to write
+quickly a dissector for a complex protocol along with its state machine and
+define advanced security rules.</p>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/04/10/defeating-nmap-scans.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Defeating Nmap Scans
+		</a>
+		
+		
+		<a href="/blog/2014/04/30/grammar-for-dissector-outlook.html" rel="next">
+			Grammar for dissector outlook
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

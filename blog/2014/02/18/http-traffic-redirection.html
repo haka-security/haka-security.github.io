@@ -1,0 +1,205 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>HTTP Traffic Redirection</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
+				<time class="entry-date" datetime="2014-02-18T00:00:00+01:00">18 Feb 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
+				HTTP Traffic Redirection
+			</a>
+		</h2>
+		<p>Nowadays, navigating the Internet with an oudated version of a browser could
+be harmful to your computer as many malwares spread by exploiting
+vulnerabilities in browers.</p>
+
+<!--more-->
+
+<p>With Haka, we can avoid such attacks. The idea is simple and consists in
+redirecting http requests issued by outdated browsers by modifying the http
+content on the fly.</p>
+
+<p>We need to create a group named 'safe_update' with two rules:</p>
+
+<ol>
+
+	<li>The first rule will only authorise http traffic to update servers
+	(e.g. mozilla.org). This is done by checking the 'Host' header.</li>
+
+	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;</span><span class="s">Host&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="s">&#39;</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">dom</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">update_domains</span><span class="p">)</span> <span class="k">do</span>
+	    <span class="k">if</span> <span class="nb">string.find</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dom</span><span class="p">)</span> <span class="k">then</span>
+		<span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Requesting an update domain&quot;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	    <span class="k">end</span>
+	<span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+	<li>The second rule will redirect requests to an update server if the
+	'User-Agent' header is detected as obsolete. This rule shows Haka
+	capabilities to modify http headers response on the fly in order to
+	redirect requests.</li>
+
+	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">UA</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="s">No User-Agent header&quot;</span>
+	<span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">UA detected: %s&quot;</span><span class="p">,</span> <span class="n">UA</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">FF_UA</span> <span class="o">=</span> <span class="p">(</span><span class="nb">string.find</span><span class="p">(</span><span class="n">UA</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Firefox/&quot;</span><span class="p">))</span>
+
+	<span class="k">if</span> <span class="n">FF_UA</span> <span class="k">then</span> <span class="c1">-- Firefox was detected</span>
+	    <span class="kd">local</span> <span class="n">version</span> <span class="o">=</span> <span class="nb">tonumber</span><span class="p">(</span><span class="nb">string.sub</span><span class="p">(</span><span class="n">UA</span><span class="p">,</span> <span class="n">FF_UA</span><span class="o">+</span><span class="mi">8</span><span class="p">))</span>
+	    <span class="k">if</span> <span class="ow">not</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="n">last_firefox_version</span> <span class="k">then</span>
+		<span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+		    <span class="n">description</span><span class="o">=</span> <span class="s2">&quot;</span><span class="s">Firefox is outdated, please upgrade&quot;</span><span class="p">,</span>
+		    <span class="n">severity</span><span class="o">=</span> <span class="s1">&#39;</span><span class="s">medium&#39;</span>
+		<span class="p">}</span>
+		<span class="c1">-- redirect browser to a safe place where updates will be made</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">307&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">reason</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Moved Temporarily&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Content-Length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">0&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">firefox_web_site</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Server&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">A patchy server&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Connection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Close&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Proxy-Connection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Close&quot;</span>
+		<span class="c1">-- dump the response for illustrative purpose</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">:</span><span class="n">dump</span><span class="p">()</span>
+	    <span class="k">end</span>
+	<span class="k">else</span>
+	    <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Unknown or missing User-Agent&quot;</span><span class="p">)</span>
+	<span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+</ol>
+
+<p>Refer to the <a
+	href="http://doc.haka-security.org/haka/release/v0.1/doc/user/tutorial/filter.html">filter
+	tutorial</a> to see the full script.</p>
+
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/02/11/sqli-attack-detection.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			SQLi Attack Detection
+		</a>
+		
+		
+		<a href="/blog/2014/02/25/interactive-packet-filtering-mode.html" rel="next">
+			Interactive Packet Filtering Mode
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

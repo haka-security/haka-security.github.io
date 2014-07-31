@@ -1,0 +1,249 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Haka Debugger</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/03/06/haka-debugger.html" title="Permalink to Haka Debugger" rel="bookmark">
+				<time class="entry-date" datetime="2014-03-06T00:00:00+01:00">06 Mar 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/03/06/haka-debugger.html" title="Permalink to Haka Debugger" rel="bookmark">
+				Haka Debugger
+			</a>
+		</h2>
+		<p>Haka is featured with debugging capabilities allowing to inspect an existing
+Haka script file. With this mode activated (<em>-<span></span>-luadebug</em>
+option), a prompt will be displayed to the user inviting him to identify the
+faulty code.</p>
+
+
+<!--more-->
+
+<p>The general syntax of the debugger is close to the syntax of gdb. For
+instance, the user can list the source code (l), set breakpoints (b), follow
+code execution (step (s), next (n), finish (f)) or dump the content of
+variables such as packet structure.</p>
+
+<p>As you will notice, haka will generate an error if we run the following
+script. More precisely, Haka will complain about an unknown <em>destport</em>
+field.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pkt</span><span class="p">.</span><span class="n">destport</span> <span class="o">==</span> <span class="mi">80</span> <span class="ow">or</span> <span class="n">pkt</span><span class="p">.</span><span class="n">srcport</span> <span class="o">==</span> <span class="mi">80</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Authorizing trafic on port 80&quot;</span><span class="p">)</span>
+        <span class="k">else</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Trafic not authorized on port %d&quot;</span><span class="p">,</span> <span class="n">pkt</span><span class="p">.</span><span class="n">dstport</span><span class="p">)</span>
+            <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>If we run again the above script with debugging facilities, Haka will break
+on the faulty source code and output a backtrace.</p>
+
+<div class="highlight">
+<pre>
+<span class="kd">entering debugger</span><span class="go">: unknown field 'destport'</span>
+<span class="go">thread: 0</span>
+<span class="go">Backtrace</span>
+<span class="s1"> =&gt;</span><span class="go">0</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">(null)</span><span class="go">'</span>
+  #<span class="go">1</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">(null)</span><span class="go">'</span>
+  #<span class="go">2</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">__index</span><span class="go">'</span>
+  #<span class="go">3</span>    <span class="mi">debug.lua:7</span><span class="go">: in function '</span><span class="kd">eval</span><span class="go">'</span>
+  #<span class="go">4</span>    <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+  #<span class="go">5</span>    <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+  #<span class="go">6 </span>   <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+  #<span class="go">7</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">xpcall</span><span class="go">'</span>
+  #<span class="go">8</span>    <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+<span class="go">[C]
+debug&gt;
+</span>
+</pre>
+</div>
+
+<p>Here, we are interested in the third frame which is the one in the Lua
+script itself. We switch to that particular frame by entering the command
+<em>frame 3</em>. At this point, we can list the source code (<em>list</em>
+command) to get the exact line which caused the error (line 7).</p>
+
+
+<div class="highlight">
+<pre>
+<span class="go">debug&gt;  frame 3</span>
+<span class="go">  #3    </span><span class="mi">debug.lua:7</span><span class="go">: in function '</span><span class="kd">eval</span><span class="go">'</span>
+<span class="go">debug&gt;  list</span>
+<span class="k">   2:</span><span class="go">  require('protocol/tcp')</span>
+<span class="k">   3:</span> 
+<span class="k">   4:</span><span class="go">  haka.rule{</span>
+<span class="k">   5:</span><span class="go">      hooks = { 'tcp-up' },</span>
+<span class="k">   6:</span><span class="go">      eval = function (self, pkt)</span>
+<span class="k">   7</span><span class="s1">=&gt;</span><span class="go">         if pkt.destport == 80 or pkt.srcport == 80 then</span>
+<span class="k">   8:</span><span class="go">              haka.log("Filter", "Authorizing trafic on port 80")</span>
+<span class="k">   9:</span><span class="go">          else</span>
+<span class="k">  10:</span><span class="go">              haka.log("Filter", "Trafic not authorized on port %d", pkt.dstport)</span>
+<span class="k">  11:</span><span class="go">              pkt:drop()</span>
+<span class="k">  12:</span><span class="go">          end</span>
+<span class="go">debug&gt;</span>
+</pre>
+</div>
+
+<p>Then, if we dump the packet content (<em>print pkt</em>), we can see that we
+misspelled the <em>dstport</em> field. Once this typo is corrected, the script
+will run properly.</p>
+
+
+<div class="highlight">
+<pre>
+<span class="go">debug&gt;  print pkt</span>
+<span class="go">  #1    </span><span class="nb">userdata</span><span class="go"> tcp {</span>
+<span class="k">checksum</span><span class="go"> : 417</span>
+<span class="k">res</span><span class="go"> : 0</span>
+<span class="k">next_dissector</span><span class="go"> : </span><span class="s">"tcp-connection"</span>
+<span class="k">srcport</span><span class="go"> : 37542</span>
+<span class="k">payload <span class="k">: </span><span class="nb">userdata</span><span class="go"> tcp_payload</span>
+<span class="k">ip <span class="k">: </span><span class="nb">userdata</span><span class="go"> ipv4 {
+	...
+}
+</span>
+<span class="k">flags <span class="k">: </span><span class="nb">userdata</span><span class="go"> tcp_flags {
+	...
+}
+</span>
+<span class="k">ack_seq</span><span class="go"> : 0</span>
+<span class="k">seq</span><span class="go"> : 38227050607</span>
+<span class="k">dstport</span><span class="go"> : 80</span>
+<span class="k">hdr_len</span><span class="go"> : 40
+}
+debug&gt;
+</span>
+</span></span></span></pre>
+</div>
+
+<p>Note that we can get the list of available debugging commands by typing
+<em>help</em>.</p>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/03/04/sstic.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			SSTIC
+		</a>
+		
+		
+		<a href="/blog/2014/03/12/detecting-obfuscated-shellcodes.html" rel="next">
+			Detecting Obfuscated Shellcodes
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

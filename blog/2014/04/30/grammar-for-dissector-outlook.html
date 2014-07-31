@@ -1,0 +1,306 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Grammar for dissector outlook</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/04/30/grammar-for-dissector-outlook.html" title="Permalink to Grammar for dissector outlook" rel="bookmark">
+				<time class="entry-date" datetime="2014-04-30T00:00:00+02:00">30 Apr 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/dissector.html" rel="category tag">dissector</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/04/30/grammar-for-dissector-outlook.html" title="Permalink to Grammar for dissector outlook" rel="bookmark">
+				Grammar for dissector outlook
+			</a>
+		</h2>
+		<p>In a previous post, we created a dissector to parse SSL communications. This
+post will present a v0.2 feature: the grammar used to dissect protocols. Our
+grammar can parse binary-based as well as text-based protocols.</p>
+
+<p>This post will show how the dissection of the ClientHello handshake is
+made.</p>
+
+
+<!--more-->
+
+<h3>ClientHello Handshake Structure</h3>
+
+<p>The client Hello Handshake is defined in the <a
+href="http://tools.ietf.org/html/rfc6101">RFC 6101</a> as:</p>
+
+<div class="highlight">
+<pre><span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">ProtocolVersion</span> <span class="n">client_version</span><span class="p">;</span> 
+        <span class="c1">// handshake type (1 byte)</span>
+        <span class="c1">// length (3 byte)</span>
+        <span class="c1">// version (2 bytes)</span>
+    <span class="kt">Random</span> <span class="n">random</span><span class="p">;</span>
+        <span class="c1">// unixtime (4 bytes)</span>
+        <span class="c1">// random data (28 bytes)</span>
+    <span class="kt">SessionID</span> <span class="n">session_id</span><span class="p">;</span>
+        <span class="c1">// length (1 byte)</span>
+        <span class="c1">// sessionid (length bytes size, may be null)</span>
+    <span class="kt">CipherSuite</span> <span class="n">cipher_suites</span><span class="p">;</span>
+       <span class="c1">// a length (2 bytes)</span>
+       <span class="c1">// an list of ciphersuites id 2bytes each, (length bytes)</span>
+    <span class="kt">CompressionMethod</span> <span class="n">compression_methods</span><span class="p">;</span>  
+        <span class="c1">// a length (1 byte)</span>
+        <span class="c1">// a list of compression method id (length bytes size)</span>
+    <span class="kt">select</span> <span class="p">(</span><span class="n">extensions_present</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// optional field   </span>
+    <span class="p">};</span>
+<span class="p">}</span> <span class="n">ClientHello</span><span class="p">;</span>
+</pre>
+</div>
+
+<h3>Creating dissector</h3>
+
+<p>We begin by creating a new grammar ssl:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">gr</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">grammar</span>
+<span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">gr</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ssl&#39;</span><span class="p">)</span></code></pre></div>
+
+<p><i>haka.grammar</i> is the module where dissection functions are available.
+We use <i>gr</i> instead of <i>haka.grammar</i> for concision.</p>
+
+<h4>Introducing gr.record, gr.field and gr.number</h4>
+
+<p>A packet is a record of fields. So grammar have <i>record</i> and
+<i>field</i> keywords. Fields have a name, and a type. One of those type is
+<i>number</i>, which takes the number of bits in argument and return its value.
+We can write the three first lines of dissection:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="n">record</span> <span class="p">{</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span></code></pre></div>
+
+<p>We can now access <i>type</i> and <i>length</i> fields.</p>
+
+<h4>Branch action</h4>
+
+<p>At this point, SSL packet dissection become conditional. If <i>type ==
+1</i>, then it's a ClientHello Handshake. If <i>type == 2</i> then it's a
+ServerHello Handshake, and so on (all types are defined in RFC). So we have to
+branch the dissector according to the type. Here is how:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">cal</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="n">record</span> <span class="p">{</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">branch</span><span class="p">(</span>
+        <span class="p">{</span>
+         <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">client_hello_handshake</span><span class="p">,</span>
+         <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">server_hello_handshake</span><span class="p">,</span>
+         <span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">certificate_handshake</span><span class="p">,</span>
+          <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="p">}</span> <span class="p">,</span>
+    <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">type</span> <span class="k">end</span> <span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The function in the last line returns the type which allows to branch to the
+equivalent part.</p>
+
+<h4>Dissection of client_hello_handshake</h4>
+
+<p>When we parse the ClientHello handshake, the handshake type and length have
+already been read. So client hello starts at version field:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">client_hello_handshake</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="n">record</span> <span class="p">{</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">version&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">hello_random</span><span class="p">),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">hello_sessionid</span><span class="p">),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ciphersuites&#39;</span><span class="p">,</span> <span class="n">hello_ciphersuites</span><span class="p">),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">compressionmethods&#39;</span><span class="p">,</span> <span class="n">hello_compressionmethods</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The client_hello_handshake is composed with 5 mandatory fields, and a sixth
+optional (extensions). The first field is named <i>version</i> and have a fixed
+size of 16bits, hence the <i>gr.number(16)</i>. All other fields are defined
+next. For the clarity of the demonstration we won't show how to parse the
+optional extensions list.</p>
+
+<h4>Building complex structure</h4>
+
+<p>The <i>random</i> field is a collection of two static fields. We defined it
+as another record:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">hello_random</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="n">record</span><span class="p">{</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">unixtime&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">32</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">bytes</span><span class="p">():</span><span class="n">options</span><span class="p">{</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">28</span> <span class="p">})</span>
+<span class="p">}</span></code></pre></div>
+
+<p><i>gr.bytes</i> takes the number of bytes as option and returns it as a
+table of bytes. Those fields will be accessible as a number and data,
+<i>data.random.unixtime</i> and <i>data.random.random</i> respectively</p>
+
+<h4>Variable length fields</h4>
+
+<p>The field <i>sessionid</i> have variable length:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">hello_sessionid</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="n">record</span><span class="p">{</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">bytes</span><span class="p">():</span><span class="n">options</span><span class="p">{</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span>
+                  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span>
+                <span class="k">end</span>
+        <span class="p">})</span>
+<span class="p">}</span></code></pre></div>
+
+<p>We use a function to get this value. The function extract the length from
+the eponym field defined previously. Note that those function can be used to do
+any kind of calculus or data manipulation.</p>
+
+<h4>Arrays fields</h4>
+
+<p>The ciphersuite is an array of values. The array is defined as:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">hello_ciphersuites</span> <span class="o">=</span> <span class="n">gr</span><span class="p">.</span><span class="n">record</span><span class="p">{</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
+    <span class="n">gr</span><span class="p">.</span><span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ciphersuites&#39;</span><span class="p">,</span> <span class="n">gr</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">ciphersuite</span><span class="p">):</span><span class="n">options</span> <span class="p">{</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span>
+                  <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span>
+                <span class="k">end</span>
+        <span class="p">})</span>
+<span class="p">}</span></code></pre></div>
+
+<p>And <i>ciphersuite</i> is a record of all ciphersuite available.</p>
+
+<p>The last field, compression method, is defined exactly like the ciphersuite.
+It's composed by a length, then an array of compression methods. It's not shown
+here for concision.</p>
+
+<h3>Conclusion</h3>
+
+<p>This post is a short introduction of the dissection of a binary protocol.
+Note that dissection is almost as easy as a copy/paste of the initial
+structure.
+
+<p>We were able to write the majority of our dissectors with this grammar. If
+you want to see a binary dissector, see <a
+href="https://github.com/haka-security/haka/blob/develop/modules/protocol/udp/udp.lua">modules/protocol/ipv4/udp.lua</a>
+in the develop branch. For a text protocol, you can see <a
+href="https://github.com/haka-security/haka/blob/develop/modules/protocol/http/http.lua">modules/protocol/http/http.lua</a>.
+Those developments have shown us that writing dissector with this grammar is
+easier and faster than in C.</p>
+
+<p>Full explanation of Haka grammar will be provided in the release 0.2 with
+tutorial. Stay tuned: next blog post will explain how state machine works.</p>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/04/25/detecting-heartbleed-with-haka.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Detecting Heartbleed with Haka
+		</a>
+		
+		
+		<a href="/blog/2014/05/20/state-machine-outlook.html" rel="next">
+			State machine outlook
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

@@ -1,0 +1,259 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>State machine outlook</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
+				<time class="entry-date" datetime="2014-05-20T00:00:00+02:00">20 May 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/dissector.html" rel="category tag">dissector</a>, 
+			
+			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
+				State machine outlook
+			</a>
+		</h2>
+		<p>Haka can analyze states of a network protocol with its state machine.  A
+state machine is defined as a set of states and a set of transition functions
+between these states. This post will present a part of the SSL state machine we
+used in the previous blog post to detect heartbleed.</p>
+
+<!--more-->
+
+<h3>SSL State machine</h3>
+
+<p>The <a href="http://tools.ietf.org/html/rfc6101">RFC 6101</a> specifies the
+state machine for SSL protocol. In this post we use a simpler version, defined
+as:</p>
+
+<div class="text-center">
+	<img src="http://haka-security.github.io/img/ssl_states1.png" alt="ssl_states" width="550" />
+</div>
+
+<p>In the following, we present the main steps towards the specification of SSL
+state machine with Haka.</p>
+
+<h3>Creating a state machine</h3>
+
+<p>A single line creates the state machine</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">)</span></code></pre></div>
+
+<h4>Defining new states</h4>
+
+<p>New states are created by defining a name, and transitions. Transitions can
+be seen as path from a state to another state.</p>
+
+
+<p>We create a first state, called hello_request and three transitions: </p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">hello_request</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span><span class="p">:</span><span class="n">state</span><span class="p">{</span>
+    <span class="nb">error</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">.</span><span class="n">ssl</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="n">up</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">client_hello</span><span class="p">,</span> <span class="n">parse_err</span> <span class="o">=</span> <span class="n">sslv3_client_hello</span><span class="p">:</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parse_err</span> <span class="k">then</span>
+            <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">ERROR</span>
+        <span class="k">end</span> 
+        <span class="c1">-- Go to client_hello_done state</span>
+        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">client_hello_done</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="n">down</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">ERROR</span>
+    <span class="k">end</span> 
+<span class="p">}</span></code></pre></div>
+
+
+<p>The transitions we used in the ssl dissector from a <em>Client Hello</em>
+are the following:</p>
+
+<ul>
+
+	<li>The first one, <em>error</em> is a convenient transition to call in
+case of any error. As its name suggests, the <em>drop()</em> function drops the
+connection which is a reasonable default action. It has been defined previously
+in the dissector and not shown here for brevity.</li>
+
+	<li>The second one, <em>up</em> is called when data is received from
+the client to the server. We use our ssl dissector,<em>sslv3_client_hello</em>,
+to parse received data. The previous blog post explained how dissectors are
+written with the Haka grammar. The state <em>states.ERROR</em> is a special
+state used to call the <em>error</em> transition. If parsing doesn't raise any
+error, the <em>client_hello_done</em> state is reached.</li>
+
+	<li>The last transition, <em>down</em> is called when data is received
+from server to client. As no data is expected before the end of the Client
+Hello, we drop the connection if there are any bytes transmitted from server to
+client.</li>
+
+</ul>
+
+<p>The next steps to write the SSL state machine are writing the
+<em>client_hello_done</em> state and its transitions to another states and so
+on.</p>
+
+<h3>Creating events</h3>
+
+<p>Haka dissector can register events which are later used in security rules.
+In order to be used, events have to be registered, then triggered with optional
+parameters. In this example, we show how to trigger an event inside the state
+machine.</p>
+
+<h4>Registering events</h4>
+
+<p>Registering event is made by the <em>register_event</em> function which
+takes a name as parameter:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
+
+<h4>Triggering events</h4>
+
+<p>Triggering an event is done with the <em>trigger()</em> function.  In the
+following example, we trigger an event whenever a Client Hello record is
+received which enables the evaluation of all security rules registered on that
+particular event:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">up</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">client_hello</span><span class="p">,</span> <span class="n">parse_err</span> <span class="o">=</span> <span class="n">sslv3_client_hello</span><span class="p">:</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parse_err</span> <span class="k">then</span>
+        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">ERROR</span>
+    <span class="k">end</span>
+    <span class="c1">-- Event is triggered with client_hello data as parameter</span>
+    <span class="n">context</span><span class="p">.</span><span class="n">ssl</span><span class="p">:</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">,</span> <span class="n">client_hello</span><span class="p">)</span>
+    <span class="c1">-- Go to client_hello_done state</span>
+    <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">client_hello_done</span>
+<span class="k">end</span><span class="p">,</span></code></pre></div>
+
+<h3>Conclusion</h3>
+
+<p>State machine is a powerful, yet simple, way to follow network protocol
+states. Events are the glue between network flows and security rules. You can
+read <a
+href="https://github.com/haka-security/haka/blob/develop/modules/protocol/tcp/tcp_connection.lua">modules/protocol/tcp/tcp_connection.lua</a>
+in develop branch for a preview of a more complex state machine description
+which manages tcp transitions.</p>
+
+<p>Full explanation of Haka state machine will be provided in the release 0.2
+with tutorials.</p>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/04/30/grammar-for-dissector-outlook.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Grammar for dissector outlook
+		</a>
+		
+		
+		<a href="/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html" rel="next">
+			Detecting malicious payloads across multiple packets
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+

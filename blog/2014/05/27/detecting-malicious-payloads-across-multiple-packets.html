@@ -1,0 +1,201 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Detecting malicious payloads across multiple packets</title>
+
+		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
+		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+
+		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
+		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
+		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://haka-security.github.io/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form ">
+		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+		<div id="content">
+			<div class="row">
+				<div class="medium-12 columns">
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://haka-security.github.io/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html" title="Permalink to Detecting malicious payloads across multiple packets" rel="bookmark">
+				<time class="entry-date" datetime="2014-05-27T00:00:00+02:00">27 May 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			
+			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html" title="Permalink to Detecting malicious payloads across multiple packets" rel="bookmark">
+				Detecting malicious payloads across multiple packets
+			</a>
+		</h2>
+		<p>As you can expect, we are currently working hard for the next release which
+will introduce new interesting features: protocol dissection, pattern matching,
+API improvements, etc.</p>
+
+<!--more-->
+
+
+<p>In the initial Haka version, we leveraged on Lua built-in engine to match
+network data against malicious patterns. The major drawback of this pattern
+matching engine is that it is not enough expressive (e.g. alternation | is not
+supported) and does not support partial matching.</p>
+
+<p>Next release will feature a new <em>stream-based</em> regular expression
+engine based on PCRE. This module allows us to detect accurately a malicious
+payload scattered over multiple packets:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">tcp_connection</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp_connection&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">regexp/pcre&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">shellcode</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">%xeb %x1f %x5e %x89 %x76 %x08 %x31 %xc0&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%x88 %x46 %x07 %x89 %x46 %x0c %xb0 %x0b&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%x89 %xf3 %x8d %x4e %x08 %x8d %x56 %x0c&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%xcd %x80 %x31 %xdb %x89 %xd8 %x40 %xcd&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%x80 %xe8 %xdc %xff %xff %xff /bin/sh&quot;</span>
+
+<span class="kd">local</span> <span class="n">re</span> <span class="o">=</span> <span class="n">rem</span><span class="p">.</span><span class="n">re</span><span class="p">:</span><span class="n">compile</span><span class="p">(</span><span class="n">shellcode</span><span class="p">,</span> <span class="n">rem</span><span class="p">.</span><span class="n">re</span><span class="p">.</span><span class="n">EXTENDED</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">tcp_connection</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_data</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">streamed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">iter</span><span class="p">)</span>
+        <span class="c1">-- match malicious pattern across multiple packets</span>
+        <span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">re</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ret</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">/bin/sh shellcode detected&quot;</span><span class="p">,</span>
+                <span class="n">targets</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">flow</span><span class="p">.</span><span class="n">dstip</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>In the above example, we load the regular expression module and compile the
+malicious pattern which represents a classic /bin/sh shellcode. The second
+parameter of <em>compile</em> function is an option allowing us to ignore white
+space chars and comments.</p>
+
+<p>As you have noticed, the syntax of security rules has slightly changed.
+Rules are event-based. In our example, the security rule is meant to be
+evaluated whenever a new data is available on the established connection.
+However, with the additional option <em>streamed</em>, evaluation is done only
+once waiting for new data to proceed.</p>
+
+<p>The rest of the rule is relative to attack reaction. In our case, we simply
+raise an alert.</p>
+
+<p>Besides the partial matching capabilities, the new regular expression engine
+has significantly improved text-based protocol dissection.</p>
+
+
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/05/20/state-machine-outlook.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			State machine outlook
+		</a>
+		
+		
+		<a href="/blog/2014/06/05/sstic-2014-papers.html" rel="next">
+			SSTIC 2014 Paper
+			<span class="meta-nav">&rarr;</span>
+		</a>
+		
+	</div>
+</nav>
+
+</article>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	  $(document).foundation();
+</script>
+<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+	</body>
+</html>
+
