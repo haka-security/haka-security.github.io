@@ -336,6 +336,30 @@ pre {
 }
 
 /**
+ * 404
+ */
+.error404 {
+	font: italic 300 30px "Source Sans Pro",Helvetica,sans-serif;
+	margin: 0;
+	padding: 200px;
+	position: relative;
+	text-align: center;
+	width: auto;
+	z-index: 1;
+}
+
+.error404:before {
+	color: #99CC66;
+	content: "\F423";
+	font: 964px/0.6 Genericons;
+	left: 70px;
+	overflow: hidden;
+	position: absolute;
+	top: 28px;
+	z-index: -1;
+}
+
+/**
  * Utils
  */
 .float-right {
