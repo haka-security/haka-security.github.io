@@ -6,21 +6,22 @@
 
 		<title>Interactive Packet Filtering Mode</title>
 
-		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
 
-		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
-		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
-		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
-		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
 	</head>
 	<body>
 		<header id="header" role="banner">
 		<div class="row">
 			<div class="medium-12 columns">
-				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
 				<h2 class="description">Software Defined Security</h2>
 			</div>
 		</div>
@@ -36,22 +37,22 @@
 				<section class="top-bar-section">
 				<ul class="left">
 	<li class="">
-		<a href="http://haka-security.github.io/index.html">Overview</a>
+		<a href="http://www.haka-security.org/index.html">Overview</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/resources.html">Resources</a>
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/community.html">Community</a>
+		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
 	</li>
 	<li class=" active ">
-		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
 	<li class="has-form ">
-		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
 	</li>
 </ul>
 
@@ -59,24 +60,28 @@
 			</nav>
 		</div>
 
-		<div id="content">
-			<div class="row">
-				<div class="medium-12 columns">
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
 
 <article>
 	
 	<header class="entry-header">
 	<div class="entry-meta">
 		<span class="date">
-			<a href="http://haka-security.github.io/blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
+			<a href="http://www.haka-security.org/blog/2014/02/25/interactive-packet-filtering-mode.html" title="Permalink to Interactive Packet Filtering Mode" rel="bookmark">
 				<time class="entry-date" datetime="2014-02-25T00:00:00+01:00">25 Feb 2014</time>
 			</a>
 		</span>
 		<span class="categories-links">
 			
-			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>, 
 			
-			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>
 			
 		</span>
 	</div>
@@ -104,7 +109,7 @@ therefore is a good starting point to dive into the Haka API.</p>
 
 		<p>All the magic starts with the following rule:</p>
 
-		<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
@@ -116,11 +121,11 @@ therefore is a good starting point to dive into the Haka API.</p>
 	<div class="divcell">
 
 		<p>In the following, we replay a <a title="Nmap Xmas Scan"
-			href="http://haka-security.org/?attachment_id=578">nmap packet
+			href="https://www.dropbox.com/s/e3f1abri7l5e3k7/nmap-xmas.pcap?dl=1">nmap packet
 			capture</a> by running this rule using our tool hakapcap (a
 		tool dedicated to packet capture analysis):</p>
 
-		<div class="highlight"><pre><code class="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
+		<div class="highlight"><pre><code class="language-bash" data-lang="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
 	</div>
 </div>
 
@@ -240,6 +245,8 @@ into problems with tcp for instance.</p>
 </nav>
 
 </article>
+
+					<div class="pad"></div>
 				</div>
 			</div>
 		</div>
@@ -253,9 +260,12 @@ into problems with tcp for instance.</p>
 </footer>
 
 		<script>
-	  $(document).foundation();
+	$(document).foundation();
 </script>
-<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
 
 	</body>
 </html>

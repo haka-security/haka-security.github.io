@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>RMLL — Material</title>
+		<title>Second Release - Protocol dissection</title>
 
 		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
 		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
@@ -73,37 +73,72 @@
 	<header class="entry-header">
 	<div class="entry-meta">
 		<span class="date">
-			<a href="http://www.haka-security.org/blog/2014/07/15/rmll-workshop-and-slides.html" title="Permalink to RMLL — Material" rel="bookmark">
-				<time class="entry-date" datetime="2014-07-15T00:00:00+02:00">15 Jul 2014</time>
+			<a href="http://www.haka-security.org/blog/2014/08/11/second-release.html" title="Permalink to Second Release - Protocol dissection" rel="bookmark">
+				<time class="entry-date" datetime="2014-08-11T00:00:00+02:00">11 Aug 2014</time>
 			</a>
 		</span>
 		<span class="categories-links">
 			
-			<a href="http://www.haka-security.org/category/conference.html" rel="category tag">conference</a>
+			<a href="http://www.haka-security.org/category/release.html" rel="category tag">release</a>
 			
 		</span>
 	</div>
 </header>
 
 
-	<div class="entry-content news">
+	<div class="entry-content">
 		<h2>
-			<a href="//blog/2014/07/15/rmll-workshop-and-slides.html" title="Permalink to RMLL — Material" rel="bookmark">
-				RMLL — Material
+			<a href="//blog/2014/08/11/second-release.html" title="Permalink to Second Release - Protocol dissection" rel="bookmark">
+				Second Release - Protocol dissection
 			</a>
 		</h2>
-		<img src="/img/rmll.png" width="142" height="130" class="news-image" />
-		<p>First of all, we want to thank all RMLL organizers and especially the chairs of
-the security track: Christophe Brocas and Mathieu Blanc. You did a great a job.</p>
+		<p>We are pleased to announce the second release of Haka - an open source security
+oriented language - which introduces a lot of new features and cool stuff:</p>
 
-<p>If you have missed our presentation, we made the slides available
-<a href="https://www.dropbox.com/s/ae0bn89lv70wg8s/haka-rmll-2014-slides.pdf?dl=1">here</a>.</p>
+<!--more-->
 
-<p>Finally, for those who want to (re)play the workshop, we provide here an <a href="http://www.haka-security.org/resources.html#live-iso">ISO
-image</a>. Its
-a debian image that ships with up to date haka binaries. When you launch the
-virtual machine, you will find shortcuts on the desktop for the workshop along
-with full haka documentation. Happy diving into Haka !</p>
+<ul>
+  <li>
+    <p><strong>Protocol grammar</strong>: This new version features a new grammar allowing to specify text-based as well
+as binary-based network protocols avoiding wasting time with tedious and
+error-prone coding of protocol dissectors. The resulting specification process
+generates a parser and provides a read/write access to all protocol fields. </p>
+  </li>
+  <li>
+    <p><strong>Protocol State machine</strong>: this second version provides also a new way to describe protocol state machine which
+was used to rework the specification of complex protocol such as tcp.</p>
+  </li>
+  <li>
+    <p><strong>Available protocols</strong>: thanks to the above features, we have rewritten with a little effort the specification of
+protocols available in the initial version (tcp, http) and defined new ones
+(icmp, udp, dns).</p>
+  </li>
+  <li>
+    <p><strong>Pattern matching engine</strong>: we have added a new stream-based regular expression engine based on PCRE that
+allows to detect malicious pattern accros multiple packets and that is more
+expressive than the built-in Lua engine.</p>
+  </li>
+  <li>
+    <p><strong>API improvements</strong>: the Haka API has been improved introducing an efficient access to network
+streams using virtual buffer concept.</p>
+  </li>
+  <li>
+    <p><strong>Console</strong>: you can monitor a haka daemon using the console feature which allows to get
+some statistics about trafic and drop/reset connections if needed.</p>
+  </li>
+  <li>
+    <p><strong>Writing your own modules</strong>: you can now extend Haka with your favorite module by following the steps,
+recommandationis, and coding style of the <a href="http://www.haka-security.org/resources.html">developer guide</a>.
+Your contributions are welcome.</p>
+  </li>
+  <li>
+    <p><strong>Additional features</strong>: finally, this new version has additional features
+such as ip fragmentation support, live <a href="http://www.haka-security.org/resources.html#live-iso">ISO image</a> workshop, additional tutorials and multiple bug fixes.</p>
+  </li>
+</ul>
+
+<p>We are already working on the next release which will focus mainly on optimizing
+Haka performances.</p>
 
 	</div>
 
@@ -112,16 +147,11 @@ with full haka documentation. Happy diving into Haka !</p>
 	<nav class="navigation post-navigation" role="navigation">
 	<div class="nav-links">
 		
-		<a href="/blog/2014/06/24/rmll-2014.html" rel="prev">
+		<a href="/blog/2014/07/15/rmll-workshop-and-slides.html" rel="prev">
 			<span class="meta-nav">&larr;</span>
-			RMLL 2014
+			RMLL — Material
 		</a>
 		
-		
-		<a href="/blog/2014/08/11/second-release.html" rel="next">
-			Second Release - Protocol dissection
-			<span class="meta-nav">&rarr;</span>
-		</a>
 		
 	</div>
 </nav>

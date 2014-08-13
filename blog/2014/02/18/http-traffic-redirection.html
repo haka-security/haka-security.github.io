@@ -6,21 +6,22 @@
 
 		<title>HTTP Traffic Redirection</title>
 
-		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
 
-		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
-		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
-		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
-		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
 	</head>
 	<body>
 		<header id="header" role="banner">
 		<div class="row">
 			<div class="medium-12 columns">
-				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
 				<h2 class="description">Software Defined Security</h2>
 			</div>
 		</div>
@@ -36,22 +37,22 @@
 				<section class="top-bar-section">
 				<ul class="left">
 	<li class="">
-		<a href="http://haka-security.github.io/index.html">Overview</a>
+		<a href="http://www.haka-security.org/index.html">Overview</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/resources.html">Resources</a>
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/community.html">Community</a>
+		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
 	</li>
 	<li class=" active ">
-		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
 	<li class="has-form ">
-		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
 	</li>
 </ul>
 
@@ -59,24 +60,28 @@
 			</nav>
 		</div>
 
-		<div id="content">
-			<div class="row">
-				<div class="medium-12 columns">
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
 
 <article>
 	
 	<header class="entry-header">
 	<div class="entry-meta">
 		<span class="date">
-			<a href="http://haka-security.github.io/blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
+			<a href="http://www.haka-security.org/blog/2014/02/18/http-traffic-redirection.html" title="Permalink to HTTP Traffic Redirection" rel="bookmark">
 				<time class="entry-date" datetime="2014-02-18T00:00:00+01:00">18 Feb 2014</time>
 			</a>
 		</span>
 		<span class="categories-links">
 			
-			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>, 
+			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>, 
 			
-			<a href="http://haka-security.github.io/category/tutorial.html" rel="category tag">tutorial</a>
+			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>
 			
 		</span>
 	</div>
@@ -106,7 +111,7 @@ content on the fly.</p>
 	<li>The first rule will only authorise http traffic to update servers
 	(e.g. mozilla.org). This is done by checking the 'Host' header.</li>
 
-	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+	<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 	<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;</span><span class="s">Host&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="s">&#39;</span>
@@ -124,7 +129,7 @@ content on the fly.</p>
 	capabilities to modify http headers response on the fly in order to
 	redirect requests.</li>
 
-	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+	<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 	<span class="kd">local</span> <span class="n">UA</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="s">No User-Agent header&quot;</span>
@@ -157,7 +162,7 @@ content on the fly.</p>
 </ol>
 
 <p>Refer to the <a
-	href="http://doc.haka-security.org/haka/release/v0.1/doc/user/tutorial/filter.html">filter
+	href="http://doc.haka-security.org/haka/release/v0.2/doc/user/tutorial/filter.html">filter
 	tutorial</a> to see the full script.</p>
 
 
@@ -183,6 +188,8 @@ content on the fly.</p>
 </nav>
 
 </article>
+
+					<div class="pad"></div>
 				</div>
 			</div>
 		</div>
@@ -196,9 +203,12 @@ content on the fly.</p>
 </footer>
 
 		<script>
-	  $(document).foundation();
+	$(document).foundation();
 </script>
-<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
 
 	</body>
 </html>

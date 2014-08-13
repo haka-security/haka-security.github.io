@@ -6,21 +6,22 @@
 
 		<title>State machine outlook</title>
 
-		<link rel="stylesheet" href="http://haka-security.github.io/css/foundation.css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/pygments.css" type="text/css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/breathe.css" type="text/css" />
-		<link rel="stylesheet" href="http://haka-security.github.io/css/haka.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
 
-		<script src="http://haka-security.github.io/js/vendor/modernizr.js"></script>
-		<script src="http://haka-security.github.io/js/vendor/jquery.js"></script>
-		<script src="http://haka-security.github.io/js/foundation/foundation.js"></script>
-		<script src="http://haka-security.github.io/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
 	</head>
 	<body>
 		<header id="header" role="banner">
 		<div class="row">
 			<div class="medium-12 columns">
-				<h1 class="title"><a rel="home" title="Haka" href="http://haka-security.github.io">Haka</a></h1>
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
 				<h2 class="description">Software Defined Security</h2>
 			</div>
 		</div>
@@ -36,22 +37,22 @@
 				<section class="top-bar-section">
 				<ul class="left">
 	<li class="">
-		<a href="http://haka-security.github.io/index.html">Overview</a>
+		<a href="http://www.haka-security.org/index.html">Overview</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/resources.html">Resources</a>
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/community.html">Community</a>
+		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
-		<a href="http://haka-security.github.io/project.html">Project Contributors</a>
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
 	</li>
 	<li class=" active ">
-		<a href="http://haka-security.github.io/blog/index.html">Blog</a>
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
 	<li class="has-form ">
-		<a class="button radius" href="http://haka-security.github.io/download.html">Download</a>
+		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
 	</li>
 </ul>
 
@@ -59,26 +60,30 @@
 			</nav>
 		</div>
 
-		<div id="content">
-			<div class="row">
-				<div class="medium-12 columns">
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
 
 <article>
 	
 	<header class="entry-header">
 	<div class="entry-meta">
 		<span class="date">
-			<a href="http://haka-security.github.io/blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
+			<a href="http://www.haka-security.org/blog/2014/05/20/state-machine-outlook.html" title="Permalink to State machine outlook" rel="bookmark">
 				<time class="entry-date" datetime="2014-05-20T00:00:00+02:00">20 May 2014</time>
 			</a>
 		</span>
 		<span class="categories-links">
 			
-			<a href="http://haka-security.github.io/category/dissector.html" rel="category tag">dissector</a>, 
+			<a href="http://www.haka-security.org/category/dissector.html" rel="category tag">dissector</a>, 
 			
-			<a href="http://haka-security.github.io/category/release.html" rel="category tag">release</a>, 
+			<a href="http://www.haka-security.org/category/release.html" rel="category tag">release</a>, 
 			
-			<a href="http://haka-security.github.io/category/security.html" rel="category tag">security</a>
+			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>
 			
 		</span>
 	</div>
@@ -100,12 +105,12 @@ used in the previous blog post to detect heartbleed.</p>
 
 <h3>SSL State machine</h3>
 
-<p>The <a href="http://tools.ietf.org/html/rfc6101">RFC 6101</a> specifies the
+<p>The <a href="http://tools.ietf.org/html/rfc6101" target="_blank">RFC 6101</a> specifies the
 state machine for SSL protocol. In this post we use a simpler version, defined
 as:</p>
 
 <div class="text-center">
-	<img src="http://haka-security.github.io/img/ssl_states1.png" alt="ssl_states" width="550" />
+	<img src="http://www.haka-security.org/img/ssl_states1.png" alt="ssl_states" width="550" />
 </div>
 
 <p>In the following, we present the main steps towards the specification of SSL
@@ -115,55 +120,62 @@ state machine with Haka.</p>
 
 <p>A single line creates the state machine</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+    <span class="n">state_type</span><span class="p">(</span><span class="n">BidirectionalState</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span></code></pre></div>
+
+<p>We also select which state type we want to use, in our case it is a basic
+bidectional state which allow to make the difference between client to server
+communication and server to client.</p>
 
 <h4>Defining new states</h4>
 
 <p>New states are created by defining a name, and transitions. Transitions can
 be seen as path from a state to another state.</p>
 
-
 <p>We create a first state, called hello_request and three transitions: </p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">hello_request</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span><span class="p">:</span><span class="n">state</span><span class="p">{</span>
-    <span class="nb">error</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">)</span>
-        <span class="n">context</span><span class="p">.</span><span class="n">ssl</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
-    <span class="k">end</span><span class="p">,</span>
-    <span class="n">up</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-        <span class="kd">local</span> <span class="n">client_hello</span><span class="p">,</span> <span class="n">parse_err</span> <span class="o">=</span> <span class="n">sslv3_client_hello</span><span class="p">:</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">parse_err</span> <span class="k">then</span>
-            <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">ERROR</span>
-        <span class="k">end</span> 
-        <span class="c1">-- Go to client_hello_done state</span>
-        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">client_hello_done</span>
-    <span class="k">end</span><span class="p">,</span>
-    <span class="n">down</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">ERROR</span>
-    <span class="k">end</span> 
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_request</span> <span class="o">=</span> <span class="n">state</span><span class="p">(</span><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">sslv3_client_hello</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="n">hello_request</span><span class="p">:</span><span class="n">on</span><span class="p">{</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">fail</span><span class="p">,</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+    <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="n">hello_request</span><span class="p">:</span><span class="n">on</span><span class="p">{</span>
+	<span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">parse_error</span><span class="p">,</span>
+	<span class="n">jump</span> <span class="o">=</span> <span class="n">fail</span>
+<span class="p">}</span>
+
+<span class="n">hello_request</span><span class="p">{</span>
+	<span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">up</span><span class="p">,</span>
+	<span class="n">jump</span> <span class="o">=</span> <span class="n">client_hello_done</span>
 <span class="p">}</span></code></pre></div>
 
+<p>The state is created based on the grammar element <em>sslv3_client_hello</em>.
+The second parameter is <em>nil</em> as this state does not expect any data
+from the server.</p>
 
 <p>The transitions we used in the ssl dissector from a <em>Client Hello</em>
 are the following:</p>
 
 <ul>
 
-	<li>The first one, <em>error</em> is a convenient transition to call in
+	<li>The first one, <em>fail</em> is a convenient transition to call in
 case of any error. As its name suggests, the <em>drop()</em> function drops the
-connection which is a reasonable default action. It has been defined previously
-in the dissector and not shown here for brevity.</li>
+connection which is a reasonable default action.</li>
 
-	<li>The second one, <em>up</em> is called when data is received from
-the client to the server. We use our ssl dissector,<em>sslv3_client_hello</em>,
-to parse received data. The previous blog post explained how dissectors are
-written with the Haka grammar. The state <em>states.ERROR</em> is a special
-state used to call the <em>error</em> transition. If parsing doesn't raise any
-error, the <em>client_hello_done</em> state is reached.</li>
+<li>The second one, <em>parse_error</em> is called when data received
+cannot be correctly parsed by the grammar associated to the state. In which case
+we will jump to a pseudo-state named <em>fail</em>.</li>
 
-	<li>The last transition, <em>down</em> is called when data is received
-from server to client. As no data is expected before the end of the Client
-Hello, we drop the connection if there are any bytes transmitted from server to
-client.</li>
+<li>The last transition, <em>up</em> is called when data is received from
+the client to the server. The parsing has verified the data and we can jump
+to the state <em>client_hello_done</em>.</li>
 
 </ul>
 
@@ -183,7 +195,7 @@ machine.</p>
 <p>Registering event is made by the <em>register_event</em> function which
 takes a name as parameter:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
 
 <h4>Triggering events</h4>
 
@@ -192,16 +204,13 @@ following example, we trigger an event whenever a Client Hello record is
 received which enables the evaluation of all security rules registered on that
 particular event:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">up</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-    <span class="kd">local</span> <span class="n">client_hello</span><span class="p">,</span> <span class="n">parse_err</span> <span class="o">=</span> <span class="n">sslv3_client_hello</span><span class="p">:</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">parse_err</span> <span class="k">then</span>
-        <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">ERROR</span>
-    <span class="k">end</span>
-    <span class="c1">-- Event is triggered with client_hello data as parameter</span>
-    <span class="n">context</span><span class="p">.</span><span class="n">ssl</span><span class="p">:</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">,</span> <span class="n">client_hello</span><span class="p">)</span>
-    <span class="c1">-- Go to client_hello_done state</span>
-    <span class="k">return</span> <span class="n">context</span><span class="p">.</span><span class="n">states</span><span class="p">.</span><span class="n">client_hello_done</span>
-<span class="k">end</span><span class="p">,</span></code></pre></div>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_request</span><span class="p">{</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">up</span><span class="p">,</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">:</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="n">jump</span> <span class="o">=</span> <span class="n">client_hello_done</span>
+<span class="p">}</span></code></pre></div>
 
 <h3>Conclusion</h3>
 
@@ -237,6 +246,8 @@ with tutorials.</p>
 </nav>
 
 </article>
+
+					<div class="pad"></div>
 				</div>
 			</div>
 		</div>
@@ -250,9 +261,12 @@ with tutorials.</p>
 </footer>
 
 		<script>
-	  $(document).foundation();
+	$(document).foundation();
 </script>
-<script type="text/javascript" src="http://haka-security.github.io/js/track.js"></script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
 
 	</body>
 </html>
