@@ -81,7 +81,11 @@
 			
 			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>, 
 			
-			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>
+			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>, 
+			
+			<a href="http://www.haka-security.org/category/v0.1.html" rel="category tag">v0.1</a>, 
+			
+			<a href="http://www.haka-security.org/category/v0.2.html" rel="category tag">v0.2</a>
 			
 		</span>
 	</div>
@@ -93,6 +97,25 @@
 			<a href="//blog/2014/04/10/defeating-nmap-scans.html" title="Permalink to Defeating Nmap Scans" rel="bookmark">
 				Defeating Nmap Scans
 			</a>
+			
+	
+
+	
+
+	
+			<span data-selector="tooltip-hz0yflol0" class="has-tip no-border" data-tooltip="" title="runs on version 0.1">
+				<span class="label round version-tag">v0.1</span>
+			</span>
+		
+
+	
+			<span data-selector="tooltip-hz0yflol0" class="has-tip no-border" data-tooltip="" title="runs on version 0.2">
+				<span class="label round version-tag">v0.2</span>
+			</span>
+	
+
+
+
 		</h2>
 		<p> The well-known scanning tool <a href="http://nmap.org"
 target="_blank">Nmap</a> allows users to discover running services on a target
@@ -124,7 +147,7 @@ packet.</p>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
         <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">all</span>
-        <span class="c1">-- test for null, fin and xmas nmap scans </span>
+        <span class="c1">-- test for null, fin and xmas nmap scans</span>
         <span class="k">if</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x1</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x29</span> <span class="k">then</span>
             <span class="c1">-- raw packet</span>
             <span class="kd">local</span> <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">packet</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
@@ -156,6 +179,40 @@ Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</s
 ...
 All <span class="m">1000</span> scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
 Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
+
+<h6><span class="label round">edit</span> The above code has been updated to work on Haka 0.2 versions:</h6>
+
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">raw</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/raw&#39;</span><span class="p">)</span>
+<span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">tcp</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_packet</span><span class="p">,</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">all</span>
+        <span class="c1">-- test for null, fin and xmas nmap scans </span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x1</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x29</span> <span class="k">then</span>
+            <span class="c1">-- raw packet</span>
+            <span class="kd">local</span> <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">raw</span><span class="p">.</span><span class="n">create</span><span class="p">()</span>
+            <span class="c1">-- ip packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ttl</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">ttl</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dst</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span>
+            <span class="c1">-- tcp packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">tcp</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">srcport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">dstport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dstport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">srcport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">rst</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">ack</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ack_seq</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">seq</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1">-- inject forged packet and</span>
+            <span class="c1">-- drop malicious scanning packet</span>
+            <span class="n">rstpkt</span><span class="p">:</span><span class="n">send</span><span class="p">()</span>
+            <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
 
 	</div>
 

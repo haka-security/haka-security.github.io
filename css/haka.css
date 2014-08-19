@@ -386,6 +386,13 @@ h3 .label {
 	bottom: 7px;
 }
 
+h2 .label {
+	bottom: 5px;
+}
+
+h6 .label {
+	bottom: 3px;
+}
 /**
  * Utils
  */
@@ -411,4 +418,16 @@ h3 .label {
 
 .no-border, .no-border:hover, .no-border:focus {
 	border: none;
+}
+
+.version-tag:before {
+	bottom: -2px;
+	content: "\f302";
+	font: 18px/1 Genericons;
+	position: relative;    
+	vertical-align: text-bottom;
+}
+
+.version-tag {
+	padding: 0 0.39rem 0.11rem 0.11rem;
 }
