@@ -1,0 +1,268 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Haka | Software Defined Security</title>
+
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
+
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://www.haka-security.org/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
+	</li>
+	<li class=" active ">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
+
+<h2>Welcome to Hakabana</h2>
+
+<p class="subtitle">Visualize Haka traffic in real-time using Kibana and
+Elasticsearch.</p>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>Real-time statistics</h3>
+
+		<p>Get real-time stats about network traffic passing through haka: ip,
+		icmp, tcmp, udp, http, dns.</p>
+	</div>
+	<div class="medium-6 columns">
+		<div class="text-center">
+			<img alt="capture" src="http://www.haka-security.org/img/hakabana_protocols_reflect.png" width="250" height="250" />
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="medium-6 columns">
+		<div class="text-center">
+			<img alt="capture" src="http://www.haka-security.org/img/hakabana_maps_reflect.png" width="504" height="150" />
+		</div>
+	</div>
+	<div class="medium-6 columns">
+		<h3>Network flows geolocalization</h3>
+
+		<p>Track network flow ip source and destination.</p>
+	</div>
+</div>
+<div class="row">
+	<div class="medium-6 columns">
+
+		<h3>Bandwidth monitoring</h3>
+
+		<p>Monitor your network bandwidth.</p>
+	</div>
+	<div class="medium-6 columns">
+		<div class="text-center">
+			<img alt="capture" src="http://www.haka-security.org/img/hakaban_bandwidth_reflect.png" width="504" height="150" />
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="medium-6 columns">
+		<div class="text-center">
+			<img alt="capture" src="http://www.haka-security.org/img/hakabana_flows_reflect.png" height="650" />
+		</div>
+	</div>
+	<div class="medium-6 columns">
+
+		<h3>Dns and http traffic</h3>
+
+		<p>Get info about http and dns connections: dns queries, http requests
+		(uri, user-agent, hosts), and responses.</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<h3>Powerfull customization</h3>
+		Take advantage of:
+		<ul>
+			<li>Haka's <b>language</b> by exporting your own data</li>
+			<li>Haka's <b>extensibility</b> by writting your own dissector</li>
+			<li>kibana's <b>flexibility</b> by customizing your dashboard</li>
+		</ul>
+	</div>
+	<div class="medium-6 columns">
+		<h3>Learn more on customization</h3>
+		<p>Give a look at Haka's documentation.</p>
+		<div class="text-center">
+			<a class="button radius" href="http://doc.haka-security.org/haka/release/v0.2.1/doc/user/userindex.html">Documentation</a>
+		</div>
+	</div>
+</div>
+
+		</div>
+	</div>
+</div>
+
+<footer id="want-more" role="contentinfo">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			<aside id="text-2">
+				<span id="interesting">Seems interesting?</span>
+				<span id="download">Download Hakabana now <a class="button radius" href="http://www.haka-security.org/download/hakabana.html" style="margin-left:20px;">Download</a></span>
+			</aside>
+		</div>
+	</div>
+</footer>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+
+
+<h2>Getting started</h2>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<ol class="enumeration">
+			<li><b>Install</b> and start <a
+				href="http://www.elasticsearch.org/overview/elkdownloads/"
+				target="_blank">Elasticsearch</a> server.</li>
+<div class="highlight"><pre><code class="console"><span class="go">sudo dpkg -i elasticsearch-&lt;version&gt;.deb</span>
+<span class="go">sudo service elasticsearch start</span></code></pre></div>
+
+			<li><b>Install</b> and setup <a
+				href="http://www.elasticsearch.org/overview/kibana/installation/"
+				target="_blank">Kibana</a>. <medium>Require a web
+			server</medium>.</li>
+<div class="highlight"><pre><code class="console"><span class="go">tar -zxvf kibana-&lt;version&gt;.tar.gz \</span>
+<span class="go">	--strip-components=1 \</span>
+<span class="go">	-C &lt;webserver-path&gt;/kibana</span></code></pre></div>
+			<div class="panel radius">
+				<p><b>Note: </b>you may need to edit 'config.js' file and set the elasticsearch
+				address.</p>
+				<p><b>Example: </b>elasticsearch = http://127.0.0.1:9200</p>
+			</div>
+
+			<li><b>Install </b><a
+				href="http://www.haka-security.org/download/haka.html">Haka</a> and <a
+				href="http://www.haka-security.org/download/hakabana.html">Hakabana</a>
+			</li>
+<div class="highlight"><pre><code class="console"><span class="go">sudo dpkg -i haka-&lt;version&gt;.deb</span>
+<span class="go">sudo dpkg -i hakabana-&lt;version&gt;.deb</span></code></pre></div>
+		</ol>
+	</div>
+	<div class="medium-6 columns">
+		<ol class="enumeration" start="4">
+			<li><b>Setup and start </b>Haka.</li>
+<div class="highlight"><pre><code class="console"><span class="go">haka -c /usr/share/haka/hakabana/haka.conf</span></code></pre></div>
+				<div class="panel radius">
+					<p><b>Note: </b>you may need to update elasticsearch setting
+					in /usr/local/share/haka/hakabana/config.lua</p>
+				</div>
+
+			<li>
+				<p><b>Visit</b> kibana webpage at http://&lt;webserver-address&gt;/kibana.
+				</p>
+			</li>
+
+			<li>
+				<p><b>Load </b><a
+					href="https://raw.githubusercontent.com/haka-security/hakabana/develop/dashboard/Hakabana.json">Kibana dashboard.</a></p>
+			</li>
+		</ol>
+		<ul class="enumeration">
+			<li>
+				<p><b>Building from </b><a
+						href="https://github.com/haka-security/hakabana/blob/develop/README.md" target="_blank">source</a> ?
+					</p>
+			</li>
+
+			<li>
+				<p><b>Going further:</b> All data are exposed to hakabana
+					through security rules in
+					/usr/local/share/haka/modules/misc/hakabana/. So feel free to
+					customize these rules to fit you own goals.
+				</p>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+					<div class="pad"></div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	$(document).foundation();
+</script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
+
+	</body>
+</html>
+

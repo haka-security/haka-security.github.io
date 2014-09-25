@@ -1,0 +1,177 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Haka meets Kibana - Hakabana</title>
+
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
+
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://www.haka-security.org/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://www.haka-security.org/blog/2014/09/24/hakabana-release.html" title="Permalink to Haka meets Kibana - Hakabana" rel="bookmark">
+				<time class="entry-date" datetime="2014-09-24T00:00:00+02:00">24 Sep 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://www.haka-security.org/category/release.html" rel="category tag">release</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content news">
+		<h2>
+			<a href="//blog/2014/09/24/hakabana-release.html" title="Permalink to Haka meets Kibana - Hakabana" rel="bookmark">
+				Haka meets Kibana - Hakabana
+			</a>
+			
+	
+
+
+
+		</h2>
+		<img src="/img/" width="142" height="130" class="news-image" />
+		<p>We are pleased to announce the release of new haka packages:</p>
+<div class="row">
+	<div class="medium-4 columns text-center">
+		<img src="http://www.haka-security.org/img/hakabana_dashboard_reflect.png" alt="kibana
+		dashboard"/>
+	</div>
+	<div class="medium-8 columns">
+		<ul>
+			<li>
+				<p><b>Haka 0.2.1</b>: Haka in an open source security oriented
+				language which allows to describe network protocols and apply
+				security policies on (live) captured traffic. This new version
+				features new modules allowing to export network events such as
+				protocol details and haka alerts to an elasticsearch server.</p>
+			</li>
+
+			<li>
+				<p><b>Hakabana 0.2.1</b>: <a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+				is a monitoring tool that leverages on the newly added modules
+				to extract various information on the network: bandwidth, geoip
+				data, http and dns details and made them available through a
+				kibana dashboard.  Hakabana provides easy customization enabling
+				to export your own data (e.g. write a new dissector and expose
+				some of its fields).</p></li>
+		</ul>
+	</div>
+</div>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/08/11/second-release.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Second Release - Protocol dissection
+		</a>
+		
+		
+	</div>
+</nav>
+
+</article>
+
+					<div class="pad"></div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	$(document).foundation();
+</script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
+
+	</body>
+</html>
+
