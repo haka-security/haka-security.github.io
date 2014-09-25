@@ -43,6 +43,9 @@
 		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
 		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
@@ -51,8 +54,12 @@
 	<li class=" active ">
 		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
-	<li class="has-form ">
-		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
 	</li>
 </ul>
 
@@ -126,7 +133,7 @@ content on the fly.</p>
 	<li>The first rule will only authorise http traffic to update servers
 	(e.g. mozilla.org). This is done by checking the 'Host' header.</li>
 
-	<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 	<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;</span><span class="s">Host&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="s">&#39;</span>
@@ -144,7 +151,7 @@ content on the fly.</p>
 	capabilities to modify http headers response on the fly in order to
 	redirect requests.</li>
 
-	<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 	<span class="kd">local</span> <span class="n">UA</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="s">No User-Agent header&quot;</span>

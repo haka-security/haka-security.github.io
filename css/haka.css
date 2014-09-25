@@ -150,6 +150,19 @@ header#header a, header#header a:visited {
 	background: #272727;
 }
 
+#navbar ul li.has-dropdown > a.button:after {
+	margin-top: -7.5px;
+}
+
+#navbar ul li.has-dropdown > a.button + ul.dropdown {
+	/**
+	 * li height is 45px
+	 * a.button height is 32px with 5px padding-bottom
+	 * Adding : (45-32)/2 + 5 = 11.5px rounded to 12.5 -_-'
+	 */
+	margin-top: 12.5px;
+}
+
 /**
  * Content
  */
@@ -430,4 +443,13 @@ h6 .label {
 
 .version-tag {
 	padding: 0 0.55rem 0.3rem 0.2rem;
+}
+
+.setup-instructions li {
+	color: rgb(69, 71, 70);
+	line-height: 26px;
+}
+
+.setup-instructions {
+	padding: 0;
 }

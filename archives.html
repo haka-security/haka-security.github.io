@@ -43,6 +43,9 @@
 		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
 		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
@@ -51,8 +54,12 @@
 	<li class="">
 		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
-	<li class="has-form ">
-		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
 	</li>
 </ul>
 
@@ -67,6 +74,80 @@
 	<div class="row">
 		<div class="medium-12 columns">
 			<div class="pad"></div>
+
+<h2>Download Haka v0.2</h2>
+
+<div class="row collapse">
+	<h4 class="inline-block medium-4 subheader">Debian packages</h4>
+	<span class="inline-block medium-3">
+		<a href="#" class="button radius dropdown small" data-dropdown="drop32">DEB (32 bit)</a>
+		<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_i386.deb.sha1.txt">sha1</a>
+		<br>
+		<ul	id="drop32" data-dropdown-content class="f-dropdown">
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_i386.deb">haka_0.2_i386.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-doc_0.2_all.deb">haka-doc_0.2_all.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-nfqueue_0.2_i386.deb">haka-nfqueue_0.2_i386.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-dev_0.2_i386.deb">haka-dev_0.2_i386.deb</a>
+		</ul>
+	</span>
+	<span class="inline-block medium-3">
+		<a href="#" class="button radius dropdown small" data-dropdown="drop64">DEB (64 bit)</a>
+		<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_amd64.deb.sha1.txt">sha1</a>
+		<br>
+		<ul	id="drop64" data-dropdown-content class="f-dropdown">
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_amd64.deb">haka_0.2_amd64.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-doc_0.2_all.deb">haka-doc_0.2_all.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-nfqueue_0.2_amd64.deb">haka-nfqueue_0.2_amd64.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-dev_0.2_amd64.deb">haka-dev_0.2_amd64.deb</a>
+		</ul>
+	</span>
+</div>
+
+<div class="row collapse">
+	<h4 class="inline-block medium-4 subheader">Source</h4>
+	<a class="button radius small" href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_source.tar.gz">TAR.GZ</a>
+	<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_source.tar.gz.sha1.txt">sha1</a>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns collapse-top-margin">
+		<h5>New features:</h5>
+		<ul>
+			<li>Protocol dissector written in Lua</li>
+			<ul>
+				<li>Protocol message syntax described in Lua</li>
+				<li>Protocol state machine described in Lua</li>
+			</ul>
+			<li>Multiple dissectors added</li>
+			<ul>
+				<li>ICMP</li>
+				<li>UDP</li>
+				<li>DNS</li>
+			</ul>
+			<li>Pattern matching engine</li>
+			<li>External module support</li>
+			<li>IPv4 fragmentation support</li>
+			<li>Remote console</li>
+		</ul>
+	</div>
+	<div class="medium-6 columns collapse-top-margin">
+		<h5>And we still have:</h5>
+		<ul>
+			<li>Security rules written in Lua</li>
+			<li>Logging and alerting</li>
+			<li>Pcap packet capture</li>
+			<li>Netfilter queue packet capture</li>
+			<li>Security rules debugging</li>
+			<li>Multiple dissectors
+			<ul>
+				<li>IPv4</li>
+				<li>TCP</li>
+				<li>HTTP</li>
+			</ul>
+			</li>
+		</ul>
+	</div>
+</div>
 
 <h2>Download Haka v0.1.0</h2>
 

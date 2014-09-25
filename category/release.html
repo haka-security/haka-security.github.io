@@ -43,6 +43,9 @@
 		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
 		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
@@ -51,8 +54,12 @@
 	<li class=" active ">
 		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
-	<li class="has-form ">
-		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
 	</li>
 </ul>
 
@@ -67,6 +74,72 @@
 	<div class="row">
 		<div class="medium-12 columns">
 			<div class="pad"></div>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://www.haka-security.org/blog/2014/09/24/hakabana-release.html" title="Permalink to Haka meets Kibana - Hakabana" rel="bookmark">
+				<time class="entry-date" datetime="2014-09-24T00:00:00+02:00">24 Sep 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://www.haka-security.org/category/release.html" rel="category tag">release</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content news">
+		<h2>
+			<a href="http://www.haka-security.org/blog/2014/09/24/hakabana-release.html" title="Permalink to Haka meets Kibana - Hakabana" rel="bookmark">
+				Haka meets Kibana - Hakabana
+
+			</a>
+			
+	
+
+
+
+		</h2>
+		
+			<img src="http://www.haka-security.org/img/" width="142" height="130" class="news-image" />
+			<p>We are pleased to announce the release of new haka packages:</p>
+<div class="row">
+	<div class="medium-4 columns text-center">
+		<img src="http://www.haka-security.org/img/hakabana_dashboard_reflect.png" alt="kibana
+		dashboard"/>
+	</div>
+	<div class="medium-8 columns">
+		<ul>
+			<li>
+				<p><b>Haka 0.2.1</b>: Haka in an open source security oriented
+				language which allows to describe network protocols and apply
+				security policies on (live) captured traffic. This new version
+				features new modules allowing to export network events such as
+				protocol details and haka alerts to an elasticsearch server.</p>
+			</li>
+
+			<li>
+				<p><b>Hakabana 0.2.1</b>: <a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+				is a monitoring tool that leverages on the newly added modules
+				to extract various information on the network: bandwidth, geoip
+				data, http and dns details and made them available through a
+				kibana dashboard.  Hakabana provides easy customization enabling
+				to export your own data (e.g. write a new dissector and expose
+				some of its fields).</p></li>
+		</ul>
+	</div>
+</div>
+
+		
+	</div>
+	
+	<div class="clear-both"></div>
+</article>
 
 
 	<article>
@@ -156,7 +229,7 @@ oriented language - which introduces a lot of new features and cool stuff:</p>
 			<span class="has-tip no-border" data-tooltip title="runs on version 0.2">
 				<span class="label round version-tag">v0.2</span>
 			</span>
-	
+		
 
 
 
@@ -222,7 +295,7 @@ API improvements, etc.</p>
 			<span class="has-tip no-border" data-tooltip title="runs on version 0.2">
 				<span class="label round version-tag">v0.2</span>
 			</span>
-	
+		
 
 
 
@@ -289,7 +362,7 @@ used in the previous blog post to detect heartbleed.</p>
 			<span class="has-tip no-border" data-tooltip title="runs on version 0.2">
 				<span class="label round version-tag">v0.2</span>
 			</span>
-	
+		
 
 
 

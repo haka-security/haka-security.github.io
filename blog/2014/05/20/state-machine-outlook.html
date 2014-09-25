@@ -43,6 +43,9 @@
 		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
 		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
@@ -51,8 +54,12 @@
 	<li class=" active ">
 		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
-	<li class="has-form ">
-		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
 	</li>
 </ul>
 
@@ -108,7 +115,7 @@
 			<span class="has-tip no-border" data-tooltip title="runs on version 0.2">
 				<span class="label round version-tag">v0.2</span>
 			</span>
-	
+		
 
 
 
@@ -137,7 +144,7 @@ state machine with Haka.</p>
 
 <p>A single line creates the state machine</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
     <span class="n">state_type</span><span class="p">(</span><span class="n">BidirectionalState</span><span class="p">)</span>
 
     <span class="p">(</span><span class="o">...</span><span class="p">)</span>
@@ -154,7 +161,7 @@ be seen as path from a state to another state.</p>
 
 <p>We create a first state, called hello_request and three transitions: </p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_request</span> <span class="o">=</span> <span class="n">state</span><span class="p">(</span><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">sslv3_client_hello</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<div class="highlight"><pre><code class="lua"><span class="n">hello_request</span> <span class="o">=</span> <span class="n">state</span><span class="p">(</span><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">sslv3_client_hello</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
 
 <span class="n">hello_request</span><span class="p">:</span><span class="n">on</span><span class="p">{</span>
     <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">fail</span><span class="p">,</span>
@@ -212,7 +219,7 @@ machine.</p>
 <p>Registering event is made by the <em>register_event</em> function which
 takes a name as parameter:</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
 
 <h4>Triggering events</h4>
 
@@ -221,7 +228,7 @@ following example, we trigger an event whenever a Client Hello record is
 received which enables the evaluation of all security rules registered on that
 particular event:</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_request</span><span class="p">{</span>
+<div class="highlight"><pre><code class="lua"><span class="n">hello_request</span><span class="p">{</span>
     <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">up</span><span class="p">,</span>
     <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
         <span class="n">self</span><span class="p">:</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>

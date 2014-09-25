@@ -43,6 +43,9 @@
 		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
 		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
@@ -51,8 +54,12 @@
 	<li class=" active ">
 		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
-	<li class="has-form ">
-		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
 	</li>
 </ul>
 
@@ -126,7 +133,7 @@ variables such as packet structure.</p>
 script. More precisely, Haka will complain about an unknown <em>destport</em>
 field.</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>

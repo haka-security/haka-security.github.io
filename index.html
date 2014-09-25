@@ -43,6 +43,9 @@
 		<a href="http://www.haka-security.org/resources.html">Resources</a>
 	</li>
 	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
 		<a href="http://www.haka-security.org/community.html">Community</a>
 	</li>
 	<li class="">
@@ -51,8 +54,12 @@
 	<li class="">
 		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
 	</li>
-	<li class="has-form ">
-		<a class="button radius" href="http://www.haka-security.org/download.html">Download</a>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
 	</li>
 </ul>
 
@@ -85,9 +92,10 @@ and packet reassembly to non developer experts and to provide an easy way to ana
 quickly new network protocols.</p>
 
 <div class="panel radius">
-	<p>The Haka team is proud to announce the <strong>release 0.2</strong> of the
-	framework. Check below to see the new and improved features in this
-	version.</p>
+	<p>The Haka team is proud to announce the release of
+	<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>. A tool to
+	visualize network traffic going throught <b>Haka</b> in real-time using
+	<b>Kibana</b> and <b>Elasticsearch</b>.</p>
 </div>
 
 <div class="row">
@@ -102,7 +110,7 @@ quickly new network protocols.</p>
 		<p>Define your own security rules to alter/drop/inject packets
 		based on combination of protocol fields (ip, tcp, udp, icmp, dns and http).</p>
 
-		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+		<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hook</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_packet</span><span class="p">,</span>
@@ -144,7 +152,7 @@ quickly new network protocols.</p>
 		<p>Protocol parsing is simple, describe the messages in Haka and let
 		the engine do the parsing.</p>
 
-		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">icmp&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+		<div class="highlight"><pre><code class="lua"><span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">icmp&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
     <span class="n">packet</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
         <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span>     <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
         <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">code&#39;</span><span class="p">,</span>     <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
@@ -176,15 +184,16 @@ quickly new network protocols.</p>
 
 <div class="row">
 	<div class="medium-6 columns">
-		<h3>Log &amp; alert</h3>
+		<h3>Modular, extensible</h3>
 
-		<p>Log and report malicious activities in syslog using an
-		idmef-like format.</p>
+		<p>Haka has a modular design which allows easy customisation.
+		The internal and external APIs are well documented and allow
+		anyone to easily add new protocols, capture methods, logging
+		sinks...</p>
 
 		<div class="text-center">
-			<img alt="logging" src="http://www.haka-security.org/img/logging.png" width="300" height="144" />
+			<img alt="modular1" src="http://www.haka-security.org/img/modular1.png" width="240" height="223" />
 		</div>
-
 	</div>
 
 	<div class="medium-6 columns">
@@ -200,6 +209,8 @@ quickly new network protocols.</p>
 	</div>
 </div>
 
+<h2>Going further !</h2>
+
 <div class="row">
 	<div class="medium-6 columns">
 		<h3>
@@ -210,7 +221,7 @@ quickly new network protocols.</p>
 		</h3>
 
 		<p>A full workshop is available for you to dig into Haka. Check out
-		our <a href="http://www.haka-security.org/download.html">bootable live iso!</a></p>
+		our <a href="http://www.haka-security.org/download/haka.html">bootable live iso!</a></p>
 
 		<br>
 
@@ -220,15 +231,21 @@ quickly new network protocols.</p>
 	</div>
 
 	<div class="medium-6 columns">
-		<h3>Modular, extensible</h3>
+		<h3>
+			Hakabana
+			<span class="has-tip no-border" data-tooltip title="new in version 0.2.1">
+				<span class="label round">new</span>
+			</span>
+		</h3>
 
-		<p>Haka has a modular design which allows easy customisation.
-		The internal and external APIs are well documented and allow
-		anyone to easily add new protocols, capture methods, logging
-		sinks...</p>
+		<p>Visualize network traffic going throught <b>Haka</b> in
+		real-time using <b>Kibana</b> and <b>Elasticsearch</b>.  Check
+		out <a href="http://www.haka-security.org/hakabana.html">Hakabana</a>.</p>
 
 		<div class="text-center">
-			<img alt="modular1" src="http://www.haka-security.org/img/modular1.png" width="240" height="223" />
+			<a href="http://www.haka-security.org/hakabana.html">
+				<img alt="modular1" src="http://www.haka-security.org/img/hakabana_dashboard_reflect.png" width="240" height="223" />
+			</a>
 		</div>
 	</div>
 </div>
@@ -251,7 +268,7 @@ at the upcoming features.</p>
 				<div class="medium-12 columns">
 					<aside id="text-2">
 						<span id="interesting">Seems interesting?</span>
-						<span id="download">Download Haka now <a class="button radius" href="http://www.haka-security.org/download.html" style="margin-left:20px;">Download</a></span>
+						<span id="download">Download Haka now <a class="button radius" href="http://www.haka-security.org/download/haka.html" style="margin-left:20px;">Download</a></span>
 					</aside>
 				</div>
 			</div>
