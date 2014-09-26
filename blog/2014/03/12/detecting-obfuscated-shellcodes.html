@@ -124,7 +124,7 @@ commands. Here is an example of a /bin/sh shellcode:</p>
 
 <!--more-->
 
-<div class="highlight"><pre><code class="c"><span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x6A\x68\x68\x2F\x62\x61\x73\x68</span><span class="s">&quot;</span>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x6A\x68\x68\x2F\x62\x61\x73\x68</span><span class="s">&quot;</span>
                    <span class="s">&quot;</span><span class="se">\x2F\x62\x69\x6E\x89\xE3\x31\xD2</span><span class="s">&quot;</span>
                    <span class="s">&quot;</span><span class="se">\x52\x53\x89\xE1\x6A\x0B\x58\xCD</span><span class="s">&quot;</span>
                    <span class="s">&quot;</span><span class="se">\x80\x31\xDB\x31\xC0\x40\xCD\x80</span><span class="s">&quot;</span><span class="p">;</span></code></pre></div>
@@ -156,7 +156,7 @@ detected the polymorphic payload.</p>
 security rule which checks if bytes in yellow boxes are present in tcp data and
 raises an alert in case of matching:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">invariant_bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">\xeb.*\x31.*\x20\x8b.*\x74\x07\xeb.*\xe8.*\xff\xff\xff&quot;</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">invariant_bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">\xeb.*\x31.*\x20\x8b.*\x74\x07\xeb.*\xe8.*\xff\xff\xff&quot;</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>

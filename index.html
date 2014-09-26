@@ -110,7 +110,7 @@ quickly new network protocols.</p>
 		<p>Define your own security rules to alter/drop/inject packets
 		based on combination of protocol fields (ip, tcp, udp, icmp, dns and http).</p>
 
-		<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hook</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_packet</span><span class="p">,</span>
@@ -152,7 +152,7 @@ quickly new network protocols.</p>
 		<p>Protocol parsing is simple, describe the messages in Haka and let
 		the engine do the parsing.</p>
 
-		<div class="highlight"><pre><code class="lua"><span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">icmp&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">icmp&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
     <span class="n">packet</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
         <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span>     <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
         <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">code&#39;</span><span class="p">,</span>     <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>

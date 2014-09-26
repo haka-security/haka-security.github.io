@@ -74,6 +74,10 @@ ul.f-dropdown {
 	padding-left: 5px;
 }
 
+.f-dropdown {
+	max-width: 250px;
+}
+
 blockquote, blockquote cite {
 	color: #515151;
 }

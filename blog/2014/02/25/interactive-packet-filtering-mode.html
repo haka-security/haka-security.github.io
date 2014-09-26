@@ -131,7 +131,7 @@ therefore is a good starting point to dive into the Haka API.</p>
 
 		<p>All the magic starts with the following rule:</p>
 
-		<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
@@ -147,7 +147,7 @@ therefore is a good starting point to dive into the Haka API.</p>
 			capture</a> by running this rule using our tool hakapcap (a
 		tool dedicated to packet capture analysis):</p>
 
-		<div class="highlight"><pre><code class="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
+		<div class="highlight"><pre><code class="language-bash" data-lang="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
 	</div>
 </div>
 
