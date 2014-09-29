@@ -137,7 +137,7 @@ SQL keyword is found in the uri and raises an alert if this score exceeds a
 fixed threshold. This rule shows also Haka capabilities to log suspicious event
 (passive reaction) and to drop malicious connections (active reaction).</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">select&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">insert&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">update&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">delete&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">union&#39;</span> <span class="p">}</span>
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">select&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">insert&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">update&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">delete&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">union&#39;</span> <span class="p">}</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-request&#39;</span> <span class="p">},</span>

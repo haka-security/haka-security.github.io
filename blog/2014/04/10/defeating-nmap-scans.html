@@ -145,7 +145,7 @@ packet.</p>
 
 <!--more-->
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="lua"><span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">disable_dissector</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">tcp-connection&#39;</span><span class="p">)</span>
@@ -181,15 +181,15 @@ packet.</p>
 <p> Hearafter, a snippet output of a Nmap Xmas Scan ran on a server hosting
 multiple services:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">root@kali:~# nmap -sX -P0 server
+<div class="highlight"><pre><code class="bash">root@kali:~# nmap -sX -P0 server
 Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2014-04-08 11:53 CEST
 ...
-All <span class="m">1000</span> scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
-Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
+All 1000 scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
 
 <h6><span class="label round">edit</span> The above code has been updated to work on Haka 0.2 versions:</h6>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">raw</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/raw&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="lua"><span class="n">raw</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/raw&#39;</span><span class="p">)</span>
 <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 

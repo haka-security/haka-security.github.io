@@ -130,7 +130,7 @@ image requested by a browser to a lolcat image?</p>
 <p>The following rule replaces the requested image ressource (png, gif, and png
 files) by a lolcat image.</p>
 
-<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">image_ext</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">.png&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.gif&#39;</span> <span class="p">}</span>
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">image_ext</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">.png&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.gif&#39;</span> <span class="p">}</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-request&#39;</span> <span class="p">},</span>
