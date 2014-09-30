@@ -1,0 +1,270 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Visualizing alerts using kibana and elasticsearch</title>
+
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
+
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://www.haka-security.org/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://www.haka-security.org/blog/2014/09/30/visualizing-alerts-using-kibana-and-elasticsearch.html" title="Permalink to Visualizing alerts using kibana and elasticsearch" rel="bookmark">
+				<time class="entry-date" datetime="2014-09-30T00:00:00+02:00">30 Sep 2014</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>, 
+			
+			<a href="http://www.haka-security.org/category/v0.2.1.html" rel="category tag">v0.2.1</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="//blog/2014/09/30/visualizing-alerts-using-kibana-and-elasticsearch.html" title="Permalink to Visualizing alerts using kibana and elasticsearch" rel="bookmark">
+				Visualizing alerts using kibana and elasticsearch
+			</a>
+			
+	
+
+	
+
+	
+			<span class="has-tip no-border" data-tooltip title="runs on version 0.2.1">
+				<span class="label round version-tag">v0.2.1</span>
+			</span>
+	
+
+
+
+		</h2>
+		<div class="row">
+	<div class="medium-8 columns">
+		<p>As you have already noticed, haka 0.2.1 features new modules enabling to export
+		data to an elasticsearch server. We leveraged on these modules in the Hakabana
+		package to monitor in real-time network data (protocols, flows, geoip info,
+		etc.) through a kibana dashboard.</p>
+
+		<p>The 0.2.1 version introduces also an elasticsearch alerting module allowing
+		to insert haka alerts into an elasticsearch server. In the following,
+		we present the main steps to visualize these alerts using a kibana
+		dashboard.</p>
+	</div>
+	<div class="medium-4 columns text-center">
+		<img src="http://www.haka-security.org/img/kibana_ips_reflect.png" alt="kibana ips dashboard"/>
+	</div>
+</div>
+
+<!--more-->
+
+<h3>Requirements</h3>
+<p>First of all, we assume that you have already a
+kibana and elasticsearch installed on your machine. If not, your are
+encouraged to check the <a href="/hakabana.html">Getting
+	started section</a> to install and setup them. In the sequel, we assume
+that your elasticsearch server has been started and the main kibana
+dashboard is available through http://&lt;webserver-address&gt;/kibana.</p>
+
+<h3>Configuration</h3>
+Before starting haka, we need to enable in its configuration file the
+elasticsearch alerting module and set some parameters:
+<div class="highlight"><pre><code class="ini"><span class="k">[general]</span>
+<span class="c1"># Select the haka configuration file to use.</span>
+<span class="na">configuration</span> <span class="o">=</span> <span class="s">&quot;config.lua&quot;</span>
+
+<span class="k">[packet]</span>
+<span class="c1">#Select the capture model, nfqueue or pcap</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">&quot;packet/pcap&quot;</span>
+<span class="na">interfaces</span> <span class="o">=</span> <span class="s">&quot;eth5&quot;</span>
+
+<span class="k">[log]</span>
+<span class="c1"># Select the log module</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">&quot;log/syslog&quot;</span>
+
+<span class="k">[alert]</span>
+<span class="c1"># Select the alert module</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">&quot;alert/elasticsearch&quot;</span>
+
+<span class="c1"># alert/elasticsearch module options</span>
+<span class="na">elasticsearch_server</span> <span class="o">=</span> <span class="s">&quot;http://127.0.0.1:9200&quot;</span>
+<span class="na">geoip_database</span> <span class="o">=</span> <span class="s">&quot;/usr/share/GeoIP/GeoIP.dat&quot;</span></code></pre></div>
+
+<p>The above configuration tells haka to capture packet on eth0 interface using the
+pcap capture module and exports alerts to an elasticsearch server running on the
+local machine on port 9200. Moreover, thanks to geoip option, we will enrich our
+<a href="http://doc.haka-security.org/haka/release/v0.2.1/doc/ref/alert.html"
+	target="_blank">IDMEF-like alert format</a> with geolocalization info.</p>
+
+<h3>Starting Haka</h3>
+<p>For testing purpose, we provide the following script config.lua that raises
+alerts with dummy data:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">icmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/icmp&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">udp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/udp&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="k">function</span> <span class="nf">gen_alert</span><span class="p">(</span><span class="nb">module</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">severity</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">completion</span><span class="p">,</span>  <span class="n">method_ref</span><span class="p">,</span> <span class="n">method_desc</span><span class="p">)</span>
+    <span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+        <span class="n">hook</span> <span class="o">=</span> <span class="n">module</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_packet</span><span class="p">,</span>
+        <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">raw</span><span class="p">.</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="n">desc</span><span class="p">,</span>
+                <span class="n">severity</span> <span class="o">=</span> <span class="n">severity</span><span class="p">,</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="n">confidence</span><span class="p">,</span>
+                <span class="n">completion</span> <span class="o">=</span> <span class="n">completion</span><span class="p">,</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="n">method_desc</span><span class="p">,</span>
+                    <span class="n">ref</span> <span class="o">=</span> <span class="n">method_ref</span>
+                <span class="p">},</span>
+                <span class="n">sources</span> <span class="o">=</span> <span class="p">{</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">)</span> <span class="p">},</span>
+                <span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="k">end</span>
+    <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">gen_alert</span><span class="p">(</span><span class="n">icmp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">buffer overflow in proftpd&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">high&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">medium&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">failed&quot;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="s2">&quot;</span><span class="s">cwe:121&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">cve:2010-4221&quot;</span> <span class="p">},</span> <span class="s2">&quot;</span><span class="s">stack-based overlfow&quot;</span><span class="p">)</span>
+
+<span class="n">gen_alert</span><span class="p">(</span><span class="n">tcp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">format string bug in rwhoisd&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">medium&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">low&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">successful&quot;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="s2">&quot;</span><span class="s">cwe:134&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">cve:2001-0913&quot;</span> <span class="p">},</span> <span class="s2">&quot;</span><span class="s">format string bug&quot;</span><span class="p">)</span>
+
+<span class="n">gen_alert</span><span class="p">(</span><span class="n">udp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">sqli in wordpress plugin&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">low&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">medium&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">failed&quot;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="s2">&quot;</span><span class="s">cwe:89&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">cve:2014-5201&quot;</span> <span class="p">},</span> <span class="s2">&quot;</span><span class="s">sql injection&quot;</span><span class="p">)</span></code></pre></div>
+
+Now, we are ready to start haka using the previously defined configuration file
+haka.conf. This will load your haka script file config.lua.
+
+<div class="highlight"><pre><code class="console"><span class="go">haka -c haka.conf</span></code></pre></div>
+
+<h3>Starting with monitoring</h3>
+<p>The last step is to visit the main kibana page at
+http://&lt;webserver-address&gt;/kibana and load this <a
+	href="http://doc.haka-security.org/haka/release/v0.2.1/_downloads/ips_dahsboard.json">dashboard</a>. At this point, you should get info about alerts thrown by haka.</p>
+
+<div class="text-center">
+	<img alt="kibana ips dashboard" src="/img/kibana_ips.png">
+</div>
+
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/09/24/hakabana-release.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Haka meets Kibana - Hakabana
+		</a>
+		
+		
+	</div>
+</nav>
+
+</article>
+
+					<div class="pad"></div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	$(document).foundation();
+</script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
+
+	</body>
+</html>
+
