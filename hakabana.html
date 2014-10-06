@@ -184,18 +184,12 @@ Elasticsearch.</p>
 <span class="go">sudo service elasticsearch start</span></code></pre></div>
 
 			<li><b>Install</b> and setup <a
-				href="http://www.elasticsearch.org/overview/kibana/installation/"
+				href="https://download.elasticsearch.org/kibana/kibana/kibana-latest.tar.gz"
 				target="_blank">Kibana</a>. <medium>Require a web
 			server</medium>.</li>
-<div class="highlight"><pre><code class="console"><span class="go">tar -zxvf kibana-&lt;version&gt;.tar.gz \</span>
+<div class="highlight"><pre><code class="console"><span class="go">tar -zxvf kibana-latest.tar.gz \</span>
 <span class="go">	--strip-components=1 \</span>
 <span class="go">	-C &lt;webserver-path&gt;/kibana</span></code></pre></div>
-			<div class="panel radius">
-				<p><b>Note: </b>you may need to edit 'config.js' file and set the elasticsearch
-				address.</p>
-				<p><b>Example: </b>elasticsearch = http://127.0.0.1:9200</p>
-			</div>
-
 			<li><b>Install </b><a
 				href="http://www.haka-security.org/download/haka.html">Haka</a> and <a
 				href="http://www.haka-security.org/download/hakabana.html">Hakabana</a>
@@ -204,14 +198,10 @@ Elasticsearch.</p>
 <span class="go">sudo dpkg -i hakabana_&lt;version&gt;.deb</span>
 <span class="go">sudo dpkg -i haka-elasticsearch_&lt;version&gt;.deb</span>
 <span class="go">sudo dpkg -i haka-geoip_&lt;version&gt;.deb</span></code></pre></div>
-		</ol>
-	</div>
-	<div class="medium-6 columns">
-		<ol class="enumeration" start="4">
 			<li><b>Setup and start </b>Haka.</li>
 <div class="highlight"><pre><code class="console"><span class="go">haka -c /usr/share/haka/hakabana/haka.conf</span></code></pre></div>
 				<div class="panel radius">
-					<p><b>Note: </b>you may need to update elasticsearch setting
+					<p><b>Note: </b>you may need to update the elasticsearch ip address
 					in /usr/share/haka/hakabana/config.lua</p>
 				</div>
 
@@ -219,24 +209,54 @@ Elasticsearch.</p>
 				<p><b>Visit</b> kibana webpage at http://&lt;webserver-address&gt;/kibana.
 				</p>
 			</li>
-
+		</ol>
+	</div>
+	<div class="medium-6 columns">
+		<ol class="enumeration" start="6">
 			<li>
-				<p><b>Load </b><a
-					href="https://raw.githubusercontent.com/haka-security/hakabana/develop/dashboard/Hakabana.json">Kibana dashboard.</a></p>
+				<p><b>Download </b><a
+					href="https://raw.githubusercontent.com/haka-security/hakabana/develop/dashboard/Hakabana.json">Hakabana dashboard.</a></p>
+			</li>
+			<li>
+				<p>
+					<b>Load</b> it in kibana with the <em>advanced load menu</em>.
+				</p>
+				<p>
+					<img alt="kibana load" src="http://www.haka-security.org/img/hakabana-load.png" />
+				</p>
+			</li>
+			<li>
+				<p><b>Enjoy Hakabana !</b></p>
+				<p>
+					<img alt="hakabana dashboard" src="http://www.haka-security.org/img/hakabana_dashboard.png" />
+				</p>
 			</li>
 		</ol>
+	</div>
+</div>
+
+<h2>Advanced topic</h2>
+<div class="row">
+	<div class="medium-6 columns">
 		<ul class="enumeration">
 			<li>
-				<p><b>Building from </b><a
-						href="https://github.com/haka-security/hakabana/blob/develop/README.md" target="_blank">source</a> ?
-					</p>
+				<p>
+					<b>Building from </b>
+					<a href="https://github.com/haka-security/hakabana/blob/develop/README.md" target="_blank">source</a> ?
+				</p>
+				<p class="text-center">
+					<img alt="building from source ?" src="http://www.haka-security.org/img/developer.png" width="100px" height="100px" />
+				</p>
 			</li>
-
+		</ul>
+	</div>
+	<div class="medium-6 columns">
+		<ul class="enumeration">
 			<li>
-				<p><b>Going further:</b> All data are exposed to hakabana
-					through security rules in
-					/usr/share/haka/modules/misc/hakabana/. So feel free to
-					customize these rules to fit you own goals.
+				<p>
+					<b>Going further:</b> All data are exposed to hakabana through security rules in
+<div class="highlight"><pre><code class="console"><span class="go">/usr/share/haka/modules/misc/hakabana/</span></code></pre></div>
+					Feel free to customize these rules to fit you own goals.
 				</p>
 			</li>
 		</ul>
