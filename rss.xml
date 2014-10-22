@@ -1,0 +1,2072 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Haka | Software Defined Security</title>
+
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
+
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://www.haka-security.org/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>Haka | Software Defined Security</title>
+    <link>http://www.haka-security.org</link>
+    <description>RSS feed for Haka | Software Defined Security</description>
+    <pubDate>Tue, 30 Sep 2014 00:00:00 +0200</pubDate>
+    <item>
+      <title>Visualizing alerts using kibana and elasticsearch</title>
+      <link>http://www.haka-security.org/blog/2014/09/30/visualizing-alerts-using-kibana-and-elasticsearch.html</link>
+      <description><![CDATA[
+	
+		As you have already noticed, haka 0.2.1 features new modules enabling to export
+		data to an elasticsearch server. We leveraged on these modules in the Hakabana
+		package to monitor in real-time network data (protocols, flows, geoip info,
+		etc.) through a kibana dashboard.
+
+		The 0.2.1 version introduces also an elasticsearch alerting module allowing
+		to insert haka alerts into an elasticsearch server. In the following,
+		we present the main steps to visualize these alerts using a kibana
+		dashboard.
+	
+	
+		
+	
+
+
+
+
+]]></description>
+      <pubDate>Tue, 30 Sep 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/09/30/visualizing-alerts-using-kibana-and-elasticsearch.html</guid>
+      <content:encoded><![CDATA[<div class="row">
+	<div class="medium-8 columns">
+		<p>As you have already noticed, haka 0.2.1 features new modules enabling to export
+		data to an elasticsearch server. We leveraged on these modules in the Hakabana
+		package to monitor in real-time network data (protocols, flows, geoip info,
+		etc.) through a kibana dashboard.</p>
+
+		<p>The 0.2.1 version introduces also an elasticsearch alerting module allowing
+		to insert haka alerts into an elasticsearch server. In the following,
+		we present the main steps to visualize these alerts using a kibana
+		dashboard.</p>
+	</div>
+	<div class="medium-4 columns text-center">
+		<img src="http://www.haka-security.org/img/kibana_ips_reflect.png" alt="kibana ips dashboard"/>
+	</div>
+</div>
+
+<!--more-->
+
+<h3>Requirements</h3>
+<p>First of all, we assume that you have already a
+kibana and elasticsearch installed on your machine. If not, your are
+encouraged to check the <a href="http://www.haka-security.org/hakabana.html">Getting
+	started section</a> to install and setup them. In the sequel, we assume
+that your elasticsearch server has been started and the main kibana
+dashboard is available through http://&lt;webserver-address&gt;/kibana.</p>
+
+<h3>Configuration</h3>
+Before starting haka, we need to enable in its configuration file the
+elasticsearch alerting module and set some parameters:
+<div class="highlight"><pre><code class="ini"><span class="k">[general]</span>
+<span class="c1"># Select the haka configuration file to use.</span>
+<span class="na">configuration</span> <span class="o">=</span> <span class="s">&quot;config.lua&quot;</span>
+
+<span class="k">[packet]</span>
+<span class="c1">#Select the capture model, nfqueue or pcap</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">&quot;packet/pcap&quot;</span>
+<span class="na">interfaces</span> <span class="o">=</span> <span class="s">&quot;eth5&quot;</span>
+
+<span class="k">[log]</span>
+<span class="c1"># Select the log module</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">&quot;log/syslog&quot;</span>
+
+<span class="k">[alert]</span>
+<span class="c1"># Select the alert module</span>
+<span class="na">module</span> <span class="o">=</span> <span class="s">&quot;alert/elasticsearch&quot;</span>
+
+<span class="c1"># alert/elasticsearch module options</span>
+<span class="na">elasticsearch_server</span> <span class="o">=</span> <span class="s">&quot;http://127.0.0.1:9200&quot;</span>
+<span class="na">geoip_database</span> <span class="o">=</span> <span class="s">&quot;/usr/share/GeoIP/GeoIP.dat&quot;</span></code></pre></div>
+
+<p>The above configuration tells haka to capture packet on eth0 interface using the
+pcap capture module and exports alerts to an elasticsearch server running on the
+local machine on port 9200. Moreover, thanks to geoip option, we will enrich our
+<a href="http://doc.haka-security.org/haka/release/v0.2.1/doc/ref/alert.html"
+	target="_blank">IDMEF-like alert format</a> with geolocalization info.</p>
+
+<h3>Starting Haka</h3>
+<p>For testing purpose, we provide the following script config.lua that raises
+alerts with dummy data:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">icmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/icmp&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">udp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/udp&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="k">function</span> <span class="nf">gen_alert</span><span class="p">(</span><span class="nb">module</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">severity</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">completion</span><span class="p">,</span>  <span class="n">method_ref</span><span class="p">,</span> <span class="n">method_desc</span><span class="p">)</span>
+    <span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+        <span class="n">hook</span> <span class="o">=</span> <span class="n">module</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_packet</span><span class="p">,</span>
+        <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">raw</span><span class="p">.</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="n">desc</span><span class="p">,</span>
+                <span class="n">severity</span> <span class="o">=</span> <span class="n">severity</span><span class="p">,</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="n">confidence</span><span class="p">,</span>
+                <span class="n">completion</span> <span class="o">=</span> <span class="n">completion</span><span class="p">,</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="n">method_desc</span><span class="p">,</span>
+                    <span class="n">ref</span> <span class="o">=</span> <span class="n">method_ref</span>
+                <span class="p">},</span>
+                <span class="n">sources</span> <span class="o">=</span> <span class="p">{</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">)</span> <span class="p">},</span>
+                <span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="k">end</span>
+    <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="n">gen_alert</span><span class="p">(</span><span class="n">icmp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">buffer overflow in proftpd&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">high&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">medium&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">failed&quot;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="s2">&quot;</span><span class="s">cwe:121&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">cve:2010-4221&quot;</span> <span class="p">},</span> <span class="s2">&quot;</span><span class="s">stack-based overlfow&quot;</span><span class="p">)</span>
+
+<span class="n">gen_alert</span><span class="p">(</span><span class="n">tcp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">format string bug in rwhoisd&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">medium&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">low&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">successful&quot;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="s2">&quot;</span><span class="s">cwe:134&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">cve:2001-0913&quot;</span> <span class="p">},</span> <span class="s2">&quot;</span><span class="s">format string bug&quot;</span><span class="p">)</span>
+
+<span class="n">gen_alert</span><span class="p">(</span><span class="n">udp</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">sqli in wordpress plugin&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">low&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">medium&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">failed&quot;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="s2">&quot;</span><span class="s">cwe:89&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">cve:2014-5201&quot;</span> <span class="p">},</span> <span class="s2">&quot;</span><span class="s">sql injection&quot;</span><span class="p">)</span></code></pre></div>
+
+Now, we are ready to start haka using the previously defined configuration file
+haka.conf. This will load your haka script file config.lua.
+
+<div class="highlight"><pre><code class="console"><span class="go">haka -c haka.conf</span></code></pre></div>
+
+<h3>Starting with monitoring</h3>
+<p>The last step is to visit the main kibana page at
+http://&lt;webserver-address&gt;/kibana and load this <a
+	href="http://doc.haka-security.org/haka/release/v0.2.1/_downloads/ips_dahsboard.json">dashboard</a>. At this point, you should get info about alerts thrown by haka.</p>
+
+<div class="text-center">
+	<img alt="kibana ips dashboard" src="http://www.haka-security.org/img/kibana_ips.png">
+</div>
+
+]]></content:encoded>
+      <dc:date>2014-09-30T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Haka meets Kibana - Hakabana</title>
+      <link>http://www.haka-security.org/blog/2014/09/24/hakabana-release.html</link>
+      <description><![CDATA[We are pleased to announce the release of new haka packages:
+
+	
+		
+	
+	
+		
+			
+				Haka 0.2.1: Haka in an open source security oriented
+				language which allows to describe network protocols and apply
+				security policies on (live) captured traffic. This new version
+				features new modules allowing to export network events such as
+				protocol details and haka alerts to an elasticsearch server.
+			
+
+			
+				Hakabana 0.2.1: Hakabana
+				is a monitoring tool that leverages on the newly added modules
+				to extract various information on the network: bandwidth, geoip
+				data, http and dns details and made them available through a
+				kibana dashboard.  Hakabana provides easy customization enabling
+				to export your own data (e.g. write a new dissector and expose
+				some of its fields).
+		
+	
+
+
+
+]]></description>
+      <pubDate>Wed, 24 Sep 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/09/24/hakabana-release.html</guid>
+      <content:encoded><![CDATA[<p>We are pleased to announce the release of new haka packages:</p>
+<div class="row">
+	<div class="medium-4 columns text-center">
+		<img src="http://www.haka-security.org/img/hakabana_dashboard_reflect.png" alt="kibana
+		dashboard"/>
+	</div>
+	<div class="medium-8 columns">
+		<ul>
+			<li>
+				<p><b>Haka 0.2.1</b>: Haka in an open source security oriented
+				language which allows to describe network protocols and apply
+				security policies on (live) captured traffic. This new version
+				features new modules allowing to export network events such as
+				protocol details and haka alerts to an elasticsearch server.</p>
+			</li>
+
+			<li>
+				<p><b>Hakabana 0.2.1</b>: <a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+				is a monitoring tool that leverages on the newly added modules
+				to extract various information on the network: bandwidth, geoip
+				data, http and dns details and made them available through a
+				kibana dashboard.  Hakabana provides easy customization enabling
+				to export your own data (e.g. write a new dissector and expose
+				some of its fields).</p></li>
+		</ul>
+	</div>
+</div>
+]]></content:encoded>
+      <dc:date>2014-09-24T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Second Release - Protocol dissection</title>
+      <link>http://www.haka-security.org/blog/2014/08/11/second-release.html</link>
+      <description><![CDATA[We are pleased to announce the second release of Haka - an open source security
+oriented language - which introduces a lot of new features and cool stuff:
+
+]]></description>
+      <pubDate>Mon, 11 Aug 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/08/11/second-release.html</guid>
+      <content:encoded><![CDATA[<p>We are pleased to announce the second release of Haka - an open source security
+oriented language - which introduces a lot of new features and cool stuff:</p>
+
+<!--more-->
+
+<ul>
+  <li>
+    <p><strong>Protocol grammar</strong>: This new version features a new grammar allowing to specify text-based as well
+as binary-based network protocols avoiding wasting time with tedious and
+error-prone coding of protocol dissectors. The resulting specification process
+generates a parser and provides a read/write access to all protocol fields. </p>
+  </li>
+  <li>
+    <p><strong>Protocol State machine</strong>: this second version provides also a new way to describe protocol state machine which
+was used to rework the specification of complex protocol such as tcp.</p>
+  </li>
+  <li>
+    <p><strong>Available protocols</strong>: thanks to the above features, we have rewritten with a little effort the specification of
+protocols available in the initial version (tcp, http) and defined new ones
+(icmp, udp, dns).</p>
+  </li>
+  <li>
+    <p><strong>Pattern matching engine</strong>: we have added a new stream-based regular expression engine based on PCRE that
+allows to detect malicious pattern accros multiple packets and that is more
+expressive than the built-in Lua engine.</p>
+  </li>
+  <li>
+    <p><strong>API improvements</strong>: the Haka API has been improved introducing an efficient access to network
+streams using virtual buffer concept.</p>
+  </li>
+  <li>
+    <p><strong>Console</strong>: you can monitor a haka daemon using the console feature which allows to get
+some statistics about trafic and drop/reset connections if needed.</p>
+  </li>
+  <li>
+    <p><strong>Writing your own modules</strong>: you can now extend Haka with your favorite module by following the steps,
+recommandationis, and coding style of the <a href="http://www.haka-security.org/resources.html">developer guide</a>.
+Your contributions are welcome.</p>
+  </li>
+  <li>
+    <p><strong>Additional features</strong>: finally, this new version has additional features
+such as ip fragmentation support, live <a href="http://www.haka-security.org/resources.html#live-iso">ISO image</a> workshop, additional tutorials and multiple bug fixes.</p>
+  </li>
+</ul>
+
+<p>We are already working on the next release which will focus mainly on optimizing
+Haka performances.</p>
+]]></content:encoded>
+      <dc:date>2014-08-11T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>RMLL — Material</title>
+      <link>http://www.haka-security.org/blog/2014/07/15/rmll-workshop-and-slides.html</link>
+      <description><![CDATA[First of all, we want to thank all RMLL organizers and especially the chairs of
+the security track: Christophe Brocas and Mathieu Blanc. You did a great a job.
+
+If you have missed our presentation, we made the slides available
+here.
+
+Finally, for those who want to (re)play the workshop, we provide here an ISO
+image. Its
+a debian image that ships with up to date haka binaries. When you launch the
+virtual machine, you will find shortcuts on the desktop for the workshop along
+with full haka documentation. Happy diving into Haka !
+
+]]></description>
+      <pubDate>Tue, 15 Jul 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/07/15/rmll-workshop-and-slides.html</guid>
+      <content:encoded><![CDATA[<p>First of all, we want to thank all RMLL organizers and especially the chairs of
+the security track: Christophe Brocas and Mathieu Blanc. You did a great a job.</p>
+
+<p>If you have missed our presentation, we made the slides available
+<a href="http://static.arkoon.net/haka/haka-rmll-2014-slides.pdf">here</a>.</p>
+
+<p>Finally, for those who want to (re)play the workshop, we provide here an <a href="http://www.haka-security.org/resources.html#live-iso">ISO
+image</a>. Its
+a debian image that ships with up to date haka binaries. When you launch the
+virtual machine, you will find shortcuts on the desktop for the workshop along
+with full haka documentation. Happy diving into Haka !</p>
+]]></content:encoded>
+      <dc:date>2014-07-15T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>RMLL 2014</title>
+      <link>http://www.haka-security.org/blog/2014/06/24/rmll-2014.html</link>
+      <description><![CDATA[The 15th Libre Software Meeting will be held July 5-11. We will be happy to meet
+you at RMLL 2014 to:
+
+
+  Attend our presentation &#8220;Hackers do the Haka&#8221;. The talk will be given on Tuesday 8th.
+  Dive into our workshop scheduled on Thursday 10th morning: 9h30-12h30. We prepared a lot of funny scripts just for you.
+
+
+]]></description>
+      <pubDate>Tue, 24 Jun 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/06/24/rmll-2014.html</guid>
+      <content:encoded><![CDATA[<p>The 15th Libre Software Meeting will be held July 5-11. We will be happy to meet
+you at <a href="https://2014.rmll.info/conference153" title="RMLL" target="_blank">RMLL 2014</a> to:</p>
+
+<ul>
+  <li>Attend our presentation <strong>“Hackers do the Haka”</strong>. The talk will be given on Tuesday 8th.</li>
+  <li>Dive into our workshop scheduled on Thursday 10th morning: 9h30-12h30. We prepared a lot of funny scripts just for you.</li>
+</ul>
+]]></content:encoded>
+      <dc:date>2014-06-24T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>SSTIC 2014 Slides</title>
+      <link>http://www.haka-security.org/blog/2014/06/16/sstic-2014-slides.html</link>
+      <description><![CDATA[You have missed our presentation. Don&#8217;t worry, we made the slides available
+here.
+
+Thanks to SSTIC organizers effort, all presentations have been recorded. We will
+provide very soon a link to (re)play it.
+
+]]></description>
+      <pubDate>Mon, 16 Jun 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/06/16/sstic-2014-slides.html</guid>
+      <content:encoded><![CDATA[<p>You have missed our presentation. Don’t worry, we made the slides available
+<a href="http://static.arkoon.net/haka/haka-sstic-2014-slides.pdf" title="SSTIC Slides">here</a>.</p>
+
+<p>Thanks to <strong>SSTIC</strong> organizers effort, all presentations have been recorded. We will
+provide very soon a link to (re)play it.</p>
+]]></content:encoded>
+      <dc:date>2014-06-16T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>SSTIC 2014 Paper</title>
+      <link>http://www.haka-security.org/blog/2014/06/05/sstic-2014-papers.html</link>
+      <description><![CDATA[As you have already know, we will give tomorrow a short presentation of our
+paper “Un langage orienté réseaux et sécurité” at
+SSTIC. For interested readers, the long
+version paper is available for download
+here. Slides will be made available soon after the session.
+
+Note that the content of the paper is related to the version 0.1 of Haka. Many
+improvements have been made since the initial release. A new version featuring a
+grammar for protocol dissection will be published very soon.
+
+]]></description>
+      <pubDate>Thu, 05 Jun 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/06/05/sstic-2014-papers.html</guid>
+      <content:encoded><![CDATA[<p>As you have already know, we will give tomorrow a short presentation of our
+paper <strong>“Un langage orienté réseaux et sécurité”</strong> at
+<a href="https://www.sstic.org/2014/programme/" target="_blank">SSTIC</a>. For interested readers, the long
+version paper is available for download
+<a href="http://static.arkoon.net/haka/sstic-2014-long1.pdf" title="SSTIC Paper">here</a>. Slides will be made available soon after the session.</p>
+
+<p>Note that the content of the paper is related to the version 0.1 of <strong>Haka</strong>. Many
+improvements have been made since the initial release. A new version featuring a
+grammar for protocol dissection will be published very soon.</p>
+]]></content:encoded>
+      <dc:date>2014-06-05T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Detecting malicious payloads across multiple packets</title>
+      <link>http://www.haka-security.org/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html</link>
+      <description><![CDATA[As you can expect, we are currently working hard for the next release which
+will introduce new interesting features: protocol dissection, pattern matching,
+API improvements, etc.
+
+
+
+]]></description>
+      <pubDate>Tue, 27 May 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/05/27/detecting-malicious-payloads-across-multiple-packets.html</guid>
+      <content:encoded><![CDATA[<p>As you can expect, we are currently working hard for the next release which
+will introduce new interesting features: protocol dissection, pattern matching,
+API improvements, etc.</p>
+
+<!--more-->
+
+
+<p>In the initial Haka version, we leveraged on Lua built-in engine to match
+network data against malicious patterns. The major drawback of this pattern
+matching engine is that it is not enough expressive (e.g. alternation | is not
+supported) and does not support partial matching.</p>
+
+<p>Next release will feature a new <em>stream-based</em> regular expression
+engine based on PCRE. This module allows us to detect accurately a malicious
+payload scattered over multiple packets:</p>
+
+<div class="text-center">
+	<img src="http://www.haka-security.org/img/pattern_matching.png" alt="matching across
+	multiple packets" width="550" />
+</div>
+
+<p>In the following example, we load the regular expression module and compile the
+malicious pattern which represents a classic /bin/sh shellcode. The second
+parameter of <em>compile</em> function is an option allowing us to ignore white
+space chars and comments.</p>
+
+<p>As you have noticed, the syntax of security rules has slightly changed.
+Rules are event-based. In our example, the security rule is meant to be
+evaluated whenever a new data is available on the established connection.
+However, with the additional option <em>streamed</em>, evaluation is done only
+once waiting for new data to proceed.</p>
+
+<p>The rest of the rule is relative to attack reaction. In our case, we simply
+raise an alert.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">tcp_connection</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp_connection&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">regexp/pcre&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">shellcode</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">%xeb %x1f %x5e %x89 %x76 %x08 %x31 %xc0&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%x88 %x46 %x07 %x89 %x46 %x0c %xb0 %x0b&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%x89 %xf3 %x8d %x4e %x08 %x8d %x56 %x0c&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%xcd %x80 %x31 %xdb %x89 %xd8 %x40 %xcd&quot;</span> <span class="o">..</span>
+    <span class="s2">&quot;</span><span class="s">%x80 %xe8 %xdc %xff %xff %xff /bin/sh&quot;</span>
+
+<span class="kd">local</span> <span class="n">re</span> <span class="o">=</span> <span class="n">rem</span><span class="p">.</span><span class="n">re</span><span class="p">:</span><span class="n">compile</span><span class="p">(</span><span class="n">shellcode</span><span class="p">,</span> <span class="n">rem</span><span class="p">.</span><span class="n">re</span><span class="p">.</span><span class="n">EXTENDED</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">tcp_connection</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_data</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">streamed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">iter</span><span class="p">)</span>
+        <span class="c1">-- match malicious pattern across multiple packets</span>
+        <span class="kd">local</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">re</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ret</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">/bin/sh shellcode detected&quot;</span><span class="p">,</span>
+                <span class="n">targets</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">flow</span><span class="p">.</span><span class="n">dstip</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Besides the partial matching capabilities, the new regular expression engine
+has significantly improved text-based protocol dissection.</p>
+
+
+]]></content:encoded>
+      <dc:date>2014-05-27T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>State machine outlook</title>
+      <link>http://www.haka-security.org/blog/2014/05/20/state-machine-outlook.html</link>
+      <description><![CDATA[Haka can analyze states of a network protocol with its state machine.  A
+state machine is defined as a set of states and a set of transition functions
+between these states. This post will present a part of the SSL state machine we
+used in the previous blog post to detect heartbleed.
+
+
+
+]]></description>
+      <pubDate>Tue, 20 May 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/05/20/state-machine-outlook.html</guid>
+      <content:encoded><![CDATA[<p>Haka can analyze states of a network protocol with its state machine.  A
+state machine is defined as a set of states and a set of transition functions
+between these states. This post will present a part of the SSL state machine we
+used in the previous blog post to detect heartbleed.</p>
+
+<!--more-->
+
+<h3>SSL State machine</h3>
+
+<p>The <a href="http://tools.ietf.org/html/rfc6101" target="_blank">RFC 6101</a> specifies the
+state machine for SSL protocol. In this post we use a simpler version, defined
+as:</p>
+
+<div class="text-center">
+	<img src="http://www.haka-security.org/img/ssl_states1.png" alt="ssl_states" width="550" />
+</div>
+
+<p>In the following, we present the main steps towards the specification of SSL
+state machine with Haka.</p>
+
+<h3>Creating a state machine</h3>
+
+<p>A single line creates the state machine</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+    <span class="n">state_type</span><span class="p">(</span><span class="n">BidirectionalState</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span></code></pre></div>
+
+<p>We also select which state type we want to use, in our case it is a basic
+bidectional state which allow to make the difference between client to server
+communication and server to client.</p>
+
+<h4>Defining new states</h4>
+
+<p>New states are created by defining a name, and transitions. Transitions can
+be seen as path from a state to another state.</p>
+
+<p>We create a first state, called hello_request and three transitions: </p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">hello_request</span> <span class="o">=</span> <span class="n">state</span><span class="p">(</span><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">sslv3_client_hello</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="n">hello_request</span><span class="p">:</span><span class="n">on</span><span class="p">{</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">fail</span><span class="p">,</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+    <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="n">hello_request</span><span class="p">:</span><span class="n">on</span><span class="p">{</span>
+	<span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">parse_error</span><span class="p">,</span>
+	<span class="n">jump</span> <span class="o">=</span> <span class="n">fail</span>
+<span class="p">}</span>
+
+<span class="n">hello_request</span><span class="p">{</span>
+	<span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">up</span><span class="p">,</span>
+	<span class="n">jump</span> <span class="o">=</span> <span class="n">client_hello_done</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The state is created based on the grammar element <em>sslv3_client_hello</em>.
+The second parameter is <em>nil</em> as this state does not expect any data
+from the server.</p>
+
+<p>The transitions we used in the ssl dissector from a <em>Client Hello</em>
+are the following:</p>
+
+<ul>
+
+	<li>The first one, <em>fail</em> is a convenient transition to call in
+case of any error. As its name suggests, the <em>drop()</em> function drops the
+connection which is a reasonable default action.</li>
+
+<li>The second one, <em>parse_error</em> is called when data received
+cannot be correctly parsed by the grammar associated to the state. In which case
+we will jump to a pseudo-state named <em>fail</em>.</li>
+
+<li>The last transition, <em>up</em> is called when data is received from
+the client to the server. The parsing has verified the data and we can jump
+to the state <em>client_hello_done</em>.</li>
+
+</ul>
+
+<p>The next steps to write the SSL state machine are writing the
+<em>client_hello_done</em> state and its transitions to another states and so
+on.</p>
+
+<h3>Creating events</h3>
+
+<p>Haka dissector can register events which are later used in security rules.
+In order to be used, events have to be registered, then triggered with optional
+parameters. In this example, we show how to trigger an event inside the state
+machine.</p>
+
+<h4>Registering events</h4>
+
+<p>Registering event is made by the <em>register_event</em> function which
+takes a name as parameter:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
+
+<h4>Triggering events</h4>
+
+<p>Triggering an event is done with the <em>trigger()</em> function.  In the
+following example, we trigger an event whenever a Client Hello record is
+received which enables the evaluation of all security rules registered on that
+particular event:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">hello_request</span><span class="p">{</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">up</span><span class="p">,</span>
+    <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">:</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="n">jump</span> <span class="o">=</span> <span class="n">client_hello_done</span>
+<span class="p">}</span></code></pre></div>
+
+<h3>Conclusion</h3>
+
+<p>State machine is a powerful, yet simple, way to follow network protocol
+states. Events are the glue between network flows and security rules. You can
+read <a
+href="https://github.com/haka-security/haka/blob/develop/modules/protocol/tcp/tcp_connection.lua">modules/protocol/tcp/tcp_connection.lua</a>
+in develop branch for a preview of a more complex state machine description
+which manages tcp transitions.</p>
+
+<p>Full explanation of Haka state machine will be provided in the release 0.2
+with tutorials.</p>
+]]></content:encoded>
+      <dc:date>2014-05-20T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Grammar for dissector outlook</title>
+      <link>http://www.haka-security.org/blog/2014/04/30/grammar-for-dissector-outlook.html</link>
+      <description><![CDATA[In a previous post, we defined security rules on SSL protocol in order to
+block heartbleed attack. This post will present a v0.2 feature: the grammar used
+to specify the SSL protocol. Our grammar can parse binary-based as well as
+text-based protocols.
+
+This post will focus on the dissection of the ClientHello handshake.
+
+
+
+
+]]></description>
+      <pubDate>Wed, 30 Apr 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/04/30/grammar-for-dissector-outlook.html</guid>
+      <content:encoded><![CDATA[<p>In a previous post, we defined security rules on SSL protocol in order to
+block heartbleed attack. This post will present a v0.2 feature: the grammar used
+to specify the SSL protocol. Our grammar can parse binary-based as well as
+text-based protocols.</p>
+
+<p>This post will focus on the dissection of the ClientHello handshake.</p>
+
+
+<!--more-->
+
+<h3>ClientHello Handshake Structure</h3>
+
+<p>The client Hello Handshake is defined in the <a
+href="http://tools.ietf.org/html/rfc6101" target="_blank">RFC 6101</a> as:</p>
+
+<div class="highlight">
+<pre><span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">ProtocolVersion</span> <span class="n">client_version</span><span class="p">;</span> 
+        <span class="c1">// handshake type (1 byte)</span>
+        <span class="c1">// length (3 byte)</span>
+        <span class="c1">// version (2 bytes)</span>
+    <span class="kt">Random</span> <span class="n">random</span><span class="p">;</span>
+        <span class="c1">// unixtime (4 bytes)</span>
+        <span class="c1">// random data (28 bytes)</span>
+    <span class="kt">SessionID</span> <span class="n">session_id</span><span class="p">;</span>
+        <span class="c1">// length (1 byte)</span>
+        <span class="c1">// sessionid (length bytes size, may be null)</span>
+    <span class="kt">CipherSuite</span> <span class="n">cipher_suites</span><span class="p">;</span>
+       <span class="c1">// a length (2 bytes)</span>
+       <span class="c1">// an list of ciphersuites id 2bytes each, (length bytes)</span>
+    <span class="kt">CompressionMethod</span> <span class="n">compression_methods</span><span class="p">;</span>  
+        <span class="c1">// a length (1 byte)</span>
+        <span class="c1">// a list of compression method id (length bytes size)</span>
+    <span class="kt">select</span> <span class="p">(</span><span class="n">extensions_present</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">// optional field   </span>
+    <span class="p">};</span>
+<span class="p">}</span> <span class="n">ClientHello</span><span class="p">;</span>
+</pre>
+</div>
+
+<h3>Creating dissector</h3>
+
+<p>We start by creating a new grammar ssl:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ssl&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span></code></pre></div>
+
+<h4>Introducing record, field and number elements</h4>
+
+<p>A packet is a record of fields. So grammar have <i>record</i> and
+<i>field</i> keywords. Fields have a name, and a type. One of those type is
+<i>number</i>, which takes the number of bits in argument and return its value.
+We can write the three first lines of dissection:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
+	<span class="o">...</span>
+<span class="p">}</span></code></pre></div>
+
+<p>We can now access <i>type</i> and <i>length</i> fields.</p>
+
+<h4>Branch element</h4>
+
+<p>At this point, SSL packet dissection become conditional. If <i>type ==
+1</i>, then it's a ClientHello Handshake. If <i>type == 2</i> then it's a
+ServerHello Handshake, and so on (all types are defined in RFC). So we have
+follow dissection according to previously parsed fields (type). To that end, we
+use the <i>branch</i> element:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
+    <span class="n">branch</span><span class="p">(</span>
+        <span class="p">{</span>
+         <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">client_hello_handshake</span><span class="p">,</span>
+         <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">server_hello_handshake</span><span class="p">,</span>
+         <span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="n">certificate_handshake</span><span class="p">,</span>
+          <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="p">},</span>
+        <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">type</span> <span class="k">end</span>
+	<span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The function in the last line returns the type which allows to select the
+branch to follow.</p>
+
+<h4>Dissection of client_hello_handshake</h4>
+
+<p>When we parse the ClientHello handshake, the handshake type and length have
+already been read. So client hello starts at version field:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">client_hello_handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">version&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">hello_random</span><span class="p">),</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">hello_sessionid</span><span class="p">),</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ciphersuites&#39;</span><span class="p">,</span> <span class="n">hello_ciphersuites</span><span class="p">),</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">compressionmethods&#39;</span><span class="p">,</span> <span class="n">hello_compressionmethods</span><span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The client_hello_handshake is made of 5 mandatory fields, and a sixth
+optional field (extensions). The first field is named <i>version</i> and have a fixed
+size of 16 bits, hence the <i>number(16)</i>. All other fields are defined
+next. For the clarity of the demonstration we won't show how to parse the
+optional extensions list.</p>
+
+<h4>Building complex structure</h4>
+
+<p>The <i>random</i> field is a collection of two static fields. We defined it
+as another record:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">hello_random</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">unixtime&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">32</span><span class="p">)),</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">bytes</span><span class="p">():</span><span class="n">count</span><span class="p">(</span><span class="mi">28</span><span class="p">))</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Those fields will be available as a number and data,
+<i>data.random.unixtime</i> and <i>data.random.random</i> respectively</p>
+
+<h4>Variable length fields</h4>
+
+<p>The field <i>sessionid</i> have variable length:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">hello_sessionid</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
+	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">bytes</span><span class="p">()</span>
+	    <span class="p">:</span><span class="n">count</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span> <span class="k">end</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>We use a function to get this value. The function extract the length from
+the eponym field defined previously. Note that this function can be used to do
+any kind of calculus or data manipulation.</p>
+
+<h4>Arrays fields</h4>
+
+<p>The ciphersuite is an array of values. The array is defined as:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">hello_ciphersuites</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+    <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
+	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ciphersuites&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">(</span><span class="n">ciphersuite</span><span class="p">)</span>
+	    <span class="p">:</span><span class="n">count</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span></code></pre></div>
+
+<p>And <i>ciphersuite</i> is a record of all ciphersuite available.</p>
+
+<p>The last field, compression method, is defined exactly like the ciphersuite.
+It's made of a length, then an array of compression methods. It's not shown
+here for concision.</p>
+
+<h3>Conclusion</h3>
+
+<p>This post is a short introduction of the dissection of a binary protocol.
+Note that dissection is almost as easy as a copy/paste of the initial
+structure.
+
+<p>We were able to write most of our dissectors with this grammar. If you want
+to see a binary dissector, see <a
+	href="https://github.com/haka-security/haka/blob/develop/modules/protocol/udp/udp.lua">modules/protocol/ipv4/udp.lua</a>
+in the develop branch. For a text-based protocol, you can see <a
+	href="https://github.com/haka-security/haka/blob/develop/modules/protocol/http/http.lua">modules/protocol/http/http.lua</a>.
+Those developments have shown us that writing dissector with this grammar is
+easier than in C.</p>
+
+<p>Full explanation of Haka grammar will be provided in the release 0.2 with
+tutorial. Stay tuned: next blog post will explain how state machine works.</p>
+]]></content:encoded>
+      <dc:date>2014-04-30T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Detecting Heartbleed with Haka</title>
+      <link>http://www.haka-security.org/blog/2014/04/25/detecting-heartbleed-with-haka.html</link>
+      <description><![CDATA[
+	
+		 As most of you must have heard, a very nasty bug was
+		discovered few weeks ago in the OpenSSL project, a widely used
+		open source implementation of the SSL/TLS protocol. This bug
+		which is better known as the heartbleed bug, relies on a wrongly
+		implemented SSL extension called "heartbeat".
+
+		 As you know, the initial version of Haka doesn't ship with
+		a SSL dissector.  However, the 0.2 version — which will be
+		released soon — features a new grammar allowing to specify
+		network protocols and their underlying state machine.  Thanks
+		to that grammar, we were able to write, with a little effort, a
+		dissector covering almost the full specification of SSLv3
+		protocol. This specification will be covered in upcoming
+		post.
+	
+	
+		
+	
+
+
+
+
+]]></description>
+      <pubDate>Fri, 25 Apr 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/04/25/detecting-heartbleed-with-haka.html</guid>
+      <content:encoded><![CDATA[<div class="row">
+	<div class="medium-10 columns">
+		<p> As most of you must have heard, a very nasty bug was
+		discovered few weeks ago in the OpenSSL project, a widely used
+		open source implementation of the SSL/TLS protocol. This bug
+		which is better known as the <a title="Heartbleed bug"
+			href="http://heartbleed.com/"
+			target="_blank">heartbleed bug</a>, relies on a wrongly
+		implemented SSL extension called "heartbeat".</p>
+
+		<p> As you know, the initial version of Haka doesn't ship with
+		a SSL dissector.  However, the 0.2 version — which will be
+		released soon — features a new grammar allowing to specify
+		network protocols and their underlying state machine.  Thanks
+		to that grammar, we were able to write, with a little effort, a
+		dissector covering almost the full specification of SSLv3
+		protocol. This specification will be covered in upcoming
+		post.</p>
+	</div>
+	<div class="medium-2 columns text-center">
+		<img src="http://www.haka-security.org/img/heartbleed.png" alt="heartbleed" width="123" height="150" />
+	</div>
+</div>
+
+<!--more-->
+
+<p>Hereafter, we give a set of rules to detect/block hearbleed attacks.</p>
+
+<h3>Detecting heartbeat extensions</h3>
+
+<p>This first rule warns if a heartbeat extension is used in <em>Client Hello
+	Handshake</em>.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="c1">-- Let&#39;s use our brand new SSL dissector</span>
+<span class="c1">-- on port 443</span>
+<span class="kd">local</span> <span class="n">ssl_dissector</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ssl&#39;</span><span class="p">)</span>
+<span class="n">ssl_dissector</span><span class="p">.</span><span class="n">install_tcp_rule</span><span class="p">(</span><span class="mi">443</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="c1">-- hook syntax has slightly changed in version 0.2.</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">client_hello</span><span class="p">,</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">ssl</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="c1">-- ssl fields are available through data param</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">#</span><span class="n">data</span><span class="p">.</span><span class="n">extensions</span> <span class="k">do</span>
+            <span class="c1">-- extension type 15 is heartbeat extension</span>
+            <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">extensions</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="nb">type</span> <span class="o">==</span> <span class="mi">15</span> <span class="k">then</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Heartbeat extensions detected&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">### Warning, this is probably heartbleed ###&quot;</span><span class="p">)</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+  <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>On a pcap containing a SSL heartbeat extension, Haka will output the
+following message:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">Heartbeat</span> <span class="n">extensions</span> <span class="n">detected</span>
+<span class="o">###</span> <span class="n">Warning</span><span class="p">,</span> <span class="n">this</span> <span class="n">is</span> <span class="n">probably</span> <span class="n">heartbleed</span> <span class="o">###</span></code></pre></div>
+
+<p>That's a first step, but with Haka you can do better than that. Haka detects
+heartbeats, but a heartbeat is not necessary a heartbleed attack.</p>
+
+<h3>Detecting SSL state machine violation</h3>
+
+<p>We made some pcap traces with an exploiting tool (link not given) and
+observed that heartbeat requests are sent during SSL negociation which violates
+the <a title="RFC 6520" href="https://tools.ietf.org/html/rfc6520"
+	target="_blank">RFC 6520</a>: "<em>a HeartbeatRequest message SHOULD
+	NOT be sent during handshakes</em>". Our dissector has an internal
+state machine analyzing each step of the SSL handshake. The attack made by this
+tool is therefore blocked due to an incorrect state transition. More precisely,
+the attack tool sends a heartbeat request just after the
+<em>ServerHelloDone</em> while Haka expects a <em>ClientKeyExchange</em>
+message. The default behavior is to raise an alert and to drop the
+connection:</p>
+
+<div class="highlight">
+<pre><span class="n">info</span><span class="c1">  alert:         id = 7
+        time = Wed Apr 23 10:38:09 2014
+        severity = low
+        description = awaited client key exchange handshakes</span>
+<span class="n">debug</span><span class="c1"> state-machine: ssl: error transition on state 'server_hello_done'</span>
+<span class="n">debug</span><span class="c1"> state-machine: tcp: transition from state 'established' to state 'reset'</span>
+<span class="n">debug</span><span class="c1"> state-machine: tcp: enter transition on state 'reset'</span></pre>
+</div>
+
+<p>Haka can now detects the attacks launched by any tool which doesn't respect
+RFC, but what if attacker takes care of each step of the SSL negociation?</p>
+
+<h3>Detecting unexpected hearbeat messages length</h3>
+
+<p>RFC 6520 states that: "<em>... the receiver MUST send a corresponding
+	HeartbeatResponse message carrying an exact copy of the payload of the
+	received</em>" which is not the case with a heartbleed attack.
+Moreover, we must have only one heartbeat message in flight at a time. In the
+following rule we check if these two requirements are met. Otherwise, we raise
+an alert and drop the ssl connection:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">ssl</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="c1">-- type == 24 =&gt; Heartbeat</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">type</span> <span class="o">~=</span> <span class="mi">24</span> <span class="k">then</span> <span class="k">return</span> <span class="k">end</span>
+        <span class="c1">-- create a table to store hearbeat requests</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span> <span class="k">then</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">end</span>
+
+        <span class="c1">-- we should not have more that one heartbeat</span>
+        <span class="c1">-- message in flight at a time</span>
+        <span class="k">if</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">unexpected heartbeat request&quot;</span><span class="p">,</span>
+                <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">ssl</span><span class="p">.</span><span class="n">flow</span><span class="p">.</span><span class="n">srcip</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="n">ssl</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">else</span>
+            <span class="kd">local</span> <span class="n">opposite_direction</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">dissector</span><span class="p">.</span><span class="n">other_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">opposite_direction</span><span class="p">]</span> <span class="k">then</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat_len</span> <span class="k">then</span>
+                    <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">unexpected heartbeat response data length&quot;</span><span class="p">,</span>
+                        <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">ssl</span><span class="p">.</span><span class="n">flow</span><span class="p">.</span><span class="n">srcip</span><span class="p">),</span>
+                    <span class="p">}</span>
+                    <span class="n">ssl</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+                <span class="k">else</span>
+                    <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">nil</span>
+                <span class="k">end</span>
+            <span class="k">else</span>
+                <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+                <span class="n">ssl</span><span class="p">.</span><span class="n">heartbeat_len</span> <span class="o">=</span> <span class="n">data</span><span class="p">.</span><span class="n">length</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>For a sake of simplicity, we assumed that only one side is requesting
+heartbeats in order to distinguish between encrypted heartbeat requests and
+responses. However, with better heuristics this configuration case could be
+also covered by Haka.</p>
+
+<h3>Conclusion</h3>
+
+<p>Heartbleed was an interesting test case for Haka. We were able to write
+quickly a dissector for a complex protocol along with its state machine and
+define advanced security rules.</p>
+]]></content:encoded>
+      <dc:date>2014-04-25T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Defeating Nmap Scans</title>
+      <link>http://www.haka-security.org/blog/2014/04/10/defeating-nmap-scans.html</link>
+      <description><![CDATA[ The well-known scanning tool Nmap allows users to discover running services on a target
+machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
+packets.
+
+When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
+malicious packet with some flags activated. Nmap concludes that a port is
+closed on the target machine if it receives a RST packet.
+
+Thanks to Haka API, we can forge RST packets and fool Nmap queries letting
+him think that all ports are closed on the target side. The following script
+starts by loading ipv4 and tcp dissectors. The next line
+disable the tcp-connection dissector to avoid Haka dropping all
+packets do not belonging to a valid connection. Finally, we define the secuity
+rule which will create a RST tcp packet if a nmap scanning packet is detected.
+In the last lines, we inject the newly crafted packet and drop the Nmap forged
+packet.
+
+
+
+
+]]></description>
+      <pubDate>Thu, 10 Apr 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/04/10/defeating-nmap-scans.html</guid>
+      <content:encoded><![CDATA[<p> The well-known scanning tool <a href="http://nmap.org"
+target="_blank">Nmap</a> allows users to discover running services on a target
+machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
+packets.</p>
+
+<p>When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
+malicious packet with some flags activated. Nmap concludes that a port is
+closed on the target machine if it receives a RST packet.</p>
+
+<p>Thanks to Haka API, we can forge RST packets and fool Nmap queries letting
+him think that all ports are closed on the target side. The following script
+starts by loading <em>ipv4</em> and <em>tcp</em> dissectors. The next line
+disable the <em>tcp-connection</em> dissector to avoid Haka dropping all
+packets do not belonging to a valid connection. Finally, we define the secuity
+rule which will create a RST tcp packet if a nmap scanning packet is detected.
+In the last lines, we inject the newly crafted packet and drop the Nmap forged
+packet.</p>
+
+
+<!--more-->
+
+<div class="highlight"><pre><code class="lua"><span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">disable_dissector</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">tcp-connection&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">all</span>
+        <span class="c1">-- test for null, fin and xmas nmap scans</span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x1</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x29</span> <span class="k">then</span>
+            <span class="c1">-- raw packet</span>
+            <span class="kd">local</span> <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">packet</span><span class="p">.</span><span class="n">new</span><span class="p">()</span>
+            <span class="c1">-- ip packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ttl</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">ttl</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dst</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span>
+            <span class="c1">-- tcp packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">tcp</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">srcport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">dstport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dstport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">srcport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">rst</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">ack</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ack_seq</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">seq</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1">-- inject forged packet and</span>
+            <span class="c1">-- drop malicious scanning packet</span>
+            <span class="n">rstpkt</span><span class="p">:</span><span class="n">send</span><span class="p">()</span>
+            <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p> Hearafter, a snippet output of a Nmap Xmas Scan ran on a server hosting
+multiple services:</p>
+
+<div class="highlight"><pre><code class="bash">root@kali:~# nmap -sX -P0 server
+Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2014-04-08 11:53 CEST
+...
+All 1000 scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
+
+<h6><span class="label round">edit</span> The above code has been updated to work on Haka 0.2 versions:</h6>
+
+<div class="highlight"><pre><code class="lua"><span class="n">raw</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/raw&#39;</span><span class="p">)</span>
+<span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">tcp</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_packet</span><span class="p">,</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">all</span>
+        <span class="c1">-- test for null, fin and xmas nmap scans </span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x1</span> <span class="ow">or</span> <span class="n">flags</span> <span class="o">==</span> <span class="mh">0x29</span> <span class="k">then</span>
+            <span class="c1">-- raw packet</span>
+            <span class="kd">local</span> <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">raw</span><span class="p">.</span><span class="n">create</span><span class="p">()</span>
+            <span class="c1">-- ip packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ttl</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">ttl</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dst</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">src</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span>
+            <span class="c1">-- tcp packet</span>
+            <span class="n">rstpkt</span> <span class="o">=</span> <span class="n">tcp</span><span class="p">.</span><span class="n">create</span><span class="p">(</span><span class="n">rstpkt</span><span class="p">)</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">srcport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">dstport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">dstport</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">srcport</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">rst</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">flags</span><span class="p">.</span><span class="n">ack</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">rstpkt</span><span class="p">.</span><span class="n">ack_seq</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">seq</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="c1">-- inject forged packet and</span>
+            <span class="c1">-- drop malicious scanning packet</span>
+            <span class="n">rstpkt</span><span class="p">:</span><span class="n">send</span><span class="p">()</span>
+            <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+]]></content:encoded>
+      <dc:date>2014-04-10T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Want a DEMO? Meet us at SARSSI 2014</title>
+      <link>http://www.haka-security.org/blog/2014/04/09/sarssi.html</link>
+      <description><![CDATA[Our paper “Haka : Un langage pour l’analyse et la dissection des protocoles
+réseaux” has been accepted for poster presentation at
+SARSSI conference.
+
+Hope to see you there to attend our demo !
+
+]]></description>
+      <pubDate>Wed, 09 Apr 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/04/09/sarssi.html</guid>
+      <content:encoded><![CDATA[<p>Our paper <strong>“Haka : Un langage pour l’analyse et la dissection des protocoles
+réseaux”</strong> has been accepted for poster presentation at
+<a href="http://sarssi14.liris.cnrs.fr/" target="_blank">SARSSI</a> conference.</p>
+
+<p>Hope to see you there to attend our demo !</p>
+]]></content:encoded>
+      <dc:date>2014-04-09T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Lolcat'ing the web</title>
+      <link>http://www.haka-security.org/blog/2014/04/08/lolcating-the-web.html</link>
+      <description><![CDATA[
+	Internet is made of cats
+	A great philosopher 
+
+
+With Haka, you can make it happen. As seen in other blog posts, we have
+shown that we can modify on the fly HTTP requests. What if we change every
+image requested by a browser to a lolcat image?
+
+
+
+]]></description>
+      <pubDate>Tue, 08 Apr 2014 00:00:00 +0200</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/04/08/lolcating-the-web.html</guid>
+      <content:encoded><![CDATA[<blockquote>
+	Internet is made of cats
+	<cite>A great philosopher </cite>
+</blockquote>
+
+<p>With Haka, you can make it happen. As seen in other blog posts, we have
+shown that we can modify on the fly HTTP requests. What if we change every
+image requested by a browser to a lolcat image?</p>
+
+<!--more-->
+
+<p>The following rule replaces the requested image ressource (png, gif, and png
+files) by a lolcat image.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">image_ext</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">.png&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.gif&#39;</span> <span class="p">}</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-request&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">request</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span>
+        <span class="kd">local</span> <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="p">:</span><span class="n">split_uri</span><span class="p">()[</span><span class="s1">&#39;</span><span class="s">path&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="s">&#39;</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="n">ext</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">image_ext</span><span class="p">)</span> <span class="k">do</span>
+            <span class="k">if</span> <span class="nb">string.match</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ext</span> <span class="o">..</span> <span class="s1">&#39;</span><span class="s">$&#39;</span><span class="p">)</span> <span class="k">then</span>
+                <span class="c1">-- Ready to lolcat the web? :)</span>
+                <span class="c1">-- Redirect request to server hosting a lolcat image</span>
+                <span class="n">request</span><span class="p">.</span><span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">http://myserver/lolcat.jpg&quot;</span>
+                <span class="k">break</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Note that this setup works only through a proxy. Without proxy, the request
+is sent to the original server which may not have a funny lolcat image.</p>
+
+<p>Here is a sample of our website "lolcatized"!</p>
+
+<div class="text-center">
+	<img src="http://www.haka-security.org/img/lolcat.png" alt="lolcat" width="800" height="206" class="alignnone size-full wp-image-742" />
+</div>
+]]></content:encoded>
+      <dc:date>2014-04-08T00:00:00+02:00</dc:date>
+    </item>
+    <item>
+      <title>Setup basic firewall rules</title>
+      <link>http://www.haka-security.org/blog/2014/03/27/setup-basic-firewall-rules.html</link>
+      <description><![CDATA[The main purpose of the initial release of Haka is to allow users to define
+easily and quickly security rules and filter unwanted packets/streams. In this
+article, we show how to setup a simple firewall configuration.
+
+
+
+]]></description>
+      <pubDate>Thu, 27 Mar 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/03/27/setup-basic-firewall-rules.html</guid>
+      <content:encoded><![CDATA[<p>The main purpose of the initial release of Haka is to allow users to define
+easily and quickly security rules and filter unwanted packets/streams. In this
+article, we show how to setup a simple firewall configuration.</p>
+
+<!--more-->
+
+<p>We create first a rule group. A group is made of three functions:
+<em>init</em>, <em>fini</em> and <em>continue</em>, and a set of security
+rules. The first function is executed at group initialization. In our example,
+we log some info about connection establishment attempt (source and destination
+ports). Then, the <em>continue</em> function is executed whenever a rule of the
+group is evaluated. Finally, the function <em>fini</em> is executed if no rule
+matches the desired conditions. In the example below, we raise an alert and
+drop the connection.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">my_group</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">rule_group</span><span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">group&quot;</span><span class="p">,</span>
+    <span class="n">init</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">filter&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;</span><span class="s">entering packet filtering rules : %d --&gt; %d&quot;</span><span class="p">,</span>
+            <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span><span class="p">.</span><span class="n">srcport</span><span class="p">,</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span><span class="p">.</span><span class="n">dstport</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="n">fini</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Packet dropped : drop by default&quot;</span><span class="p">,</span>
+            <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">,</span>
+                <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span><span class="p">.</span><span class="n">srcport</span><span class="p">),</span>
+        <span class="p">}</span>
+        <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="n">continue</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="n">ret</span> 
+    <span class="k">end</span> 
+<span class="p">}</span></code></pre></div>
+
+<p>Suppose now that we want to authorize only http traffic from internal
+network 192.168.10.0/24. To reach this goal we add the following rule which
+checks if the source address is in the range of the internal network and if the
+packet is directed to a http service. If this condition is met the next
+dissector (http) is set accordingly. Otherwise, the next rule of the group is
+evaluated.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">auth_network</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">network</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">192.168.10.0/24&quot;</span><span class="p">);</span>
+
+<span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span>
+        <span class="k">if</span> <span class="n">auth_network</span><span class="p">:</span><span class="n">contains</span><span class="p">(</span><span class="n">tcp</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="n">tcp</span><span class="p">.</span><span class="n">dstport</span> <span class="o">==</span> <span class="mi">80</span> <span class="k">then</span>
+            <span class="n">pkt</span><span class="p">.</span><span class="n">next_dissector</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">http&quot;</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Similarly, we can add additional rules. For instance, the following rule
+authorize ssh connections:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span>
+        <span class="k">if</span> <span class="n">auth_network</span><span class="p">:</span><span class="n">contains</span><span class="p">(</span><span class="n">tcp</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="n">tcp</span><span class="p">.</span><span class="n">dstport</span> <span class="o">==</span> <span class="mi">22</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">filter&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;</span><span class="s">no available dissector for ssh&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Note that, we don't have an appropriate dissector to handle ssh traffic.
+However, the next release will feature a new grammar to specify easily new
+protocols.</p>
+]]></content:encoded>
+      <dc:date>2014-03-27T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Transform a pcap to an apache log file</title>
+      <link>http://www.haka-security.org/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html</link>
+      <description><![CDATA[Haka can extract data from pcap; thanks to its http dissector, it can parse
+all usefull data. One interesting use of this is to recreate apache logs from a
+pcap file. Imagine you have to treat data from a webserver. There is plenty of
+tools to analyze data from an apache log file, but what if
+you have only pcap files?
+
+
+
+
+]]></description>
+      <pubDate>Tue, 18 Mar 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/03/18/transform-a-pcap-to-an-apache-log-file.html</guid>
+      <content:encoded><![CDATA[<p>Haka can extract data from pcap; thanks to its http dissector, it can parse
+all usefull data. One interesting use of this is to recreate apache logs from a
+pcap file. Imagine you have to treat data from a webserver. There is plenty of
+tools to <a href="https://www.google.fr/search?q=apache+log+file+tools"
+	target="_blank">analyze data from an apache log file</a>, but what if
+you have only pcap files?</p>
+
+
+<!--more-->
+
+<p>With haka its just a matter of few lines of code to extract all information
+from a pcap to a standard apache log file, called "<a
+	href="http://httpd.apache.org/docs/2.2/en/logs.html"
+	target="_blank">combined log format</a>". The format is quite self
+explanatory:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
+<span class="p">(</span><span class="n">SRC</span> <span class="n">IP</span><span class="p">)</span> <span class="o">-</span> <span class="o">-</span> <span class="p">[(</span><span class="n">DATE</span><span class="p">)]</span> <span class="p">(</span><span class="n">REQUEST</span><span class="p">)</span> <span class="p">(</span><span class="n">RESPONSE</span> <span class="n">STATUS</span><span class="p">)</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">)</span> <span class="s2">&quot;</span><span class="s">(REFERER)&quot;</span> <span class="s2">&quot;</span><span class="s">(USERAGENT)&quot;</span></code></pre></div>
+
+<p>And the haka script sets a hook on the response, because log file mix
+information from the HTTP response and the HTTP request. It extracts all
+relevant information, concatenates it to a variable. Finally, it prints it on
+the output.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="c1">--------------------------</span>
+<span class="c1">-- Loading dissectors</span>
+<span class="c1">--------------------------</span>
+
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/http&#39;</span><span class="p">)</span>
+
+<span class="c1">--------------------------</span>
+<span class="c1">-- Setting next dissector</span>
+<span class="c1">--------------------------</span>
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span>
+        <span class="k">if</span> <span class="n">tcp</span><span class="p">.</span><span class="n">dstport</span> <span class="o">==</span> <span class="mi">80</span> <span class="k">then</span>
+            <span class="n">pkt</span><span class="p">.</span><span class="n">next_dissector</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">http&quot;</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span>
+
+<span class="c1">--------------------------</span>
+<span class="c1">-- Printing http info</span>
+<span class="c1">--------------------------</span>
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+        <span class="c1">--Apache combined log format:</span>
+        <span class="c1">-- (SRC IP) - - [(DATE)] (REQUEST) (RESPONSE STATUS) (SIZE) &quot;(REFERER)&quot; &quot;(USERAGENT)&quot;</span>
+        <span class="kd">local</span> <span class="n">tbl_log</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="kd">local</span> <span class="n">ref</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="nb">tostring</span><span class="p">(</span><span class="n">http</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">srcip</span><span class="p">))</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> - - [1/Jan/2000:00:00:00 +0000] &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">method</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">version</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s"> &quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">data</span><span class="p">:</span><span class="n">available</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">referer&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">nil</span> <span class="k">then</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s"> -&quot;</span>
+        <span class="k">else</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span> <span class="o">..</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">referer&quot;</span><span class="p">]</span> <span class="o">..</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+        <span class="k">end</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">])</span>
+        <span class="nb">table.insert</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">table.concat</span><span class="p">(</span><span class="n">tbl_log</span><span class="p">))</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This script will produce a typical apache log file that you can feed to any
+tool you like in order to make an analysis. Currently, you can't get the date
+of the request, so we use a fixed one (with the next release, you will be able
+to access the timestamp of any packet from the response hook, and set the date
+accordingly).</p>
+
+<p>If you want to test this tool, you can use a pre-processed pcap file
+originated from the DARPA dataset and which could be retrieved from the MIT
+website. Or, for a more reasonable size, you can use a filtered version that
+you can download from the Haka website in the Resources section.</p>
+]]></content:encoded>
+      <dc:date>2014-03-18T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Detecting Obfuscated Shellcodes</title>
+      <link>http://www.haka-security.org/blog/2014/03/12/detecting-obfuscated-shellcodes.html</link>
+      <description><![CDATA[A shellcode is a malicious payload used to exploit vulnerabilities such as
+buffer overflow of format string bugs. A shellcode is made of low level
+instructions allowing to get a shell on the victim machine or to run specific
+commands. Here is an example of a /bin/sh shellcode:
+
+
+
+
+]]></description>
+      <pubDate>Wed, 12 Mar 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/03/12/detecting-obfuscated-shellcodes.html</guid>
+      <content:encoded><![CDATA[<p>A shellcode is a malicious payload used to exploit vulnerabilities such as
+buffer overflow of format string bugs. A shellcode is made of low level
+instructions allowing to get a shell on the victim machine or to run specific
+commands. Here is an example of a /bin/sh shellcode:</p>
+
+
+<!--more-->
+
+<div class="highlight"><pre><code class="c"><span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x6A\x68\x68\x2F\x62\x61\x73\x68</span><span class="s">&quot;</span>
+                   <span class="s">&quot;</span><span class="se">\x2F\x62\x69\x6E\x89\xE3\x31\xD2</span><span class="s">&quot;</span>
+                   <span class="s">&quot;</span><span class="se">\x52\x53\x89\xE1\x6A\x0B\x58\xCD</span><span class="s">&quot;</span>
+                   <span class="s">&quot;</span><span class="se">\x80\x31\xDB\x31\xC0\x40\xCD\x80</span><span class="s">&quot;</span><span class="p">;</span></code></pre></div>
+
+<p>It is trivial for an intrusion detection system to detect this shellcode.
+However, if the shellcode is encoded, it is more challenging for an IDS to
+detected the polymorphic payload.</p>
+
+<div class="row">
+	<div class="medium-6 columns">
+		<p>Even if the shellcode is encoded, some invariant byte
+		sequences are still observable. For instance, the paper <sup><a
+				href="#polygraph" id="polygraph-return">[polygraph]</a></sup> shows
+		that the bytes in yellow boxes are present in all outputs of
+		the well-known polymorphic shellcode engine <a
+			href="http://www.phrack.org/issues.html?issue=61&amp;id=9"
+			target="_blank">Clet</a>
+		for a given input (/bin/sh shellcode). Shaded bytes are present
+		at least in 20% of generated outputs.</p>
+
+	</div>
+
+	<div class="medium-6 columns text-center">
+		<img alt="motif" src="http://www.haka-security.org/img/motif1.png" width="430" height="127" />
+	</div>
+</div>
+
+<p>So, to block all Clet's polymorphic shellcodes, we define the following
+security rule which checks if bytes in yellow boxes are present in tcp data and
+raises an alert in case of matching:</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">invariant_bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">\xeb.*\x31.*\x20\x8b.*\x74\x07\xeb.*\xe8.*\xff\xff\xff&quot;</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="o">#</span><span class="n">pkt</span><span class="p">.</span><span class="n">payload</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span>
+            <span class="c1">-- reconstruct payload</span>
+            <span class="kd">local</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">getpayload</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">payload</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">string.find</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">invariant_bytes</span><span class="p">)</span> <span class="k">then</span>
+                <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">polymorphic shellcode detected [Clet engine]&quot;</span><span class="p">,</span>
+                    <span class="n">sources</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">src</span><span class="p">),</span>
+                    <span class="n">targets</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">address</span><span class="p">(</span><span class="n">pkt</span><span class="p">.</span><span class="n">ip</span><span class="p">.</span><span class="n">dst</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>We evaluated the detection efficiency of the following rule by generating
+more than 10000 Clet's outputs and by replaying the <a
+	href="http://static.arkoon.net/haka/darpa-stat.pcap">Darpa
+	pcap capture</a> ("safe traffic"). We blocked all the malicious payload
+generated by Clet engine with 0 false positive alerts.</p>
+
+<p>The next release will feature a new regular expression engine allowing to
+match malicious payload across multiple data packets and thus will allow us to
+easily detect the above polymorphic content even if it is split into multiple
+packets.</p>
+
+<section>
+<div class="row">
+	<div class="medium-2 columns">
+		<a href="#polygraph-return" id="polygraph">[Polygraph]</a>
+	</div>
+	<div class="medium-10 columns">
+		<p>Newsome, J., Karp, B., Xiaodong Song, D.: Polygraph: automatically generating signatures for polymorphic worms. In: IEEE Symposium on Security and Privacy, pp. 226–241 (2005)</p>
+	</div>
+</div>
+</section>
+]]></content:encoded>
+      <dc:date>2014-03-12T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Haka Debugger</title>
+      <link>http://www.haka-security.org/blog/2014/03/06/haka-debugger.html</link>
+      <description><![CDATA[Haka is featured with debugging capabilities allowing to inspect an existing
+Haka script file. With this mode activated (--luadebug
+option), a prompt will be displayed to the user inviting him to identify the
+faulty code.
+
+
+
+
+]]></description>
+      <pubDate>Thu, 06 Mar 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/03/06/haka-debugger.html</guid>
+      <content:encoded><![CDATA[<p>Haka is featured with debugging capabilities allowing to inspect an existing
+Haka script file. With this mode activated (<em>-<span></span>-luadebug</em>
+option), a prompt will be displayed to the user inviting him to identify the
+faulty code.</p>
+
+
+<!--more-->
+
+<p>The general syntax of the debugger is close to the syntax of gdb. For
+instance, the user can list the source code (l), set breakpoints (b), follow
+code execution (step (s), next (n), finish (f)) or dump the content of
+variables such as packet structure.</p>
+
+<p>As you will notice, haka will generate an error if we run the following
+script. More precisely, Haka will complain about an unknown <em>destport</em>
+field.</p>
+
+<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pkt</span><span class="p">.</span><span class="n">destport</span> <span class="o">==</span> <span class="mi">80</span> <span class="ow">or</span> <span class="n">pkt</span><span class="p">.</span><span class="n">srcport</span> <span class="o">==</span> <span class="mi">80</span> <span class="k">then</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Authorizing trafic on port 80&quot;</span><span class="p">)</span>
+        <span class="k">else</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Trafic not authorized on port %d&quot;</span><span class="p">,</span> <span class="n">pkt</span><span class="p">.</span><span class="n">dstport</span><span class="p">)</span>
+            <span class="n">pkt</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>If we run again the above script with debugging facilities, Haka will break
+on the faulty source code and output a backtrace.</p>
+
+<div class="highlight">
+<pre>
+<span class="kd">entering debugger</span><span class="go">: unknown field 'destport'</span>
+<span class="go">thread: 0</span>
+<span class="go">Backtrace</span>
+<span class="s1"> =&gt;</span><span class="go">0</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">(null)</span><span class="go">'</span>
+  #<span class="go">1</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">(null)</span><span class="go">'</span>
+  #<span class="go">2</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">__index</span><span class="go">'</span>
+  #<span class="go">3</span>    <span class="mi">debug.lua:7</span><span class="go">: in function '</span><span class="kd">eval</span><span class="go">'</span>
+  #<span class="go">4</span>    <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+  #<span class="go">5</span>    <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+  #<span class="go">6 </span>   <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+  #<span class="go">7</span>    <span class="mi">[C]</span><span class="go">: in function '</span><span class="kd">xpcall</span><span class="go">'</span>
+  #<span class="go">8</span>    <span class="mi">/opt/haka/share/haka/core/rule.bc:0</span><span class="go">: in the main chunk</span>
+<span class="go">[C]
+debug&gt;
+</span>
+</pre>
+</div>
+
+<p>Here, we are interested in the third frame which is the one in the Lua
+script itself. We switch to that particular frame by entering the command
+<em>frame 3</em>. At this point, we can list the source code (<em>list</em>
+command) to get the exact line which caused the error (line 7).</p>
+
+
+<div class="highlight">
+<pre>
+<span class="go">debug&gt;  frame 3</span>
+<span class="go">  #3    </span><span class="mi">debug.lua:7</span><span class="go">: in function '</span><span class="kd">eval</span><span class="go">'</span>
+<span class="go">debug&gt;  list</span>
+<span class="k">   2:</span><span class="go">  require('protocol/tcp')</span>
+<span class="k">   3:</span> 
+<span class="k">   4:</span><span class="go">  haka.rule{</span>
+<span class="k">   5:</span><span class="go">      hooks = { 'tcp-up' },</span>
+<span class="k">   6:</span><span class="go">      eval = function (self, pkt)</span>
+<span class="k">   7</span><span class="s1">=&gt;</span><span class="go">         if pkt.destport == 80 or pkt.srcport == 80 then</span>
+<span class="k">   8:</span><span class="go">              haka.log("Filter", "Authorizing trafic on port 80")</span>
+<span class="k">   9:</span><span class="go">          else</span>
+<span class="k">  10:</span><span class="go">              haka.log("Filter", "Trafic not authorized on port %d", pkt.dstport)</span>
+<span class="k">  11:</span><span class="go">              pkt:drop()</span>
+<span class="k">  12:</span><span class="go">          end</span>
+<span class="go">debug&gt;</span>
+</pre>
+</div>
+
+<p>Then, if we dump the packet content (<em>print pkt</em>), we can see that we
+misspelled the <em>dstport</em> field. Once this typo is corrected, the script
+will run properly.</p>
+
+
+<div class="highlight">
+<pre>
+<span class="go">debug&gt;  print pkt</span>
+<span class="go">  #1    </span><span class="nb">userdata</span><span class="go"> tcp {</span>
+<span class="k">checksum</span><span class="go"> : 417</span>
+<span class="k">res</span><span class="go"> : 0</span>
+<span class="k">next_dissector</span><span class="go"> : </span><span class="s">"tcp-connection"</span>
+<span class="k">srcport</span><span class="go"> : 37542</span>
+<span class="k">payload <span class="k">: </span><span class="nb">userdata</span><span class="go"> tcp_payload</span>
+<span class="k">ip <span class="k">: </span><span class="nb">userdata</span><span class="go"> ipv4 {
+	...
+}
+</span>
+<span class="k">flags <span class="k">: </span><span class="nb">userdata</span><span class="go"> tcp_flags {
+	...
+}
+</span>
+<span class="k">ack_seq</span><span class="go"> : 0</span>
+<span class="k">seq</span><span class="go"> : 38227050607</span>
+<span class="k">dstport</span><span class="go"> : 80</span>
+<span class="k">hdr_len</span><span class="go"> : 40
+}
+debug&gt;
+</span>
+</span></span></span></pre>
+</div>
+
+<p>Note that we can get the list of available debugging commands by typing
+<em>help</em>.</p>
+]]></content:encoded>
+      <dc:date>2014-03-06T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>SSTIC</title>
+      <link>http://www.haka-security.org/blog/2014/03/04/sstic.html</link>
+      <description><![CDATA[Our paper “Haka - Un langage orienté réseaux et sécurité” has been accepted for
+presentation at SSTIC conference.
+
+Hope to see you there to attend our presentation !
+
+]]></description>
+      <pubDate>Tue, 04 Mar 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/03/04/sstic.html</guid>
+      <content:encoded><![CDATA[<p>Our paper <strong>“Haka - Un langage orienté réseaux et sécurité”</strong> has been accepted for
+presentation at <a href="https://www.sstic.org/2014/programme/" target="_blank">SSTIC</a> conference.</p>
+
+<p>Hope to see you there to attend our presentation !</p>
+]]></content:encoded>
+      <dc:date>2014-03-04T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Interactive Packet Filtering Mode</title>
+      <link>http://www.haka-security.org/blog/2014/02/25/interactive-packet-filtering-mode.html</link>
+      <description><![CDATA[Haka is endowed with an interesting feature allowing to filter packets
+interactively. With this mode activated, a Haka shell prompt is diplayed to the
+end-user which will have access to the full Haka API to play with packet
+content: accessing and modifying packet fields, dropping packets, logging
+suspicious events, alerting, etc. The Lua console supports auto-completion and
+therefore is a good starting point to dive into the Haka API.
+
+
+
+
+]]></description>
+      <pubDate>Tue, 25 Feb 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/02/25/interactive-packet-filtering-mode.html</guid>
+      <content:encoded><![CDATA[<p>Haka is endowed with an interesting feature allowing to filter packets
+interactively. With this mode activated, a Haka shell prompt is diplayed to the
+end-user which will have access to the full Haka API to play with packet
+content: accessing and modifying packet fields, dropping packets, logging
+suspicious events, alerting, etc. The Lua console supports auto-completion and
+therefore is a good starting point to dive into the Haka API.</p>
+
+
+<!--more-->
+
+<div class="divcontainer">
+	<div class="divcell">
+
+		<p>All the magic starts with the following rule:</p>
+
+		<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">ipv4-up&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">interactive_rule</span>
+<span class="p">}</span></code></pre></div>
+
+	</div>
+	<div class="divcell">
+
+		<p>In the following, we replay a <a title="Nmap Xmas Scan"
+			href="http://static.arkoon.net/haka/nmap-xmas.pcap">nmap packet
+			capture</a> by running this rule using our tool hakapcap (a
+		tool dedicated to packet capture analysis):</p>
+
+		<div class="highlight"><pre><code class="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
+	</div>
+</div>
+
+<p>hakapcap will parse the provided pcap file and halt on the first ip packet.
+A prompt will then be displayed allowing the user to enter commands. The packet
+content is available through the <em>input</em> variable. A this point, you can
+modify some field values (in the example below, the value of the ttl field is
+set to 60), check the validity of the checksum and add a log entry if the
+checksum is not valid (as the output shows, the checksum is not valid in our
+example).</p>
+
+<div class="highlight">
+<pre><span class="go">ipv4-up&gt;  input</span>
+<span class="go">  #1    </span><span class="nb">userdata</span><span class="go"> ipv4 {</span>
+<span class="k">next_dissector</span><span class="go"> : </span><span class="s">"tcp"</span>
+<span class="k">checksum</span><span class="go"> : 51624</span>
+<span class="k">version</span><span class="go"> : 4</span>
+<span class="k">id</span><span class="go"> : 10453</span>
+<span class="k">dissector</span><span class="go"> : </span><span class="s">"ipv4"</span>
+<span class="k">frag_offset</span><span class="go"> : 0</span>
+<span class="k">proto</span><span class="go"> : 6</span>
+<span class="k">src</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> addr 192.168.10.1</span>
+<span class="k">payload</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> ipv4_payload</span>
+<span class="k">raw</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> packet {</span>
+<span class="k">timestamp</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> time Thu Feb 20 14:47:14 2014</span>
+<span class="k">length</span><span class="go"> : 40</span>
+<span class="k">dissector</span><span class="go"> : </span><span class="nb">"raw"</span>
+<span class="k">next_dissector</span><span class="go"> : </span><span class="nb">"ipv4"</span>
+<span class="go">          }</span>
+<span class="k">dst</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> addr 192.168.20.1</span>
+<span class="k">flags</span><span class="go"> : </span><span class="nb">userdata</span><span class="go"> ipv4_flags {</span>
+<span class="k">mf</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">df</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">rb</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">all</span><span class="go"> : 0</span>
+<span class="go">          }</span>
+<span class="k">tos</span><span class="go"> : 0</span>
+<span class="k">ttl</span><span class="go"> : 41</span>
+<span class="k">len</span><span class="go"> : 40</span>
+<span class="k">hdr_len</span><span class="go"> : 20</span>
+<span class="go">        }</span>
+<span class="go">ipv4-up&gt;  input.ttl = 60</span>
+<span class="go">ipv4-up&gt;  if not input:verify_checksum() then</span>
+<span class="go">ipv4-up&gt;&gt; haka.log("filter", "Bad IP Checksum")</span>
+<span class="go">ipv4-up&gt;&gt; end</span>
+<span class="n">info</span><span class="go">  filter: Bad IP Checksum</span></pre>
+</div>
+
+<p>Hitting CTRL-D, will display a new prompt where you can play with tcp
+content this time (remember that we choose to hook 'ipv4-up' and 'tcp-up' in
+our intercative rule). In the following snapshot, we check first that ttl value
+has been changed. Next, we dump the tcp flags and see that this actually an
+Xmas scan ('push', 'urg' and 'fin' are set alltogether). In our example, we
+raise an alert and drop the packet.</p>
+
+<div class="highlight">
+<pre><span class="go">tcp-up&gt;  input.ip.ttl</span>
+<span class="go">  #1    60</span>
+<span class="go">tcp-up&gt;  input.flags</span>
+<span class="go">  #1    </span><span class="nb">userdata</span><span class="go"> tcp_flags {</span>
+<span class="k">ecr</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">urg</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">ecn</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">syn</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">rst</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">psh</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">fin</span><span class="go"> : </span><span class="s">false</span>
+<span class="k">all</span><span class="go"> : 41</span>
+<span class="k">ack</span><span class="go"> : </span><span class="s">false</span>
+<span class="go">        }</span>
+<span class="go">tcp-up&gt;  haka.alert {</span>
+<span class="go">tcp-up&gt;&gt; sources = { haka.alert.address(input.ip.src) },</span>
+<span class="go">tcp-up&gt;&gt; targets = { haka.alert.address(input.ip.dst), haka.alert.service(input.dstport)},</span>
+<span class="go">tcp-up&gt;&gt; method = { description = "Xmas Attack" }</span>
+<span class="go">tcp-up&gt;&gt; }</span>
+<span class="n">info</span><span class="go">  alert: id = 1</span>
+<span class="go">        time = Thu Feb 20 17:42:34 2014</span>
+<span class="go">        method = {</span>
+<span class="go">                description = Xmas Attack</span>
+<span class="go">        }</span>
+<span class="go">        sources = {</span>
+<span class="go">                address: 192.168.10.1</span>
+<span class="go">        }</span>
+<span class="go">        targets = {</span>
+<span class="go">                address: 192.168.20.1</span>
+<span class="go">                service: 80</span>
+<span class="go">        }</span>
+<span class="go">tcp-up&gt;  input:drop()</span></pre>
+</div>
+
+<p>Hitting CTRL-D again, Haka will continue with the next ip packet until all
+packets have been parsed.</p>
+
+<p>Note that as this interactive mode will add a lot of delay in the packet
+processing. It is then best to use it on pcap files. Otherwise, you can run
+into problems with tcp for instance.</p>
+]]></content:encoded>
+      <dc:date>2014-02-25T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>HTTP Traffic Redirection</title>
+      <link>http://www.haka-security.org/blog/2014/02/18/http-traffic-redirection.html</link>
+      <description><![CDATA[Nowadays, navigating the Internet with an oudated version of a browser could
+be harmful to your computer as many malwares spread by exploiting
+vulnerabilities in browers.
+
+
+
+]]></description>
+      <pubDate>Tue, 18 Feb 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/02/18/http-traffic-redirection.html</guid>
+      <content:encoded><![CDATA[<p>Nowadays, navigating the Internet with an oudated version of a browser could
+be harmful to your computer as many malwares spread by exploiting
+vulnerabilities in browers.</p>
+
+<!--more-->
+
+<p>With Haka, we can avoid such attacks. The idea is simple and consists in
+redirecting http requests issued by outdated browsers by modifying the http
+content on the fly.</p>
+
+<p>We need to create a group named 'safe_update' with two rules:</p>
+
+<ol>
+
+	<li>The first rule will only authorise http traffic to update servers
+	(e.g. mozilla.org). This is done by checking the 'Host' header.</li>
+
+	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;</span><span class="s">Host&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="s">&#39;</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">dom</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">update_domains</span><span class="p">)</span> <span class="k">do</span>
+	    <span class="k">if</span> <span class="nb">string.find</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">dom</span><span class="p">)</span> <span class="k">then</span>
+		<span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Requesting an update domain&quot;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="kc">true</span>
+	    <span class="k">end</span>
+	<span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+	<li>The second rule will redirect requests to an update server if the
+	'User-Agent' header is detected as obsolete. This rule shows Haka
+	capabilities to modify http headers response on the fly in order to
+	redirect requests.</li>
+
+	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">UA</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="s">No User-Agent header&quot;</span>
+	<span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">UA detected: %s&quot;</span><span class="p">,</span> <span class="n">UA</span><span class="p">)</span>
+	<span class="kd">local</span> <span class="n">FF_UA</span> <span class="o">=</span> <span class="p">(</span><span class="nb">string.find</span><span class="p">(</span><span class="n">UA</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Firefox/&quot;</span><span class="p">))</span>
+
+	<span class="k">if</span> <span class="n">FF_UA</span> <span class="k">then</span> <span class="c1">-- Firefox was detected</span>
+	    <span class="kd">local</span> <span class="n">version</span> <span class="o">=</span> <span class="nb">tonumber</span><span class="p">(</span><span class="nb">string.sub</span><span class="p">(</span><span class="n">UA</span><span class="p">,</span> <span class="n">FF_UA</span><span class="o">+</span><span class="mi">8</span><span class="p">))</span>
+	    <span class="k">if</span> <span class="ow">not</span> <span class="n">version</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="n">last_firefox_version</span> <span class="k">then</span>
+		<span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+		    <span class="n">description</span><span class="o">=</span> <span class="s2">&quot;</span><span class="s">Firefox is outdated, please upgrade&quot;</span><span class="p">,</span>
+		    <span class="n">severity</span><span class="o">=</span> <span class="s1">&#39;</span><span class="s">medium&#39;</span>
+		<span class="p">}</span>
+		<span class="c1">-- redirect browser to a safe place where updates will be made</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">307&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">reason</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Moved Temporarily&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Content-Length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">0&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">firefox_web_site</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Server&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">A patchy server&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Connection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Close&quot;</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Proxy-Connection&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">Close&quot;</span>
+		<span class="c1">-- dump the response for illustrative purpose</span>
+		<span class="n">http</span><span class="p">.</span><span class="n">response</span><span class="p">:</span><span class="n">dump</span><span class="p">()</span>
+	    <span class="k">end</span>
+	<span class="k">else</span>
+	    <span class="n">haka</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">Filter&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">Unknown or missing User-Agent&quot;</span><span class="p">)</span>
+	<span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+</ol>
+
+<p>Refer to the <a
+	href="http://doc.haka-security.org/haka/release/v0.2/doc/user/tutorial/filter.html">filter
+	tutorial</a> to see the full script.</p>
+
+]]></content:encoded>
+      <dc:date>2014-02-18T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>SQLi Attack Detection</title>
+      <link>http://www.haka-security.org/blog/2014/02/11/sqli-attack-detection.html</link>
+      <description><![CDATA[SQL injection attacks (SQLi) are common web attacks that consist in
+injecting SQL commands through http requests, enabling thus sensitive data
+disclosure or authentication scheme bypass. SQLi are the most dangerous
+software attacks according to the SANS Institute ranking.
+
+
+
+]]></description>
+      <pubDate>Tue, 11 Feb 2014 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2014/02/11/sqli-attack-detection.html</guid>
+      <content:encoded><![CDATA[<p>SQL injection attacks (SQLi) are common web attacks that consist in
+injecting SQL commands through http requests, enabling thus sensitive data
+disclosure or authentication scheme bypass. SQLi are the most dangerous
+software attacks according to the SANS Institute ranking.</p>
+
+<!--more-->
+
+<p>The following figure shows an example of SQL injection attack where the
+supplied input (blue) allows bypassing the authentication scheme because the
+request will always be evaluated to "true" after data injection.</p>
+
+<div class="text-center">
+	<img alt="sqlinject" src="http://www.haka-security.org/img/sqlinject.png" width="624" height="162" />
+</div>
+
+<p>Thanks to Haka, it is possible to quickly write security rules to block this
+kind of attacks. For instance, the following rule updates a score whenever an
+SQL keyword is found in the uri and raises an alert if this score exceeds a
+fixed threshold. This rule shows also Haka capabilities to log suspicious event
+(passive reaction) and to drop malicious connections (active reaction).</p>
+
+<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">select&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">insert&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">update&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">delete&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">union&#39;</span> <span class="p">}</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+    <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-request&#39;</span> <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
+        <span class="kd">local</span> <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1">-- http fields (uri, headers) are available through &#39;request&#39; field</span>
+        <span class="kd">local</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">uri</span>
+
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">key</span> <span class="k">in</span> <span class="nb">ipairs</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span> <span class="k">do</span>
+            <span class="c1">-- Check the whole uri against the list of malicious keywords</span>
+            <span class="k">if</span> <span class="n">uri</span><span class="p">:</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">then</span>
+                <span class="c1">-- Update the score</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">4</span>
+            <span class="k">end</span>
+        <span class="k">end</span>
+
+        <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="k">then</span>
+            <span class="c1">-- Raise an alert if the score exceeds a fixed threshold (compact format)</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">SQLi attack detected with score %d&quot;</span><span class="p">,</span> <span class="n">score</span><span class="p">),</span>
+                <span class="n">severity</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">high&#39;</span><span class="p">,</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="s">low&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">http</span><span class="p">:</span><span class="n">drop</span><span class="p">()</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>More advanced rules are given in the <a
+	href="http://doc.haka-security.org/haka/release/v0.2/doc/user/tutorial/sqli.html">SQLi
+	tutorial</a>.  Diving into this tutorial will show you how to :</p>
+
+<ul>
+	<li> Defeat evasion techniques by applying decoding functions on the uri </li>
+	<li> Have a fine-grained analysis by checking SQL keywords in precise locations of the http request </li>
+	<li> Avoid analysis of known safe resources (whitelisting) </li>
+	<li> Etc </li>
+</ul>
+]]></content:encoded>
+      <dc:date>2014-02-11T00:00:00+01:00</dc:date>
+    </item>
+    <item>
+      <title>Initial Release</title>
+      <link>http://www.haka-security.org/blog/2013/12/16/initial-release.html</link>
+      <description><![CDATA[We are proud to announce the first release of Haka: an open source security
+language.
+
+Haka simplifies the way to express security controls on collected traffic and
+makes it a suitable framework to build quickly an efficient intrusion detection
+system or a networking forensics tool.
+
+Haka is intended to be used by all security communities: developpers,
+researchers, etc. So we hope you will enjoy using it and start contributing to
+it.
+
+We are currently working on the next release which will introduce a grammar
+to specify protocols and hence avoid fastidious and error-prone coding of
+protocol dissectors. Stay tuned!!!
+
+]]></description>
+      <pubDate>Mon, 16 Dec 2013 00:00:00 +0100</pubDate>
+      <guid>http://www.haka-security.org/blog/2013/12/16/initial-release.html</guid>
+      <content:encoded><![CDATA[<p>We are proud to announce the first release of Haka: an open source security
+language.</p>
+
+<p>Haka simplifies the way to express security controls on collected traffic and
+makes it a suitable framework to build quickly an efficient intrusion detection
+system or a networking forensics tool.</p>
+
+<p>Haka is intended to be used by all security communities: developpers,
+researchers, etc. So we hope you will enjoy using it and start contributing to
+it.</p>
+
+<p>We are currently working on the next release which will introduce a grammar
+to specify protocols and hence avoid fastidious and error-prone coding of
+protocol dissectors. <em>Stay tuned!!!</em></p>
+]]></content:encoded>
+      <dc:date>2013-12-16T00:00:00+01:00</dc:date>
+    </item>
+    <dc:date>2014-09-30T00:00:00+02:00</dc:date>
+  </channel>
+</rss>
+
+					<div class="pad"></div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	$(document).foundation();
+</script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
+
+	</body>
+</html>
+
