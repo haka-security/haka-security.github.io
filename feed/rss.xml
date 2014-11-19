@@ -88,8 +88,8 @@ elasticsearch alerting module and set some parameters:
 <p>The above configuration tells haka to capture packet on eth0 interface using the
 pcap capture module and exports alerts to an elasticsearch server running on the
 local machine on port 9200. Moreover, thanks to geoip option, we will enrich our
-<a href="http://doc.haka-security.org/haka/release/v0.2.1/doc/ref/alert.html"
-	target="_blank">IDMEF-like alert format</a> with geolocalization info.</p>
+<a href="http://doc.haka-security.org/haka/release/v0.2.1/doc/ref/alert.html">IDMEF-like alert format</a>
+with geolocalization info.</p>
 
 <h3>Starting Haka</h3>
 <p>For testing purpose, we provide the following script config.lua that raises
@@ -316,7 +316,7 @@ you at RMLL 2014 to:
       <pubDate>Tue, 24 Jun 2014 00:00:00 +0200</pubDate>
       <guid>http://www.haka-security.org/blog/2014/06/24/rmll-2014.html</guid>
       <content:encoded><![CDATA[<p>The 15th Libre Software Meeting will be held July 5-11. We will be happy to meet
-you at <a href="https://2014.rmll.info/conference153" title="RMLL" target="_blank">RMLL 2014</a> to:</p>
+you at <a href="https://2014.rmll.info/conference153" title="RMLL">RMLL 2014</a> to:</p>
 
 <ul>
   <li>Attend our presentation <strong>“Hackers do the Haka”</strong>. The talk will be given on Tuesday 8th.</li>
@@ -363,7 +363,7 @@ grammar for protocol dissection will be published very soon.
       <guid>http://www.haka-security.org/blog/2014/06/05/sstic-2014-papers.html</guid>
       <content:encoded><![CDATA[<p>As you have already know, we will give tomorrow a short presentation of our
 paper <strong>“Un langage orienté réseaux et sécurité”</strong> at
-<a href="https://www.sstic.org/2014/programme/" target="_blank">SSTIC</a>. For interested readers, the long
+<a href="https://www.sstic.org/2014/programme/">SSTIC</a>. For interested readers, the long
 version paper is available for download
 <a href="http://static.arkoon.net/haka/sstic-2014-long1.pdf" title="SSTIC Paper">here</a>. Slides will be made available soon after the session.</p>
 
@@ -480,7 +480,7 @@ used in the previous blog post to detect heartbleed.</p>
 
 <h3>SSL State machine</h3>
 
-<p>The <a href="http://tools.ietf.org/html/rfc6101" target="_blank">RFC 6101</a> specifies the
+<p>The <a href="http://tools.ietf.org/html/rfc6101">RFC 6101</a> specifies the
 state machine for SSL protocol. In this post we use a simpler version, defined
 as:</p>
 
@@ -629,8 +629,8 @@ text-based protocols.</p>
 
 <h3>ClientHello Handshake Structure</h3>
 
-<p>The client Hello Handshake is defined in the <a
-href="http://tools.ietf.org/html/rfc6101" target="_blank">RFC 6101</a> as:</p>
+<p>The client Hello Handshake is defined in the
+<a href="http://tools.ietf.org/html/rfc6101">RFC 6101</a> as:</p>
 
 <div class="highlight">
 <pre><span class="k">struct</span> <span class="p">{</span>
@@ -795,8 +795,9 @@ tutorial. Stay tuned: next blog post will explain how state machine works.</p>
 		 As most of you must have heard, a very nasty bug was
 		discovered few weeks ago in the OpenSSL project, a widely used
 		open source implementation of the SSL/TLS protocol. This bug
-		which is better known as the heartbleed bug, relies on a wrongly
-		implemented SSL extension called "heartbeat".
+		which is better known as the
+		heartbleed bug,
+		relies on a wrongly implemented SSL extension called "heartbeat".
 
 		 As you know, the initial version of Haka doesn't ship with
 		a SSL dissector.  However, the 0.2 version — which will be
@@ -822,10 +823,9 @@ tutorial. Stay tuned: next blog post will explain how state machine works.</p>
 		<p> As most of you must have heard, a very nasty bug was
 		discovered few weeks ago in the OpenSSL project, a widely used
 		open source implementation of the SSL/TLS protocol. This bug
-		which is better known as the <a title="Heartbleed bug"
-			href="http://heartbleed.com/"
-			target="_blank">heartbleed bug</a>, relies on a wrongly
-		implemented SSL extension called "heartbeat".</p>
+		which is better known as the
+		<a title="Heartbleed bug" href="http://heartbleed.com/">heartbleed bug</a>,
+		relies on a wrongly implemented SSL extension called "heartbeat".</p>
 
 		<p> As you know, the initial version of Haka doesn't ship with
 		a SSL dissector.  However, the 0.2 version — which will be
@@ -883,15 +883,14 @@ heartbeats, but a heartbeat is not necessary a heartbleed attack.</p>
 
 <p>We made some pcap traces with an exploiting tool (link not given) and
 observed that heartbeat requests are sent during SSL negociation which violates
-the <a title="RFC 6520" href="https://tools.ietf.org/html/rfc6520"
-	target="_blank">RFC 6520</a>: "<em>a HeartbeatRequest message SHOULD
-	NOT be sent during handshakes</em>". Our dissector has an internal
-state machine analyzing each step of the SSL handshake. The attack made by this
-tool is therefore blocked due to an incorrect state transition. More precisely,
-the attack tool sends a heartbeat request just after the
-<em>ServerHelloDone</em> while Haka expects a <em>ClientKeyExchange</em>
-message. The default behavior is to raise an alert and to drop the
-connection:</p>
+the <a title="RFC 6520" href="https://tools.ietf.org/html/rfc6520">RFC 6520</a>:
+"<em>a HeartbeatRequest message SHOULD NOT be sent during handshakes</em>". Our
+dissector has an internal state machine analyzing each step of the SSL
+handshake. The attack made by this tool is therefore blocked due to an
+incorrect state transition. More precisely, the attack tool sends a heartbeat
+request just after the <em>ServerHelloDone</em> while Haka expects a
+<em>ClientKeyExchange</em> message. The default behavior is to raise an alert
+and to drop the connection:</p>
 
 <div class="highlight">
 <pre><span class="n">info</span><span class="c1">  alert:         id = 7
@@ -967,9 +966,9 @@ define advanced security rules.</p>
     <item>
       <title>Defeating Nmap Scans</title>
       <link>http://www.haka-security.org/blog/2014/04/10/defeating-nmap-scans.html</link>
-      <description><![CDATA[ The well-known scanning tool Nmap allows users to discover running services on a target
-machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
-packets.
+      <description><![CDATA[ The well-known scanning tool Nmap allows
+users to discover running services on a target machine. In this tutorial, we
+use Haka to fool Nmap scans by crafting reset packets.
 
 When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
 malicious packet with some flags activated. Nmap concludes that a port is
@@ -990,10 +989,9 @@ packet.
 ]]></description>
       <pubDate>Thu, 10 Apr 2014 00:00:00 +0200</pubDate>
       <guid>http://www.haka-security.org/blog/2014/04/10/defeating-nmap-scans.html</guid>
-      <content:encoded><![CDATA[<p> The well-known scanning tool <a href="http://nmap.org"
-target="_blank">Nmap</a> allows users to discover running services on a target
-machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
-packets.</p>
+      <content:encoded><![CDATA[<p> The well-known scanning tool <a href="http://nmap.org">Nmap</a> allows
+users to discover running services on a target machine. In this tutorial, we
+use Haka to fool Nmap scans by crafting reset packets.</p>
 
 <p>When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
 malicious packet with some flags activated. Nmap concludes that a port is
@@ -1103,7 +1101,7 @@ Hope to see you there to attend our demo !
       <guid>http://www.haka-security.org/blog/2014/04/09/sarssi.html</guid>
       <content:encoded><![CDATA[<p>Our paper <strong>“Haka : Un langage pour l’analyse et la dissection des protocoles
 réseaux”</strong> has been accepted for poster presentation at
-<a href="http://sarssi14.liris.cnrs.fr/" target="_blank">SARSSI</a> conference.</p>
+<a href="http://sarssi14.liris.cnrs.fr/">SARSSI</a> conference.</p>
 
 <p>Hope to see you there to attend our demo !</p>
 ]]></content:encoded>
@@ -1268,8 +1266,9 @@ protocols.</p>
       <description><![CDATA[Haka can extract data from pcap; thanks to its http dissector, it can parse
 all usefull data. One interesting use of this is to recreate apache logs from a
 pcap file. Imagine you have to treat data from a webserver. There is plenty of
-tools to analyze data from an apache log file, but what if
-you have only pcap files?
+tools to
+analyze data from an apache log file,
+but what if you have only pcap files?
 
 
 
@@ -1280,18 +1279,17 @@ you have only pcap files?
       <content:encoded><![CDATA[<p>Haka can extract data from pcap; thanks to its http dissector, it can parse
 all usefull data. One interesting use of this is to recreate apache logs from a
 pcap file. Imagine you have to treat data from a webserver. There is plenty of
-tools to <a href="https://www.google.fr/search?q=apache+log+file+tools"
-	target="_blank">analyze data from an apache log file</a>, but what if
-you have only pcap files?</p>
+tools to
+<a href="https://www.google.fr/search?q=apache+log+file+tools">analyze data from an apache log file</a>,
+but what if you have only pcap files?</p>
 
 
 <!--more-->
 
 <p>With haka its just a matter of few lines of code to extract all information
-from a pcap to a standard apache log file, called "<a
-	href="http://httpd.apache.org/docs/2.2/en/logs.html"
-	target="_blank">combined log format</a>". The format is quite self
-explanatory:</p>
+from a pcap to a standard apache log file, called
+"<a href="http://httpd.apache.org/docs/2.2/en/logs.html">combined log format</a>".
+The format is quite self explanatory:</p>
 
 <div class="highlight"><pre><code class="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
 <span class="p">(</span><span class="n">SRC</span> <span class="n">IP</span><span class="p">)</span> <span class="o">-</span> <span class="o">-</span> <span class="p">[(</span><span class="n">DATE</span><span class="p">)]</span> <span class="p">(</span><span class="n">REQUEST</span><span class="p">)</span> <span class="p">(</span><span class="n">RESPONSE</span> <span class="n">STATUS</span><span class="p">)</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">)</span> <span class="s2">&quot;</span><span class="s">(REFERER)&quot;</span> <span class="s2">&quot;</span><span class="s">(USERAGENT)&quot;</span></code></pre></div>
@@ -1404,12 +1402,11 @@ detected the polymorphic payload.</p>
 <div class="row">
 	<div class="medium-6 columns">
 		<p>Even if the shellcode is encoded, some invariant byte
-		sequences are still observable. For instance, the paper <sup><a
-				href="#polygraph" id="polygraph-return">[polygraph]</a></sup> shows
-		that the bytes in yellow boxes are present in all outputs of
-		the well-known polymorphic shellcode engine <a
-			href="http://www.phrack.org/issues.html?issue=61&amp;id=9"
-			target="_blank">Clet</a>
+		sequences are still observable. For instance, the paper
+		<sup><a href="#polygraph" id="polygraph-return">[polygraph]</a></sup>
+		shows that the bytes in yellow boxes are present in all outputs of
+		the well-known polymorphic shellcode engine
+		<a href="http://www.phrack.org/issues.html?issue=61&amp;id=9">Clet</a>
 		for a given input (/bin/sh shellcode). Shaded bytes are present
 		at least in 20% of generated outputs.</p>
 
@@ -1445,9 +1442,9 @@ raises an alert in case of matching:</p>
 <span class="p">}</span></code></pre></div>
 
 <p>We evaluated the detection efficiency of the following rule by generating
-more than 10000 Clet's outputs and by replaying the <a
-	href="http://static.arkoon.net/haka/darpa-stat.pcap">Darpa
-	pcap capture</a> ("safe traffic"). We blocked all the malicious payload
+more than 10000 Clet's outputs and by replaying the
+<a href="http://static.arkoon.net/haka/darpa-stat.pcap">Darpa pcap capture</a>
+("safe traffic"). We blocked all the malicious payload
 generated by Clet engine with 0 false positive alerts.</p>
 
 <p>The next release will feature a new regular expression engine allowing to
@@ -1612,7 +1609,7 @@ Hope to see you there to attend our presentation !
       <pubDate>Tue, 04 Mar 2014 00:00:00 +0100</pubDate>
       <guid>http://www.haka-security.org/blog/2014/03/04/sstic.html</guid>
       <content:encoded><![CDATA[<p>Our paper <strong>“Haka - Un langage orienté réseaux et sécurité”</strong> has been accepted for
-presentation at <a href="https://www.sstic.org/2014/programme/" target="_blank">SSTIC</a> conference.</p>
+presentation at <a href="https://www.sstic.org/2014/programme/">SSTIC</a> conference.</p>
 
 <p>Hope to see you there to attend our presentation !</p>
 ]]></content:encoded>

@@ -77,15 +77,103 @@
 		<div class="medium-12 columns">
 			<div class="pad"></div>
 
+<h2>Download Haka v0.2.1</H2>
+
+<div class="row collapse">
+	<h4 class="inline-block medium-4 subheader">Debian packages</h4>
+	<span class="inline-block medium-3">
+		<a href="#" class="button radius dropdown small" data-dropdown="drop_v021_32">DEB (32 bit)</a>
+		<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka_0.2.1_i386.deb.sha1.txt">sha1</a>
+		<br>
+		<ul	id="drop_v021_32" data-dropdown-content class="f-dropdown">
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka_0.2.1_i386.deb">haka_0.2.1_i386.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-doc_0.2.1_all.deb">haka-doc_0.2.1_all.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-nfqueue_0.2.1_i386.deb">haka-nfqueue_0.2.1_i386.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-elasticsearch_0.2.1_i386.deb">haka-elasticsearch_0.2.1_i386.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-geoip_0.2.1_i386.deb">haka-geoip_0.2.1_i386.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-dev_0.2.1_i386.deb">haka-dev_0.2.1_i386.deb</a>
+		</ul>
+	</span>
+	<span class="inline-block medium-3">
+		<a href="#" class="button radius dropdown small" data-dropdown="drop_v021_64">DEB (64 bit)</a>
+		<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka_0.2.1_amd64.deb.sha1.txt">sha1</a>
+		<br>
+		<ul	id="drop_v021_64" data-dropdown-content class="f-dropdown">
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka_0.2.1_amd64.deb">haka_0.2.1_amd64.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-doc_0.2.1_all.deb">haka-doc_0.2.1_all.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-nfqueue_0.2.1_amd64.deb">haka-nfqueue_0.2.1_amd64.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-elasticsearch_0.2.1_amd64.deb">haka-elasticsearch_0.2.1_amd64.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-geoip_0.2.1_amd64.deb">haka-geoip_0.2.1_amd64.deb</a>
+			<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-dev_0.2.1_amd64.deb">haka-dev_0.2.1_amd64.deb</a>
+		</ul>
+	</span>
+</div>
+
+<div class="row collapse">
+	<h4 class="inline-block medium-4 subheader">Tarball install</h4>
+	<span class="inline-block medium-3">
+		<a class="button radius small" href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-release-luajit_0.2.1_i686.tar.gz">TAR.GZ (32 bit)</a>
+		<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-release-luajit_0.2.1_i686.tar.gz.sha1.txt">sha1</a>
+	</span>
+	<span class="inline-block medium-3">
+		<a class="button radius small" href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-release-luajit_0.2.1_x86_64.tar.gz">TAR.GZ (64 bit)</a>
+		<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka-release-luajit_0.2.1_x86_64.tar.gz.sha1.txt">sha1</a>
+	</span>
+</div>
+
+<div class="row collapse">
+	<h4 class="inline-block medium-4 subheader">Source</h4>
+	<a class="button radius small" href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka_0.2.1_source.tar.gz">TAR.GZ</a>
+	<a href="http://github.com/haka-security/haka/releases/download/v0.2.1/haka_0.2.1_source.tar.gz.sha1.txt">sha1</a>
+</div>
+
+<div class="row">
+	<div class="medium-6 columns collapse-top-margin">
+		<h5>New features:</h5>
+		<ul>
+			<li>Release of <a href="http://www.haka-security.org/hakabana.html">Hakabana</a></li>
+			<li>Multiple modules added</li>
+			<ul>
+				<li>GeoIP</li>
+				<li>Elasticsearch database connector</li>
+				<li>Elasticsearch alert module</li>
+			</ul>
+			<li>Various bug fixes</li>
+		</ul>
+	</div>
+	<div class="medium-6 columns collapse-top-margin">
+		<h5>And we still have:</h5>
+		<ul>
+			<li>Protocol dissector written in Lua</li>
+			<ul>
+				<li>Protocol message syntax described in Lua</li>
+				<li>Protocol state machine described in Lua</li>
+			</ul>
+			<li>Multiple dissectors added</li>
+			<ul>
+				<li>ICMP</li>
+				<li>UDP</li>
+				<li>DNS</li>
+				<li>IPv4</li>
+				<li>TCP</li>
+				<li>HTTP</li>
+			</ul>
+			<li>Pattern matching engine</li>
+			<li>External module support</li>
+			<li>Remote console</li>
+		</ul>
+	</div>
+</div>
+
 <h2>Download Haka v0.2</h2>
 
 <div class="row collapse">
 	<h4 class="inline-block medium-4 subheader">Debian packages</h4>
 	<span class="inline-block medium-3">
-		<a href="#" class="button radius dropdown small" data-dropdown="drop32">DEB (32 bit)</a>
+		<a href="#" class="button radius dropdown small" data-dropdown="drop_v02_32">DEB (32 bit)</a>
 		<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_i386.deb.sha1.txt">sha1</a>
 		<br>
-		<ul	id="drop32" data-dropdown-content class="f-dropdown">
+		<ul	id="drop_v02_32" data-dropdown-content class="f-dropdown">
 			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_i386.deb">haka_0.2_i386.deb</a>
 			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-doc_0.2_all.deb">haka-doc_0.2_all.deb</a>
 			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-nfqueue_0.2_i386.deb">haka-nfqueue_0.2_i386.deb</a>
@@ -93,10 +181,10 @@
 		</ul>
 	</span>
 	<span class="inline-block medium-3">
-		<a href="#" class="button radius dropdown small" data-dropdown="drop64">DEB (64 bit)</a>
+		<a href="#" class="button radius dropdown small" data-dropdown="drop_v02_64">DEB (64 bit)</a>
 		<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_amd64.deb.sha1.txt">sha1</a>
 		<br>
-		<ul	id="drop64" data-dropdown-content class="f-dropdown">
+		<ul	id="drop_v02_64" data-dropdown-content class="f-dropdown">
 			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka_0.2_amd64.deb">haka_0.2_amd64.deb</a>
 			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-doc_0.2_all.deb">haka-doc_0.2_all.deb</a>
 			<a href="http://github.com/haka-security/haka/releases/download/v0.2/haka-nfqueue_0.2_amd64.deb">haka-nfqueue_0.2_amd64.deb</a>

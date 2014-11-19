@@ -340,10 +340,9 @@ text-based protocols.</p>
 		<p> As most of you must have heard, a very nasty bug was
 		discovered few weeks ago in the OpenSSL project, a widely used
 		open source implementation of the SSL/TLS protocol. This bug
-		which is better known as the <a title="Heartbleed bug"
-			href="http://heartbleed.com/"
-			target="_blank">heartbleed bug</a>, relies on a wrongly
-		implemented SSL extension called "heartbeat".</p>
+		which is better known as the
+		<a title="Heartbleed bug" href="http://heartbleed.com/">heartbleed bug</a>,
+		relies on a wrongly implemented SSL extension called "heartbeat".</p>
 
 		<p> As you know, the initial version of Haka doesn't ship with
 		a SSL dissector.  However, the 0.2 version — which will be
@@ -425,10 +424,9 @@ text-based protocols.</p>
 
 		</h2>
 		
-			<p> The well-known scanning tool <a href="http://nmap.org"
-target="_blank">Nmap</a> allows users to discover running services on a target
-machine. In this tutorial, we use Haka to fool Nmap scans by crafting reset
-packets.</p>
+			<p> The well-known scanning tool <a href="http://nmap.org">Nmap</a> allows
+users to discover running services on a target machine. In this tutorial, we
+use Haka to fool Nmap scans by crafting reset packets.</p>
 
 <p>When launching a NULL (-sN), FIN (-sF) or XMAS (-sX) scan, Nmap forges a
 malicious packet with some flags activated. Nmap concludes that a port is
@@ -634,9 +632,9 @@ article, we show how to setup a simple firewall configuration.</p>
 			<p>Haka can extract data from pcap; thanks to its http dissector, it can parse
 all usefull data. One interesting use of this is to recreate apache logs from a
 pcap file. Imagine you have to treat data from a webserver. There is plenty of
-tools to <a href="https://www.google.fr/search?q=apache+log+file+tools"
-	target="_blank">analyze data from an apache log file</a>, but what if
-you have only pcap files?</p>
+tools to
+<a href="https://www.google.fr/search?q=apache+log+file+tools">analyze data from an apache log file</a>,
+but what if you have only pcap files?</p>
 
 
 
