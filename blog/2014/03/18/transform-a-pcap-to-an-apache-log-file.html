@@ -133,7 +133,7 @@ from a pcap to a standard apache log file, called
 "<a href="http://httpd.apache.org/docs/2.2/en/logs.html">combined log format</a>".
 The format is quite self explanatory:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
 <span class="p">(</span><span class="n">SRC</span> <span class="n">IP</span><span class="p">)</span> <span class="o">-</span> <span class="o">-</span> <span class="p">[(</span><span class="n">DATE</span><span class="p">)]</span> <span class="p">(</span><span class="n">REQUEST</span><span class="p">)</span> <span class="p">(</span><span class="n">RESPONSE</span> <span class="n">STATUS</span><span class="p">)</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">)</span> <span class="s2">&quot;</span><span class="s">(REFERER)&quot;</span> <span class="s2">&quot;</span><span class="s">(USERAGENT)&quot;</span></code></pre></div>
 
 <p>And the haka script sets a hook on the response, because log file mix
@@ -141,7 +141,7 @@ information from the HTTP response and the HTTP request. It extracts all
 relevant information, concatenates it to a variable. Finally, it prints it on
 the output.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="c1">--------------------------</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">--------------------------</span>
 <span class="c1">-- Loading dissectors</span>
 <span class="c1">--------------------------</span>
 

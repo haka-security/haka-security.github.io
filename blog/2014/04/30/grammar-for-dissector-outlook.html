@@ -165,7 +165,7 @@ text-based protocols.</p>
 
 <p>We start by creating a new grammar ssl:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ssl&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ssl&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
     <span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="k">end</span><span class="p">)</span></code></pre></div>
 
@@ -176,7 +176,7 @@ text-based protocols.</p>
 <i>number</i>, which takes the number of bits in argument and return its value.
 We can write the three first lines of dissection:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
 	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
 	<span class="o">...</span>
@@ -192,7 +192,7 @@ ServerHello Handshake, and so on (all types are defined in RFC). So we have
 follow dissection according to previously parsed fields (type). To that end, we
 use the <i>branch</i> element:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
     <span class="n">branch</span><span class="p">(</span>
@@ -214,7 +214,7 @@ branch to follow.</p>
 <p>When we parse the ClientHello handshake, the handshake type and length have
 already been read. So client hello starts at version field:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">client_hello_handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">client_hello_handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">version&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">hello_random</span><span class="p">),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">hello_sessionid</span><span class="p">),</span>
@@ -233,7 +233,7 @@ optional extensions list.</p>
 <p>The <i>random</i> field is a collection of two static fields. We defined it
 as another record:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_random</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_random</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">unixtime&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">32</span><span class="p">)),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">bytes</span><span class="p">():</span><span class="n">count</span><span class="p">(</span><span class="mi">28</span><span class="p">))</span>
 <span class="p">}</span></code></pre></div>
@@ -245,7 +245,7 @@ as another record:</p>
 
 <p>The field <i>sessionid</i> have variable length:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_sessionid</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_sessionid</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
 	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">bytes</span><span class="p">()</span>
 	    <span class="p">:</span><span class="n">count</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span> <span class="k">end</span><span class="p">)</span>
@@ -260,7 +260,7 @@ any kind of calculus or data manipulation.</p>
 
 <p>The ciphersuite is an array of values. The array is defined as:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_ciphersuites</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_ciphersuites</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
 	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ciphersuites&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">(</span><span class="n">ciphersuite</span><span class="p">)</span>
 	    <span class="p">:</span><span class="n">count</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span> <span class="k">end</span><span class="p">)</span>

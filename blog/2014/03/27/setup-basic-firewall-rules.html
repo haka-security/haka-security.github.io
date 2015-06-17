@@ -133,7 +133,7 @@ group is evaluated. Finally, the function <em>fini</em> is executed if no rule
 matches the desired conditions. In the example below, we raise an alert and
 drop the connection.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="kd">local</span> <span class="n">my_group</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">rule_group</span><span class="p">{</span>
@@ -163,7 +163,7 @@ packet is directed to a http service. If this condition is met the next
 dissector (http) is set accordingly. Otherwise, the next rule of the group is
 evaluated.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">auth_network</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">network</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">192.168.10.0/24&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">auth_network</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">network</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">192.168.10.0/24&quot;</span><span class="p">);</span>
 
 <span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
@@ -180,7 +180,7 @@ evaluated.</p>
 <p>Similarly, we can add additional rules. For instance, the following rule
 authorize ssh connections:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
         <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span>

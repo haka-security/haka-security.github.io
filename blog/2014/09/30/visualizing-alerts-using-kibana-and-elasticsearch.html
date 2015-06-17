@@ -148,7 +148,7 @@ dashboard is available through http://&lt;webserver-address&gt;/kibana.</p>
 <h3>Configuration</h3>
 Before starting haka, we need to enable in its configuration file the
 elasticsearch alerting module and set some parameters:
-<div class="highlight"><pre><code class="ini"><span class="k">[general]</span>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[general]</span>
 <span class="c1"># Select the haka configuration file to use.</span>
 <span class="na">configuration</span> <span class="o">=</span> <span class="s">&quot;config.lua&quot;</span>
 
@@ -179,7 +179,7 @@ with geolocalization info.</p>
 <p>For testing purpose, we provide the following script config.lua that raises
 alerts with dummy data:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">icmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/icmp&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">icmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/icmp&#39;</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">udp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/udp&#39;</span><span class="p">)</span>
 
@@ -216,7 +216,7 @@ alerts with dummy data:</p>
 Now, we are ready to start haka using the previously defined configuration file
 haka.conf. This will load your haka script file config.lua.
 
-<div class="highlight"><pre><code class="console"><span class="go">haka -c haka.conf</span></code></pre></div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">haka -c haka.conf</span></code></pre></div>
 
 <h3>Starting with monitoring</h3>
 <p>The last step is to visit the main kibana page at

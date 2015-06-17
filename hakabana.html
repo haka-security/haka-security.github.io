@@ -182,25 +182,25 @@ Elasticsearch.</p>
 			<li><b>Install</b> and start
 			<a href="http://www.elasticsearch.org/overview/elkdownloads/">Elasticsearch</a>
 			server.</li>
-<div class="highlight"><pre><code class="console"><span class="go">sudo dpkg -i elasticsearch-&lt;version&gt;.deb</span>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo dpkg -i elasticsearch-&lt;version&gt;.deb</span>
 <span class="go">sudo service elasticsearch start</span></code></pre></div>
 
 			<li><b>Install</b> and setup
 			<a href="https://download.elasticsearch.org/kibana/kibana/kibana-latest.tar.gz">Kibana</a>.
 			<medium>Require a web server</medium>.</li>
-<div class="highlight"><pre><code class="console"><span class="go">tar -zxvf kibana-latest.tar.gz \</span>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">tar -zxvf kibana-latest.tar.gz \</span>
 <span class="go">	--strip-components=1 \</span>
 <span class="go">	-C &lt;webserver-path&gt;/kibana</span></code></pre></div>
 			<li><b>Install </b><a
 				href="http://www.haka-security.org/download/haka.html">Haka</a> and <a
 				href="http://www.haka-security.org/download/hakabana.html">Hakabana</a>
 			</li>
-<div class="highlight"><pre><code class="console"><span class="go">sudo dpkg -i haka_&lt;version&gt;.deb</span>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">sudo dpkg -i haka_&lt;version&gt;.deb</span>
 <span class="go">sudo dpkg -i hakabana_&lt;version&gt;.deb</span>
 <span class="go">sudo dpkg -i haka-geoip_&lt;version&gt;.deb</span>
 <span class="go">sudo dpkg -i haka-elasticsearch_&lt;version&gt;.deb</span></code></pre></div>
 			<li><b>Setup and start </b>Haka.</li>
-<div class="highlight"><pre><code class="console"><span class="go">haka -c /usr/share/haka/hakabana/haka.conf</span></code></pre></div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">haka -c /usr/share/haka/hakabana/haka.conf</span></code></pre></div>
 				<div class="panel radius">
 					<p><b>Note: </b>you may need to update the elasticsearch ip address
 					in /usr/share/haka/hakabana/config.lua</p>
@@ -256,7 +256,7 @@ Elasticsearch.</p>
 			<li>
 				<p>
 					<b>Going further:</b> All data are exposed to hakabana through security rules in
-<div class="highlight"><pre><code class="console"><span class="go">/usr/share/haka/modules/misc/hakabana/</span></code></pre></div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">/usr/share/haka/modules/misc/hakabana/</span></code></pre></div>
 					Feel free to customize these rules to fit you own goals.
 				</p>
 			</li>

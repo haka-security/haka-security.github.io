@@ -154,7 +154,7 @@
 <p>This first rule warns if a heartbeat extension is used in <em>Client Hello
 	Handshake</em>.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="c1">-- Let&#39;s use our brand new SSL dissector</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- Let&#39;s use our brand new SSL dissector</span>
 <span class="c1">-- on port 443</span>
 <span class="kd">local</span> <span class="n">ssl_dissector</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ssl&#39;</span><span class="p">)</span>
 <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">install_tcp_rule</span><span class="p">(</span><span class="mi">443</span><span class="p">)</span>
@@ -177,7 +177,7 @@
 <p>On a pcap containing a SSL heartbeat extension, Haka will output the
 following message:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">Heartbeat</span> <span class="n">extensions</span> <span class="n">detected</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">Heartbeat</span> <span class="n">extensions</span> <span class="n">detected</span>
 <span class="o">###</span> <span class="n">Warning</span><span class="p">,</span> <span class="n">this</span> <span class="n">is</span> <span class="n">probably</span> <span class="n">heartbleed</span> <span class="o">###</span></code></pre></div>
 
 <p>That's a first step, but with Haka you can do better than that. Haka detects
@@ -218,7 +218,7 @@ Moreover, we must have only one heartbeat message in flight at a time. In the
 following rule we check if these two requirements are met. Otherwise, we raise
 an alert and drop the ssl connection:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hook</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">ssl</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
         <span class="c1">-- type == 24 =&gt; Heartbeat</span>

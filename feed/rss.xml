@@ -64,7 +64,7 @@ dashboard is available through http://&lt;webserver-address&gt;/kibana.</p>
 <h3>Configuration</h3>
 Before starting haka, we need to enable in its configuration file the
 elasticsearch alerting module and set some parameters:
-<div class="highlight"><pre><code class="ini"><span class="k">[general]</span>
+<div class="highlight"><pre><code class="language-ini" data-lang="ini"><span class="k">[general]</span>
 <span class="c1"># Select the haka configuration file to use.</span>
 <span class="na">configuration</span> <span class="o">=</span> <span class="s">&quot;config.lua&quot;</span>
 
@@ -95,7 +95,7 @@ with geolocalization info.</p>
 <p>For testing purpose, we provide the following script config.lua that raises
 alerts with dummy data:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">icmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/icmp&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">icmp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/icmp&#39;</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">udp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/udp&#39;</span><span class="p">)</span>
 
@@ -132,7 +132,7 @@ alerts with dummy data:</p>
 Now, we are ready to start haka using the previously defined configuration file
 haka.conf. This will load your haka script file config.lua.
 
-<div class="highlight"><pre><code class="console"><span class="go">haka -c haka.conf</span></code></pre></div>
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="go">haka -c haka.conf</span></code></pre></div>
 
 <h3>Starting with monitoring</h3>
 <p>The last step is to visit the main kibana page at
@@ -420,7 +420,7 @@ once waiting for new data to proceed.</p>
 <p>The rest of the rule is relative to attack reaction. In our case, we simply
 raise an alert.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 <span class="kd">local</span> <span class="n">tcp_connection</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp_connection&#39;</span><span class="p">)</span>
 
@@ -495,7 +495,7 @@ state machine with Haka.</p>
 
 <p>A single line creates the state machine</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">state_machine</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">ssl&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
     <span class="n">state_type</span><span class="p">(</span><span class="n">BidirectionalState</span><span class="p">)</span>
 
     <span class="p">(</span><span class="o">...</span><span class="p">)</span>
@@ -512,7 +512,7 @@ be seen as path from a state to another state.</p>
 
 <p>We create a first state, called hello_request and three transitions: </p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_request</span> <span class="o">=</span> <span class="n">state</span><span class="p">(</span><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">sslv3_client_hello</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_request</span> <span class="o">=</span> <span class="n">state</span><span class="p">(</span><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">sslv3_client_hello</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
 
 <span class="n">hello_request</span><span class="p">:</span><span class="n">on</span><span class="p">{</span>
     <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">fail</span><span class="p">,</span>
@@ -570,7 +570,7 @@ machine.</p>
 <p>Registering event is made by the <em>register_event</em> function which
 takes a name as parameter:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">:</span><span class="n">register_event</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">)</span></code></pre></div>
 
 <h4>Triggering events</h4>
 
@@ -579,7 +579,7 @@ following example, we trigger an event whenever a Client Hello record is
 received which enables the evaluation of all security rules registered on that
 particular event:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_request</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_request</span><span class="p">{</span>
     <span class="n">event</span> <span class="o">=</span> <span class="n">events</span><span class="p">.</span><span class="n">up</span><span class="p">,</span>
     <span class="n">execute</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
         <span class="n">self</span><span class="p">:</span><span class="n">trigger</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">client_hello&#39;</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
@@ -660,7 +660,7 @@ text-based protocols.</p>
 
 <p>We start by creating a new grammar ssl:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ssl&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ssl_dissector</span><span class="p">.</span><span class="n">grammar</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">grammar</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ssl&#39;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span>
     <span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="k">end</span><span class="p">)</span></code></pre></div>
 
@@ -671,7 +671,7 @@ text-based protocols.</p>
 <i>number</i>, which takes the number of bits in argument and return its value.
 We can write the three first lines of dissection:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
 	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
 	<span class="o">...</span>
@@ -687,7 +687,7 @@ ServerHello Handshake, and so on (all types are defined in RFC). So we have
 follow dissection according to previously parsed fields (type). To that end, we
 use the <i>branch</i> element:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">type&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">24</span><span class="p">)),</span>
     <span class="n">branch</span><span class="p">(</span>
@@ -709,7 +709,7 @@ branch to follow.</p>
 <p>When we parse the ClientHello handshake, the handshake type and length have
 already been read. So client hello starts at version field:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">client_hello_handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">client_hello_handshake</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">version&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">hello_random</span><span class="p">),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">hello_sessionid</span><span class="p">),</span>
@@ -728,7 +728,7 @@ optional extensions list.</p>
 <p>The <i>random</i> field is a collection of two static fields. We defined it
 as another record:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_random</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_random</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">unixtime&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">32</span><span class="p">)),</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">random&#39;</span><span class="p">,</span> <span class="n">bytes</span><span class="p">():</span><span class="n">count</span><span class="p">(</span><span class="mi">28</span><span class="p">))</span>
 <span class="p">}</span></code></pre></div>
@@ -740,7 +740,7 @@ as another record:</p>
 
 <p>The field <i>sessionid</i> have variable length:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_sessionid</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_sessionid</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">8</span><span class="p">)),</span>
 	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">sessionid&#39;</span><span class="p">,</span> <span class="n">bytes</span><span class="p">()</span>
 	    <span class="p">:</span><span class="n">count</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span> <span class="k">end</span><span class="p">)</span>
@@ -755,7 +755,7 @@ any kind of calculus or data manipulation.</p>
 
 <p>The ciphersuite is an array of values. The array is defined as:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">hello_ciphersuites</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">hello_ciphersuites</span> <span class="o">=</span> <span class="n">record</span><span class="p">{</span>
     <span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">length&#39;</span><span class="p">,</span> <span class="n">number</span><span class="p">(</span><span class="mi">16</span><span class="p">)),</span>
 	<span class="n">field</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">ciphersuites&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">(</span><span class="n">ciphersuite</span><span class="p">)</span>
 	    <span class="p">:</span><span class="n">count</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">length</span><span class="o">/</span><span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
@@ -850,7 +850,7 @@ tutorial. Stay tuned: next blog post will explain how state machine works.</p>
 <p>This first rule warns if a heartbeat extension is used in <em>Client Hello
 	Handshake</em>.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="c1">-- Let&#39;s use our brand new SSL dissector</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">-- Let&#39;s use our brand new SSL dissector</span>
 <span class="c1">-- on port 443</span>
 <span class="kd">local</span> <span class="n">ssl_dissector</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ssl&#39;</span><span class="p">)</span>
 <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">install_tcp_rule</span><span class="p">(</span><span class="mi">443</span><span class="p">)</span>
@@ -873,7 +873,7 @@ tutorial. Stay tuned: next blog post will explain how state machine works.</p>
 <p>On a pcap containing a SSL heartbeat extension, Haka will output the
 following message:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">Heartbeat</span> <span class="n">extensions</span> <span class="n">detected</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">Heartbeat</span> <span class="n">extensions</span> <span class="n">detected</span>
 <span class="o">###</span> <span class="n">Warning</span><span class="p">,</span> <span class="n">this</span> <span class="n">is</span> <span class="n">probably</span> <span class="n">heartbleed</span> <span class="o">###</span></code></pre></div>
 
 <p>That's a first step, but with Haka you can do better than that. Haka detects
@@ -914,7 +914,7 @@ Moreover, we must have only one heartbeat message in flight at a time. In the
 following rule we check if these two requirements are met. Otherwise, we raise
 an alert and drop the ssl connection:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hook</span> <span class="o">=</span> <span class="n">ssl_dissector</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">ssl</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
         <span class="c1">-- type == 24 =&gt; Heartbeat</span>
@@ -1009,7 +1009,7 @@ packet.</p>
 
 <!--more-->
 
-<div class="highlight"><pre><code class="lua"><span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">disable_dissector</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">tcp-connection&#39;</span><span class="p">)</span>
@@ -1045,15 +1045,15 @@ packet.</p>
 <p> Hearafter, a snippet output of a Nmap Xmas Scan ran on a server hosting
 multiple services:</p>
 
-<div class="highlight"><pre><code class="bash">root@kali:~# nmap -sX -P0 server
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">root@kali:~# nmap -sX -P0 server
 Starting Nmap 6.25 <span class="o">(</span> http://nmap.org <span class="o">)</span> at 2014-04-08 11:53 CEST
 ...
-All 1000 scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
-Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
+All <span class="m">1000</span> scanned ports on server <span class="o">(</span>192.168.20.1<span class="o">)</span> are closed
+Nmap <span class="k">done</span>: <span class="m">1</span> IP address <span class="o">(</span><span class="m">1</span> host up<span class="o">)</span> scanned in 0.25 seconds</code></pre></div>
 
 <h6><span class="label round">edit</span> The above code has been updated to work on Haka 0.2 versions:</h6>
 
-<div class="highlight"><pre><code class="lua"><span class="n">raw</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/raw&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">raw</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/raw&#39;</span><span class="p">)</span>
 <span class="n">ipv4</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="n">tcp</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
@@ -1138,7 +1138,7 @@ image requested by a browser to a lolcat image?</p>
 <p>The following rule replaces the requested image ressource (png, gif, and png
 files) by a lolcat image.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">image_ext</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">.png&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.gif&#39;</span> <span class="p">}</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">image_ext</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">.png&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">.gif&#39;</span> <span class="p">}</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-request&#39;</span> <span class="p">},</span>
@@ -1194,7 +1194,7 @@ group is evaluated. Finally, the function <em>fini</em> is executed if no rule
 matches the desired conditions. In the example below, we raise an alert and
 drop the connection.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="kd">local</span> <span class="n">my_group</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">rule_group</span><span class="p">{</span>
@@ -1224,7 +1224,7 @@ packet is directed to a http service. If this condition is met the next
 dissector (http) is set accordingly. Otherwise, the next rule of the group is
 evaluated.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">auth_network</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">network</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">192.168.10.0/24&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">auth_network</span> <span class="o">=</span> <span class="n">ipv4</span><span class="p">.</span><span class="n">network</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">192.168.10.0/24&quot;</span><span class="p">);</span>
 
 <span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
@@ -1241,7 +1241,7 @@ evaluated.</p>
 <p>Similarly, we can add additional rules. For instance, the following rule
 authorize ssh connections:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">my_group</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-connection-new&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span>
         <span class="kd">local</span> <span class="n">tcp</span> <span class="o">=</span> <span class="n">pkt</span><span class="p">.</span><span class="n">tcp</span>
@@ -1291,7 +1291,7 @@ from a pcap to a standard apache log file, called
 "<a href="http://httpd.apache.org/docs/2.2/en/logs.html">combined log format</a>".
 The format is quite self explanatory:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">pache</span> <span class="n">combined</span> <span class="n">log</span> <span class="n">format</span><span class="p">:</span>
 <span class="p">(</span><span class="n">SRC</span> <span class="n">IP</span><span class="p">)</span> <span class="o">-</span> <span class="o">-</span> <span class="p">[(</span><span class="n">DATE</span><span class="p">)]</span> <span class="p">(</span><span class="n">REQUEST</span><span class="p">)</span> <span class="p">(</span><span class="n">RESPONSE</span> <span class="n">STATUS</span><span class="p">)</span> <span class="p">(</span><span class="n">SIZE</span><span class="p">)</span> <span class="s2">&quot;</span><span class="s">(REFERER)&quot;</span> <span class="s2">&quot;</span><span class="s">(USERAGENT)&quot;</span></code></pre></div>
 
 <p>And the haka script sets a hook on the response, because log file mix
@@ -1299,7 +1299,7 @@ information from the HTTP response and the HTTP request. It extracts all
 relevant information, concatenates it to a variable. Finally, it prints it on
 the output.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="c1">--------------------------</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="c1">--------------------------</span>
 <span class="c1">-- Loading dissectors</span>
 <span class="c1">--------------------------</span>
 
@@ -1390,7 +1390,7 @@ commands. Here is an example of a /bin/sh shellcode:</p>
 
 <!--more-->
 
-<div class="highlight"><pre><code class="c"><span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x6A\x68\x68\x2F\x62\x61\x73\x68</span><span class="s">&quot;</span>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">shellcode</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\x6A\x68\x68\x2F\x62\x61\x73\x68</span><span class="s">&quot;</span>
                    <span class="s">&quot;</span><span class="se">\x2F\x62\x69\x6E\x89\xE3\x31\xD2</span><span class="s">&quot;</span>
                    <span class="s">&quot;</span><span class="se">\x52\x53\x89\xE1\x6A\x0B\x58\xCD</span><span class="s">&quot;</span>
                    <span class="s">&quot;</span><span class="se">\x80\x31\xDB\x31\xC0\x40\xCD\x80</span><span class="s">&quot;</span><span class="p">;</span></code></pre></div>
@@ -1421,7 +1421,7 @@ detected the polymorphic payload.</p>
 security rule which checks if bytes in yellow boxes are present in tcp data and
 raises an alert in case of matching:</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">invariant_bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">\xeb.*\x31.*\x20\x8b.*\x74\x07\xeb.*\xe8.*\xff\xff\xff&quot;</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">invariant_bytes</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">\xeb.*\x31.*\x20\x8b.*\x74\x07\xeb.*\xe8.*\xff\xff\xff&quot;</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">tcp-up&#39;</span> <span class="p">},</span>
@@ -1496,7 +1496,7 @@ variables such as packet structure.</p>
 script. More precisely, Haka will complain about an unknown <em>destport</em>
 field.</p>
 
-<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
@@ -1646,7 +1646,7 @@ therefore is a good starting point to dive into the Haka API.</p>
 
 		<p>All the magic starts with the following rule:</p>
 
-		<div class="highlight"><pre><code class="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
+		<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/ipv4&#39;</span><span class="p">)</span>
 <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp&#39;</span><span class="p">)</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
@@ -1662,7 +1662,7 @@ therefore is a good starting point to dive into the Haka API.</p>
 			capture</a> by running this rule using our tool hakapcap (a
 		tool dedicated to packet capture analysis):</p>
 
-		<div class="highlight"><pre><code class="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
+		<div class="highlight"><pre><code class="language-bash" data-lang="bash">haka@haka:/opt/haka/bin# ./hakapcap xmas.pcap interact.lua -o output.pcap</code></pre></div>
 	</div>
 </div>
 
@@ -1791,7 +1791,7 @@ content on the fly.</p>
 	<li>The first rule will only authorise http traffic to update servers
 	(e.g. mozilla.org). This is done by checking the 'Host' header.</li>
 
-	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+	<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 	<span class="kd">local</span> <span class="n">host</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;</span><span class="s">Host&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s1">&#39;</span><span class="s">&#39;</span>
@@ -1809,7 +1809,7 @@ content on the fly.</p>
 	capabilities to modify http headers response on the fly in order to
 	redirect requests.</li>
 
-	<div class="highlight"><pre><code class="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
+	<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="n">safe_update</span><span class="p">:</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-response&#39;</span> <span class="p">},</span>
     <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 	<span class="kd">local</span> <span class="n">UA</span> <span class="o">=</span> <span class="n">http</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">User-Agent&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="s">No User-Agent header&quot;</span>
@@ -1882,7 +1882,7 @@ SQL keyword is found in the uri and raises an alert if this score exceeds a
 fixed threshold. This rule shows also Haka capabilities to log suspicious event
 (passive reaction) and to drop malicious connections (active reaction).</p>
 
-<div class="highlight"><pre><code class="lua"><span class="kd">local</span> <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">select&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">insert&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">update&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">delete&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">union&#39;</span> <span class="p">}</span>
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">keywords</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">select&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">insert&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">update&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">delete&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">union&#39;</span> <span class="p">}</span>
 
 <span class="n">haka</span><span class="p">.</span><span class="n">rule</span><span class="p">{</span>
     <span class="n">hooks</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;</span><span class="s">http-request&#39;</span> <span class="p">},</span>
