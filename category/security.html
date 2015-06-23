@@ -82,6 +82,87 @@
 	<header class="entry-header">
 	<div class="entry-meta">
 		<span class="date">
+			<a href="http://www.haka-security.org/blog/2015/06/23/instruction-disassembly.html" title="Permalink to Disassembling network traffic into asm instructions" rel="bookmark">
+				<time class="entry-date" datetime="2015-06-23T00:00:00+02:00">23 Jun 2015</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>, 
+			
+			<a href="http://www.haka-security.org/category/forensics.html" rel="category tag">forensics</a>, 
+			
+			<a href="http://www.haka-security.org/category/v0.3.0.html" rel="category tag">v0.3.0</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://www.haka-security.org/blog/2015/06/23/instruction-disassembly.html" title="Permalink to Disassembling network traffic into asm instructions" rel="bookmark">
+				Disassembling network traffic into asm instructions
+
+			</a>
+			
+	
+
+	
+
+	
+
+	
+			<span class="has-tip no-border" data-tooltip title="runs on version 0.3.0">
+				<span class="label round version-tag">v0.3.0</span>
+			</span>
+	
+
+
+
+		</h2>
+		
+			<p>The fresh released version of haka
+(<a href="http://github.com/haka-security/haka/releases/tag/v0.3.0">v0.3.0</a>) features a new module
+allowing to disassemble network data into instructions. This is useful to
+detect obfuscated shellcodes at network level as suggested in [raid05]<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> for instance.
+The disassembler leverages on <a href="http://www.capstone-engine.org/">Capstone
+engine</a> which supports several architecture
+(x86, arm, mips, etc.).</p>
+
+<p>Here we will try to answer to question 8 of a well-known network
+<a href="https://honeynet.org/node/504">forensic challenge</a>. The challenge provides a
+<a href="/sample/attack-trace.pcap">pcap</a> and asks to dump the shellcode
+used to exploit a vulnerability and then to provide the list of actions done by
+this shellcode.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>[raid05] Kruegel, C., Kirda, E., Mutz, D., Robertson, W., Vigna, G.: Polymorphic Worm Detection Using Structural Information of Executables. In: Recent Advanced in Intrusion Detection, pp. 207-226 (2005) <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+		
+	</div>
+	
+		<div class="read-more">
+			<a href="http://www.haka-security.org/blog/2015/06/23/instruction-disassembly.html" title="Permalink to Disassembling network traffic into asm instructions" rel="bookmark">
+				Read more
+			</a>
+		</div>
+	
+	<div class="clear-both"></div>
+</article>
+
+
+	<article>
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
 			<a href="http://www.haka-security.org/blog/2014/09/30/visualizing-alerts-using-kibana-and-elasticsearch.html" title="Permalink to Visualizing alerts using kibana and elasticsearch" rel="bookmark">
 				<time class="entry-date" datetime="2014-09-30T00:00:00+02:00">30 Sep 2014</time>
 			</a>
@@ -114,7 +195,7 @@
 			<span class="has-tip no-border" data-tooltip title="runs on version 0.2.1">
 				<span class="label round version-tag">v0.2.1</span>
 			</span>
-	
+		
 
 
 

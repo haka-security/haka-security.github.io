@@ -1,0 +1,381 @@
+<!doctype html>
+<html class="no-js" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Disassembling network traffic into asm instructions</title>
+
+		<link rel="stylesheet" href="http://www.haka-security.org/css/foundation.css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/pygments.css" type="text/css" />
+		<link rel="stylesheet" href="http://www.haka-security.org/css/haka.css" type="text/css" />
+
+		<script src="http://www.haka-security.org/js/vendor/modernizr.js"></script>
+		<script src="http://www.haka-security.org/js/vendor/jquery.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.topbar.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.dropdown.js"></script>
+		<script src="http://www.haka-security.org/js/foundation/foundation.tooltip.js"></script>
+
+		<link rel="alternate" type="application/rss+xml" title="Haka | Software Defined Security" href="http://www.haka-security.org/feed/rss.xml" />
+	</head>
+	<body>
+		<header id="header" role="banner">
+		<div class="row">
+			<div class="medium-12 columns">
+				<h1 class="title"><a rel="home" title="Haka" href="http://www.haka-security.org">Haka</a></h1>
+				<h2 class="description">Software Defined Security</h2>
+			</div>
+		</div>
+		</header>
+
+		<div class="contain-to-grid sticky">
+			<nav id="navbar" class="top-bar" data-topbar>
+				<ul class="title-area">
+					<!-- This is required for toggle-topbar to work -->
+					<li class="name"></li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+				<section class="top-bar-section">
+				<ul class="left">
+	<li class="">
+		<a href="http://www.haka-security.org/index.html">Overview</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/resources.html">Resources</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/hakabana.html">Hakabana</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/community.html">Community</a>
+	</li>
+	<li class="">
+		<a href="http://www.haka-security.org/project.html">Project Contributors</a>
+	</li>
+	<li class=" active ">
+		<a href="http://www.haka-security.org/blog/index.html">Blog</a>
+	</li>
+	<li class="has-form has-dropdown no-click ">
+		<a href="http://www.haka-security.org/download/haka.html" class="button radius">Download</a>
+		<ul class="dropdown">
+			<li><a href="http://www.haka-security.org/download/haka.html">Haka</a></li>
+			<li><a href="http://www.haka-security.org/download/hakabana.html">Hakabana</a></li>
+		</ul>
+	</li>
+</ul>
+
+				</section>
+			</nav>
+		</div>
+
+
+<a href="https://github.com/haka-security/haka"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+<div id="content">
+	<div class="row">
+		<div class="medium-12 columns">
+			<div class="pad"></div>
+
+<article>
+	
+	<header class="entry-header">
+	<div class="entry-meta">
+		<span class="date">
+			<a href="http://www.haka-security.org/blog/2015/06/23/instruction-disassembly.html" title="Permalink to Disassembling network traffic into asm instructions" rel="bookmark">
+				<time class="entry-date" datetime="2015-06-23T00:00:00+02:00">23 Jun 2015</time>
+			</a>
+		</span>
+		<span class="categories-links">
+			
+			<a href="http://www.haka-security.org/category/security.html" rel="category tag">security</a>, 
+			
+			<a href="http://www.haka-security.org/category/tutorial.html" rel="category tag">tutorial</a>, 
+			
+			<a href="http://www.haka-security.org/category/forensics.html" rel="category tag">forensics</a>, 
+			
+			<a href="http://www.haka-security.org/category/v0.3.0.html" rel="category tag">v0.3.0</a>
+			
+		</span>
+	</div>
+</header>
+
+
+	<div class="entry-content">
+		<h2>
+			<a href="http://www.haka-security.org//blog/2015/06/23/instruction-disassembly.html" title="Permalink to Disassembling network traffic into asm instructions" rel="bookmark">
+				Disassembling network traffic into asm instructions
+			</a>
+			
+	
+
+	
+
+	
+
+	
+			<span class="has-tip no-border" data-tooltip title="runs on version 0.3.0">
+				<span class="label round version-tag">v0.3.0</span>
+			</span>
+	
+
+
+
+		</h2>
+		<p>The fresh released version of haka
+(<a href="http://github.com/haka-security/haka/releases/tag/v0.3.0">v0.3.0</a>) features a new module
+allowing to disassemble network data into instructions. This is useful to
+detect obfuscated shellcodes at network level as suggested in [raid05]<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> for instance.
+The disassembler leverages on <a href="http://www.capstone-engine.org/">Capstone
+engine</a> which supports several architecture
+(x86, arm, mips, etc.).</p>
+
+<p>Here we will try to answer to question 8 of a well-known network
+<a href="https://honeynet.org/node/504">forensic challenge</a>. The challenge provides a
+<a href="/sample/attack-trace.pcap">pcap</a> and asks to dump the shellcode
+used to exploit a vulnerability and then to provide the list of actions done by
+this shellcode.</p>
+
+<!--more-->
+
+<p>Shellcodes are usually prepended with a nop sled as shown by the following
+figure. We assume in our first attempt that the nop sled is made of nop
+instructions (opcode 0x90).</p>
+
+<div class="text-center">
+  <img alt="shellcode" src="/img/shellcode.png" />
+</div>
+
+<p>For those who had already done this challenge, we know, from question 5, that
+the attack exploits a vulnerability present in smb service (port 445). So we
+write a <a href="/sample/dump-shellcode.lua">security rule</a> that inspects
+only that flow. If a shellcode is detected, then we start the disassembly in
+order do dump its content:</p>
+
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">tcp_connection</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp_connection&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">regexp/pcre&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">re</span> <span class="o">=</span> <span class="n">rem</span><span class="p">.</span><span class="n">re</span><span class="p">:</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">%x90{100,}&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">asm</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">misc/asm&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">dasm</span> <span class="o">=</span> <span class="n">asm</span><span class="p">.</span><span class="n">new_disassembler</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">x86&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">32&#39;</span><span class="p">)</span>
+<span class="n">dasm</span><span class="p">:</span><span class="n">setsyntax</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">att&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">tcp_connection</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_data</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">streamed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">iter</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flow</span><span class="p">.</span><span class="n">dstport</span> <span class="o">~=</span> <span class="mi">445</span> <span class="k">then</span> <span class="k">return</span> <span class="k">end</span>
+        <span class="k">if</span> <span class="n">re</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span> <span class="k">then</span>
+            <span class="c1">-- raise an alert</span>
+            <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">{</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">nop sled detected&quot;</span><span class="p">,</span>
+                <span class="n">targets</span> <span class="o">=</span> <span class="p">{</span> <span class="n">haka</span><span class="p">.</span><span class="n">alert</span><span class="p">.</span><span class="n">service</span><span class="p">(</span><span class="n">flow</span><span class="p">.</span><span class="n">dstport</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">smb&quot;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="c1">-- dump instructions following nop sled</span>
+            <span class="n">dasm</span><span class="p">:</span><span class="n">dump_instructions</span><span class="p">(</span><span class="n">iter</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>We use a regular expression to detect a nop sled made of more than 100 nops and
+raise an alert in case of match. The pattern matching function updates the
+iterator which points at the beginning of the shellcode as shown by the
+previous figure. Then, we use our disassembler module in order to dump all
+instructions</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">haka@haka:~/workspace/haka/$</span> hakapcap dump-shellcode.lua attack-trace.pcap
+<span class="go">...</span>
+<span class="go">alert: id = 1</span>
+<span class="go">    time = Tue Nov 25 10:09:01 2014</span>
+<span class="go">    description = nop sled detected</span>
+<span class="go">    targets = {</span>
+<span class="go">        service: 445, smb</span>
+<span class="go">    }</span>
+
+<span class="go">0x00000000 jmp      0x12                             eb 10</span>
+<span class="go">0x00000002 popl     %edx                             5a</span>
+<span class="go">0x00000003 decl     %edx                             4a</span>
+<span class="go">0x00000004 xorl     %ecx, %ecx                       33 c9</span>
+<span class="go">0x00000006 movw     $0x17d, %cx                      66 b9 7d 01</span>
+<span class="go">0x0000000a xorb     $-0x67, (%edx, %ecx)             80 34 0a 99</span>
+<span class="go">0x0000000e loop     0xa                              e2 fa</span>
+<span class="go">0x00000010 jmp      0x17                             eb 05</span>
+<span class="go">0x00000012 calll    2                                e8 eb ff ff ff</span>
+<span class="go">0x00000017 jo       0xffffffffffffffae               70 95</span>
+<span class="go">0x00000019 cwtl                                      98</span>
+<span class="go">...</span></code></pre></div>
+
+<p>For those who are familiar with shellcode obfuscation techniques, this is a
+polymorphic shellcode that starts with a decipher routine (see figure below).</p>
+
+<div class="text-center">
+  <img alt="polymorphic shellcode" src="/img/polymorphic_shellcode.png" />
+</div>
+
+<p>The first instructions retrieve the address of the ciphered shellcode (starting
+at offset <em>0x17</em>) in <em>edx</em> register.  Then, we have a description
+loop that xor each byte of ciphered shellcode (of size <em>0x17d</em>) with key
+<em>0x99</em>.</p>
+
+<p>In the following, we write a
+<a href="/sample/decipher-shellcode.lua">second security rule</a> that will
+collect the shellcode in a buffer, decipher its content and then outputs the
+shellcode instructions:</p>
+
+<div class="highlight"><pre><code class="language-lua" data-lang="lua"><span class="kd">local</span> <span class="n">tcp_connection</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">protocol/tcp_connection&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">rem</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">regexp/pcre&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">re</span> <span class="o">=</span> <span class="n">rem</span><span class="p">.</span><span class="n">re</span><span class="p">:</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">%x90{100,}&#39;</span><span class="p">)</span>
+
+<span class="kd">local</span> <span class="n">asm</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">misc/asm&#39;</span><span class="p">)</span>
+<span class="kd">local</span> <span class="n">dasm</span> <span class="o">=</span> <span class="n">asm</span><span class="p">.</span><span class="n">new_disassembler</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">x86&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="s">32&#39;</span><span class="p">)</span>
+<span class="n">dasm</span><span class="p">:</span><span class="n">setsyntax</span><span class="p">(</span><span class="s1">&#39;</span><span class="s">att&#39;</span><span class="p">)</span>
+
+<span class="n">haka</span><span class="p">.</span><span class="n">rule</span> <span class="p">{</span>
+    <span class="n">hook</span> <span class="o">=</span> <span class="n">tcp_connection</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="n">receive_data</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">streamed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="n">eval</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">iter</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flow</span><span class="p">.</span><span class="n">dstport</span> <span class="o">~=</span> <span class="mi">445</span> <span class="k">then</span> <span class="k">return</span> <span class="k">end</span>
+        <span class="k">if</span> <span class="n">re</span><span class="p">:</span><span class="n">match</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span> <span class="k">then</span>
+
+            <span class="c1">-- shellcode info extracted from previous dump</span>
+            <span class="kd">local</span> <span class="n">key</span> <span class="o">=</span> <span class="mh">0x99</span>
+            <span class="kd">local</span> <span class="n">decipher_routine_size</span> <span class="o">=</span> <span class="mh">0x17</span>
+            <span class="kd">local</span> <span class="n">shellcode_size</span> <span class="o">=</span> <span class="mh">0x17d</span>
+
+            <span class="c1">-- fill shellcode buffer from stream</span>
+            <span class="kd">local</span> <span class="n">code</span> <span class="o">=</span> <span class="n">haka</span><span class="p">.</span><span class="n">vbuffer_allocate</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="kd">local</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="kd">local</span> <span class="n">sub</span>
+            <span class="k">for</span> <span class="n">sub</span> <span class="k">in</span> <span class="n">iter</span><span class="p">:</span><span class="n">foreach_available</span><span class="p">()</span> <span class="k">do</span>
+                <span class="n">code</span><span class="p">:</span><span class="n">append</span><span class="p">(</span><span class="n">haka</span><span class="p">.</span><span class="n">vbuffer_from</span><span class="p">(</span><span class="n">sub</span><span class="p">:</span><span class="n">asstring</span><span class="p">()))</span>
+                <span class="n">size</span>  <span class="o">=</span> <span class="n">size</span> <span class="o">+</span> <span class="o">#</span><span class="n">sub</span>
+                <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;=</span> <span class="n">shellcode_size</span> <span class="k">then</span> <span class="k">break</span> <span class="k">end</span>
+            <span class="k">end</span>
+
+            <span class="c1">-- remove superfluous data</span>
+            <span class="n">code</span><span class="p">:</span><span class="n">sub</span><span class="p">(</span><span class="n">decipher_routine_size</span> <span class="o">+</span> <span class="n">shellcode_size</span><span class="p">):</span><span class="n">erase</span><span class="p">()</span>
+
+            <span class="c1">-- decipher shellcode</span>
+            <span class="kd">local</span> <span class="n">byte</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="n">decipher_routine_size</span><span class="p">,</span> <span class="o">#</span><span class="n">code</span><span class="o">-</span><span class="mi">1</span> <span class="k">do</span>
+                <span class="n">byte</span> <span class="o">=</span> <span class="n">bit32</span><span class="p">.</span><span class="n">bxor</span><span class="p">(</span><span class="n">code</span><span class="p">:</span><span class="n">sub</span><span class="p">(</span><span class="n">i</span><span class="p">):</span><span class="n">asbits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">key</span><span class="p">)</span>
+                <span class="n">code</span><span class="p">:</span><span class="n">sub</span><span class="p">(</span><span class="n">i</span><span class="p">):</span><span class="n">setbits</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">byte</span><span class="p">)</span>
+            <span class="k">end</span>
+
+            <span class="c1">-- dump shellcode</span>
+            <span class="kd">local</span> <span class="n">start</span> <span class="o">=</span> <span class="n">code</span><span class="p">:</span><span class="n">pos</span><span class="p">(</span><span class="n">decipher_routine_size</span><span class="p">)</span>
+            <span class="n">dasm</span><span class="p">:</span><span class="n">dump_instructions</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The dump reveals the real instructions of the shellcode.</p>
+
+<div class="highlight"><pre><code class="language-console" data-lang="console"><span class="gp">haka@haka:~/workspace/haka/$</span> hakapcap dump-shellcode.lua attack-trace.pcap
+<span class="go">...</span>
+<span class="go">0x00000000 jmp      0x111                            e9 0c 01 00 00</span>
+<span class="go">0x00000005 popl     %edx                             5a</span>
+<span class="go">...</span>
+<span class="go">...</span>
+<span class="go">0x00000111 calll    5                                e8 ef fe ff ff</span>
+<span class="go">0x00000116 incl     %edi                             47</span>
+<span class="go">0x00000117 je       0x16a                            65 74 50</span>
+<span class="go">0x0000011a jb       0x18b                            72 6f</span>
+<span class="go">0x0000011c arpl     %ax, 0x64(%ecx)                  63 41 64</span>
+<span class="go">...</span>
+<span class="go">...</span>
+<span class="go">0x00000175 jae      0x1e7                            65 73 6f</span>
+<span class="go">0x00000178 arpl     %bp, 0x65(%ebx)                  63 6b 65</span>
+<span class="go">0x0000017b je       0x17d                            74 00</span></code></pre></div>
+
+<div class="panel radius">
+  <p>Note that the above code leverages on bit32 lib which is available only with
+  Lua 5.2. As Haka interprets Lua code using LuaJit by default, you should
+  select Lua option (<code>-DBUILD=lua</code>) while building Haka from source or find
+  another way to xor bytes.</p>
+</div>
+
+<p>The shellcode starts by storing address 0x00000116 on <em>edx</em> register. This
+address seems to hold data. A slight modification to the end of the above
+security rule confirms our assumption:</p>
+
+<div class="highlight">
+  <pre><code class="language-lua" data-lang="lua"><span class="c1">--local start = code:pos(decipher_routine_size)</span>
+<span class="c1">--dasm:dump_instructions(start)</span>
+<span class="kd">local</span> <span class="n">data</span> <span class="o">=</span> <span class="n">code</span><span class="p">:</span><span class="n">sub</span><span class="p">(</span><span class="n">decipher_routine_size</span> <span class="o">+</span> <span class="mh">0x116</span><span class="p">):</span><span class="n">asstring</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">safe_string</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></code></pre>
+</div>
+
+<p>Haka outputs the list of primitives and libraries used by the shellcode. More
+precisely, this is a classical bindshell code:</p>
+
+<ul>
+  <li>GetProcAddress</li>
+  <li>CreateProcessA</li>
+  <li>ExitThread</li>
+  <li>LoadLibraryA</li>
+  <li>ws2_32</li>
+  <li>WSASocketA</li>
+  <li>bind</li>
+  <li>listen</li>
+  <li>accept</li>
+  <li>closesocket</li>
+</ul>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>[raid05] Kruegel, C., Kirda, E., Mutz, D., Robertson, W., Vigna, G.: Polymorphic Worm Detection Using Structural Information of Executables. In: Recent Advanced in Intrusion Detection, pp. 207-226 (2005) <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+	</div>
+
+	<footer class="entry-meta">
+	</footer>
+	<nav class="navigation post-navigation" role="navigation">
+	<div class="nav-links">
+		
+		<a href="/blog/2014/09/30/visualizing-alerts-using-kibana-and-elasticsearch.html" rel="prev">
+			<span class="meta-nav">&larr;</span>
+			Visualizing alerts using kibana and elasticsearch
+		</a>
+		
+		
+	</div>
+</nav>
+
+</article>
+
+					<div class="pad"></div>
+				</div>
+			</div>
+		</div>
+
+		<footer id="footer">
+	<div class="row" role="complementary">
+		<div class="medium-12 columns">
+			&copy; Copyright 2014, Arkoon Network Security, OpenWide and Telecom ParisTech.
+		</div>
+	</div>
+</footer>
+
+		<script>
+	$(document).foundation();
+</script>
+
+
+	<script type="text/javascript" src="http://www.haka-security.org/js/track.js"></script>
+
+
+	</body>
+</html>
+
